@@ -1,0 +1,51 @@
+layer_id: heritage
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: buffer(100)
+score_sign: null
+
+authority:
+  name: Per-country heritage agencies
+  country: per-country
+  url: multiple
+
+dataset:
+  name: Archaeological sites and listed heritage
+  landing_url: |
+    SE: https://app.raa.se/open/fornsok/ (Fornsök — Riksantikvarieämbetet)
+    NO: https://askeladden.ra.no/ (Askeladden — Riksantikvaren)
+    FI: https://www.kyppi.fi/ (Kulttuuriympäristön palveluikkuna — Museovirasto)
+  download_url: |
+    SE: https://pub.raa.se/nedladdning/datauttag/fornlamningar/ (open GML/SHP)
+    NO: https://kartkatalog.geonorge.no/metadata/askeladden-kulturminner/... (WMS; bulk export may require account)
+    FI: https://www.avoindata.fi/data/fi/dataset/museoviraston-kulttuuriymparistorekisteri
+  api: WFS per country
+  format: SHP                     # NO sometimes GML
+  native_crs: per-country         # SE: 3006, NO: 25833, FI: 3067
+  size_estimate: ~100 MB combined
+  license: CC BY 4.0 (per-country variants)
+  attribute_required: true
+  update_cadence: continuous       # sites are added as discovered/registered
+
+access:
+  requires_account: false         # possibly true for NO Askeladden bulk
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    Points-and-polygons mix: many registered sites are points (cairn, single find)
+    not polygons. Apply default 100m buffer on ingest to reflect the statutory
+    protection zone around a registered ancient monument (varies per country —
+    SE: 2 kap. kulturmiljölagen default, configurable).
+    Finds NOT YET registered won't appear — "absence of data ≠ absence of sites."
+    Heritage exclusion is rarely a hard blocker for DC siting but adds consultation
+    overhead; consider soft-exclusion mode as an alternative.
+  spatial_completeness: partial
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

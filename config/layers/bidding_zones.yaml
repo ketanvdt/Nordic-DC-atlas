@@ -1,0 +1,59 @@
+layer_id: bidding_zones
+category: feature
+countries: [SE, NO, FI]
+priority: W3
+exclusion_semantics: null
+score_sign: piecewise              # categorical; scoring is per-zone, not monotonic distance
+
+# CATEGORICAL feature — each H3 cell is tagged with the bidding zone it sits in
+# (SE1–SE4, NO1–NO5, FI). The Power sub-score looks up a per-zone multiplier
+# (e.g., SE1/SE2 = 1.0, SE3 = 0.6, SE4 = 0.3 based on power price differential).
+
+authority:
+  name: ENTSO-E Transparency Platform
+  country: EU
+  url: https://transparency.entsoe.eu/
+
+dataset:
+  name: Nordic bidding zone polygons
+  landing_url: https://transparency.entsoe.eu/
+  download_url: unknown           # ENTSO-E CSV extracts don't include shapefile directly; check File Library
+  api: https://eepublicdownloads.entsoe.eu/clean-documents/Transparency/
+  format: SHP / GeoJSON
+  native_crs: EPSG:4326
+  size_estimate: ~1 MB
+  license: ENTSO-E data reuse (CC BY 4.0 — confirm per dataset)
+  attribution_required: true
+  update_cadence: ad_hoc           # bidding zone boundaries are stable; minor revisions
+
+access:
+  requires_account: true          # ENTSO-E Transparency Platform account (free)
+  requires_api_key: true          # for API access
+  robots_friendly: true
+  manual_download_only: false
+
+# Fallback source if ENTSO-E shapefile not found:
+#   Electricity Maps maintained GeoJSON (community):
+#   https://github.com/electricitymaps/electricitymaps-contrib/tree/master/web/geo
+# Per-country TSO fallback:
+#   SE: Svk zone boundaries https://www.svk.se/en/stakeholder-portal/electricity-market/electricity-areas/
+#   NO: Statnett prisområder (NO1–NO5)
+#   FI: Fingrid is a single zone (FI)
+
+quality:
+  known_caveats: |
+    Bidding zones SE1–SE4 are FIXED on 2011-11-01; NO1–NO5 similarly stable.
+    Zone polygons follow administrative / grid topology — not geographic
+    boundaries — so a municipality can straddle zones in rare cases (grid
+    reconfiguration). Confirm resolution at ingest.
+    The per-zone multiplier used downstream should be DOCUMENTED and
+    REFRESHABLE — zone price differentials change with market/supply/weather.
+    Power sub-score formula: combine bidding_zone multiplier × (1 - substation_distance_norm)
+    per the Nordic atlas plan; don't let distance alone carry power scoring.
+    Electricity Maps community GeoJSON is licensed AGPL-3.0 — check redistribution.
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

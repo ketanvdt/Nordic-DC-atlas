@@ -1,0 +1,50 @@
+layer_id: natura_2000
+category: exclusion
+countries: [SE, NO, FI]
+priority: W1
+exclusion_semantics: overlap_gte_50pct
+score_sign: null
+
+# Note: Norway is NOT in the EU and has no Natura 2000 sites per se. The equivalent
+# Emerald Network (Bern Convention) coverage is maintained by Miljødirektoratet.
+# For pan-Nordic consistency, consider either (a) ingesting Natura 2000 for SE+FI
+# plus Emerald Network for NO, or (b) falling back to WDPA which unifies all three.
+# v1 default: ingest EEA Natura 2000 for SE+FI, handle NO via `protected_areas.yaml`.
+
+authority:
+  name: European Environment Agency (EEA)
+  country: EU
+  url: https://www.eea.europa.eu/
+
+dataset:
+  name: Natura 2000 End 2021 (verify newer End 2023/2024 release available)
+  landing_url: https://www.eea.europa.eu/data-and-maps/data/natura-14/natura-2000-spatial-data
+  download_url: unknown           # resolves after clicking through the landing page; confirm on verification
+  api: null
+  format: GPKG                    # also SHP available
+  native_crs: EPSG:3035
+  size_estimate: ~300 MB pan-EU
+  license: EEA open data (CC BY — confirm version)
+  attribution_required: true
+  update_cadence: annual          # "End <year>" release cadence
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    End 2021 was the latest version confirmed via web search (2026-04-22).
+    Check EEA datahub for End 2023 / End 2024 before freezing v1.
+    Dataset includes SPA (birds directive), SCI/SAC (habitats directive) and B/C
+    site type attributes — scoring should treat all site types as hard exclusion.
+    Norway is not included here; see top-of-file note.
+    Attribution string "© European Environment Agency" required in UI.
+  spatial_completeness: full       # for SE and FI
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

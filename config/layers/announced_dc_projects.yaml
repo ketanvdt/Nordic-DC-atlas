@@ -1,0 +1,66 @@
+layer_id: announced_dc_projects
+category: feature
+countries: [SE, NO, FI]
+priority: W4
+exclusion_semantics: null
+score_sign: null                  # used as SEED for municipal_receptivity — not directly scored
+
+# Manual curation of publicly-announced DC projects in the Nordics. Seeds
+# municipal_receptivity tagging and provides anchor points for visual sanity-check
+# of scoring (high-score cells should cluster near announced projects).
+
+authority:
+  name: Manual curation from news / industry sources
+  country: per-country
+  url: null
+
+dataset:
+  name: Manually-curated GeoJSON of announced DC projects
+  landing_url: |
+    Starting sources:
+    - https://www.datacenterdynamics.com/ (news, filter Nordic region)
+    - https://datacentermap.com/ (community-maintained directory)
+    - https://stockholmdataparks.com/ (Stockholm official list)
+    - Per-country industry bodies: Datacenter Sweden, IKT-Norge, Tietoliikenteen ja tietotekniikan keskusliitto FiCom
+  download_url: null              # researcher produces the GeoJSON
+  api: null
+  format: GeoJSON                 # points with attributes
+  native_crs: EPSG:4326
+  size_estimate: <100 KB (~50–100 sites)
+  license: derived (cite sources per site)
+  attribution_required: true
+  update_cadence: quarterly        # new projects announced monthly
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: true
+
+# Required attributes per project point:
+#   name, operator, status {announced, permitting, under_construction, operational, cancelled},
+#   announced_mw, announced_year, operational_year, country, municipality,
+#   source_urls (list), last_verified
+
+# Seed list (researcher expand from industry sources):
+#   SE: Facebook/Meta Luleå; Microsoft Gävle/Sandviken/Staffanstorp; AWS Eskilstuna/Västerås/Katrineholm;
+#       Google Horndal+Skellefteå; evroc Skellefteå; EcoDataCenter Falun; Bahnhof various
+#   NO: Green Mountain Rjukan/Enebakk/Stavanger; Bulk Vennesla; DigiPlex Oslo; Lefdal Mine Måløy;
+#       Microsoft Oslo region; Google Skien
+#   FI: Google Hamina; Microsoft Espoo+Kirkkonummi+Vihti; Yandex Mäntsälä (exited); Ficolo various
+
+quality:
+  known_caveats: |
+    Announcements frequently canceled or relocated — status field is load-bearing.
+    Coordinates for unannounced-yet sites sometimes obscured — accept municipal
+    centroid fallback with a `coord_precision: municipal` flag.
+    Use this to SEED municipal_receptivity tagging (if a municipality has
+    operational DC → likely Active tier) but do NOT directly score: double-counting
+    with grid-proximity and receptivity features.
+    Refresh quarterly with news monitoring; annual deep review.
+  spatial_completeness: partial     # only announced/public projects
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

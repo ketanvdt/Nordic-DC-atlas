@@ -1,0 +1,57 @@
+layer_id: slope_gt_10pct
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: overlap_gte_50pct
+score_sign: null
+
+# Derived layer: compute slope from a DEM raster, threshold at ≥10% grade,
+# polygonize, then apply per-cell overlap rule. 10% is a pragmatic DC
+# construction threshold (configurable — site grading above 10% becomes expensive).
+
+authority:
+  name: Copernicus (pan-Nordic baseline) + national high-res options
+  country: EU / per-country
+  url: https://dataspace.copernicus.eu/
+
+dataset:
+  name: Copernicus DEM GLO-30 (30m pan-Nordic); upgrade per-country if needed
+  landing_url: |
+    Pan-Nordic: https://dataspace.copernicus.eu/browser/?displayCatalog=cop-dem
+    SE high-res: https://www.lantmateriet.se/sv/geodata/vara-produkter/produktlista/markhojdmodell-nedladdning-grid-50/ (50m open; 2m requires account)
+    NO high-res: https://hoydedata.no/ (Kartverket 1m / 10m DTM)
+    FI high-res: https://www.maanmittauslaitos.fi/kartat-ja-paikkatieto/asiantuntevalle-kayttajalle/tuotekuvaukset/korkeusmalli-2-m (2m); korkeusmalli-10-m (10m)
+  download_url: |
+    Copernicus: https://portal.opentopography.org/raster?opentopoID=OTSDEM.032021.4326.3 (free, requires free account)
+    Alt Copernicus: https://spacedata.copernicus.eu/collections/copernicus-digital-elevation-model
+  api: STAC (Copernicus)
+  format: raster (GeoTIFF)
+  native_crs: EPSG:4326 (Copernicus GLO-30); national DEMs in national CRS
+  size_estimate: ~5 GB pan-Nordic at 30m; ~50 GB+ at 10m
+  license: Copernicus open (free reuse with attribution)
+  attribution_required: true
+  update_cadence: frozen           # Copernicus DEM is a fixed dataset
+  # download_url_note: OpenTopography requires free signup for bulk raster
+
+access:
+  requires_account: true          # OpenTopography free account
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    Copernicus GLO-30 is the pan-Nordic baseline — 30m is adequate for H3 res8
+    siting screening but NOT for site-level earthworks estimation.
+    For local drill-down (res9 lazy materialization), switch to per-country 2m–10m
+    DEM. Budget ~50 GB for national high-res if materialized pan-Nordic.
+    Slope threshold 10% is configurable — some DC operators accept up to 15%
+    with cut-and-fill; 10% is the conservative v1 default.
+    Polygonization at 30m raster resolution produces jagged polygons; simplify
+    with ST_SimplifyPreserveTopology(tolerance=30m) before overlap calc.
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

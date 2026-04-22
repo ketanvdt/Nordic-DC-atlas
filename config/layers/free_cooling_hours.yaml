@@ -1,0 +1,59 @@
+layer_id: free_cooling_hours
+category: feature
+countries: [SE, NO, FI]
+priority: W4
+exclusion_semantics: null
+score_sign: +1                    # more free-cooling hours = better (but low intra-Nordic variance)
+
+# Derived feature: count of hours per year where 2m ambient temperature is below
+# a threshold (default 15 °C) where cooling can be achieved without active
+# mechanical refrigeration. Computed from ERA5 reanalysis hourly data.
+# WARNING: per Nordic atlas plan, default-down-weight this feature — almost all
+# Nordic land has >6000 free-cooling hours/yr, so it is low-signal inside the region.
+
+authority:
+  name: Copernicus Climate Data Store (CDS) — ECMWF ERA5
+  country: EU
+  url: https://cds.climate.copernicus.eu/
+
+dataset:
+  name: ERA5 hourly 2m temperature on single levels
+  landing_url: https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels
+  download_url: https://cds.climate.copernicus.eu/api/v2    # CDS API endpoint; requires free account + API key
+  api: CDS API (Python client `cdsapi`)
+  format: NetCDF
+  native_crs: EPSG:4326 (regular lat/lon grid, 0.25° ≈ 28 km)
+  size_estimate: |
+    Raw hourly 2m temp for SE/NO/FI 2014–2024 (10 years): ~50–100 GB
+    RECOMMENDED: aggregate to free-cooling-hours-per-year on the CDS side before
+    download using `reanalysis-era5-land-monthly-means` or server-side stats
+    where possible; final product ~10 MB (one raster per year).
+  license: Copernicus open (free reuse with attribution)
+  attribution_required: true       # "Generated using Copernicus Climate Change Service information [year]"
+  update_cadence: monthly          # ERA5 updates continuously with ~3 month lag
+
+access:
+  requires_account: true          # free CDS account
+  requires_api_key: true          # from CDS user profile
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    0.25° grid (~28 km) is coarser than H3 res8 (~0.74 km²) — will be near-uniform
+    across clusters of H3 cells in a given region. Acceptable for this feature
+    since climate is slowly-varying spatially.
+    Use 10-year rolling average to smooth year-to-year variability. Document
+    reference period (e.g., 2014–2024) in ingest config.
+    Free-cooling threshold (15 °C default) is configurable; some DCs can
+    free-cool up to 22 °C with adiabatic assist, some need 12 °C.
+    Per Nordic atlas plan: down-weight this feature's default slider value —
+    it differentiates Nordics vs. continental Europe but NOT within Nordics.
+    Disk budget: pull via CDS API with `variable: 2m_temperature`, area=[70, 0, 55, 35]
+    (N,W,S,E for Nordic bbox), year=[2014..2024], month=[01..12]; aggregate server-side.
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

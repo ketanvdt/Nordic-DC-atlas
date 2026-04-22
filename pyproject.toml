@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nordic-site-atlas"
+version = "0.1.0"
+description = "Nordic Data Center Site Atlas v1"
+requires-python = ">=3.11"
+dependencies = [
+  "streamlit>=1.44.0",
+  "pandas>=2.2.2",
+  "numpy>=2.1.0",
+  "geopandas>=1.0.1",
+  "rasterio>=1.4.0",
+  "shapely>=2.0.6",
+  "pyogrio>=0.10.0",
+  "osmnx>=1.9.4",
+  "h3>=4.1.1",
+  "xarray>=2024.9.0",
+  "sqlalchemy>=2.0.36",
+  "psycopg[binary]>=3.2.3",
+  "python-dotenv>=1.0.1",
+  "pyyaml>=6.0.2",
+  "httpx>=0.28.1",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

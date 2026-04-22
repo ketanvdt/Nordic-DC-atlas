@@ -1,0 +1,56 @@
+layer_id: protected_areas
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: overlap_gte_50pct
+score_sign: null
+
+# Covers everything NOT in natura_2000: national parks, nature reserves,
+# biotope protection areas, Emerald Network (NO), landscape protection areas.
+# Per-country authoritative sources differ; WDPA is the pan-Nordic fallback.
+
+authority:
+  name: Per-country environmental agencies (fallback WDPA)
+  country: per-country
+  url: multiple
+
+dataset:
+  name: Per-country protected area registries (merged on ingest)
+  landing_url: |
+    SE: https://www.naturvardsverket.se/data-och-statistik/skyddad-natur/
+    NO: https://miljostatus.miljodirektoratet.no/tema/naturomrader-pa-land/verneomrader/
+    FI: https://www.syke.fi/en-US/Open_information/Spatial_datasets
+    Pan-Nordic fallback: https://www.protectedplanet.net/en (WDPA)
+  download_url: |
+    SE: https://geodata.naturvardsverket.se/nedladdning/skyddadnatur/SkyddadNatur.zip
+    NO: https://kartkatalog.geonorge.no/metadata/naturvernomraader/...
+    FI: https://ckan.ymparisto.fi/dataset/suojelualueet
+    WDPA: https://www.protectedplanet.net/en/thematic-areas/wdpa (requires free account)
+  api: null
+  format: SHP                     # per-country; WDPA ships GDB + CSV
+  native_crs: per-country         # SE: EPSG:3006 SWEREF99 TM, NO: EPSG:25833 / 32633, FI: EPSG:3067 ETRS-TM35FIN
+  size_estimate: ~500 MB combined
+  license: per-country open data (confirm per source); WDPA has commercial-use restrictions
+  attribution_required: true
+  update_cadence: quarterly (SE, FI), annual (NO), monthly (WDPA)
+
+access:
+  requires_account: false         # true for WDPA fallback
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    Category taxonomy differs per country — normalize to a common enum on ingest:
+    {national_park, nature_reserve, biotope_protection, landscape_protection, emerald_network, other}.
+    WDPA fallback has commercial-use restrictions; do NOT use if redistribution
+    might be needed later — stick to per-country open sources.
+    Norway has NO Natura 2000, so protected_areas must carry NO's entire ecological
+    exclusion burden (see natura_2000.yaml note).
+  spatial_completeness: full
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

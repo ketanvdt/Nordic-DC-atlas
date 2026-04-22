@@ -1,0 +1,53 @@
+layer_id: road_network
+category: base
+countries: [SE, NO, FI]
+priority: W4
+exclusion_semantics: null
+score_sign: null                  # base layer; used as input to workforce_catchment
+
+# Base layer only — feeds into workforce_catchment isochrone computation.
+# Not directly scored.
+
+authority:
+  name: OpenStreetMap
+  country: GLOBAL
+  url: https://www.openstreetmap.org/
+
+dataset:
+  name: OSM highway network, filtered to driveable roads
+  landing_url: https://download.geofabrik.de/europe.html
+  download_url: |
+    SE: https://download.geofabrik.de/europe/sweden-latest.osm.pbf
+    NO: https://download.geofabrik.de/europe/norway-latest.osm.pbf
+    FI: https://download.geofabrik.de/europe/finland-latest.osm.pbf
+  api: https://overpass-api.de/ (for filtered extracts)
+  format: OSM PBF
+  native_crs: EPSG:4326
+  size_estimate: ~2 GB combined (PBFs include all tags, not just roads)
+  license: ODbL 1.0
+  attribution_required: true
+  update_cadence: continuous       # Geofabrik extracts refresh daily
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    Filter to driveable roads: highway IN (motorway, trunk, primary, secondary,
+    tertiary, unclassified, residential, motorway_link, trunk_link, primary_link,
+    secondary_link, tertiary_link). Exclude service, footway, path.
+    For OSRM/ORS isochrone routing, use the appropriate profile (driving-car).
+    Northern Finland and inland Norway roads have seasonal closures — not
+    reflected in OSM. Consider penalizing very-remote routes if signal is needed.
+    Total OSM PBF is ~2 GB; after filtering to driveable roads + clipping to
+    country bounds, working vector is ~500 MB.
+    Alternative (smaller): GISCO road dataset https://ec.europa.eu/eurostat/web/gisco/geodata/reference-data/transport-networks
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

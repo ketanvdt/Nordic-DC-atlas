@@ -1,0 +1,60 @@
+layer_id: sami_reindeer_husbandry
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: overlap_gte_50pct
+score_sign: null
+
+# Load-bearing for northern siting — reindeer husbandry rights create consultation
+# requirements that have killed DC projects. Treat as configurable hard/soft
+# exclusion: default hard for herding districts, soft for seasonal grazing buffers.
+
+authority:
+  name: Per-country Sámi / reindeer authorities
+  country: per-country
+  url: multiple
+
+dataset:
+  name: Reindeer herding district polygons and seasonal grazing zones
+  landing_url: |
+    SE: https://www.sametinget.se/105748 (Sametinget iRenmark)
+         https://www.lansstyrelsen.se/norrbotten/djur/skotsel-av-djur/rennaring/rennaringens-markanvandning.html
+    NO: https://kilden.nibio.no/?topic=reindrift (NIBIO Kilden Reindrift)
+         https://www.miljodirektoratet.no/ (reinbeitedistrikter WMS)
+    FI: https://paliskunnat.fi/ (Paliskuntain yhdistys — herding cooperative boundaries)
+         https://www.luke.fi/fi/tietopalvelut (Luke paliskunnat GIS)
+  download_url: |
+    SE: https://ext-dokument.lansstyrelsen.se/Gemensamt/Geodata/DataDistribution/ (Länsstyrelsen iRenmark)
+    NO: https://kartkatalog.geonorge.no/metadata/reinbeitedistrikter/... (WMS; check bulk export)
+    FI: https://paikkatieto.paliskunnat.fi/ (paliskunta_rajat WFS/SHP)
+  api: WMS/WFS per country
+  format: SHP
+  native_crs: per-country         # SE: 3006, NO: 25833, FI: 3067
+  size_estimate: ~50 MB combined
+  license: per-country open (confirm per source — some may have use restrictions)
+  attribution_required: true
+  update_cadence: annual
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    Zone semantics differ: SE has year-round + seasonal grazing subdivisions;
+    NO has reinbeitedistrikter (annual districts) + beiteområder (seasonal);
+    FI has paliskunnat (herding cooperatives). Normalize to {district, seasonal}
+    on ingest.
+    Coverage is NORTH-OF-Limes-Norrlandicus for SE (SE1/SE2 latitudes) and does
+    NOT apply to SE3/SE4 or southern NO/FI.
+    Verify license allows redistribution — if not, link to source and document.
+    UI must show prominent consultation-warning badge when any overlap detected
+    (per nordic_atlas_v1_plan known-gap transparency requirements).
+  spatial_completeness: full       # in northern latitudes
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

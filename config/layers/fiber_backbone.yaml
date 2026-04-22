@@ -1,0 +1,60 @@
+layer_id: fiber_backbone
+category: feature
+countries: [SE, NO, FI]
+priority: W3
+exclusion_semantics: null
+score_sign: -1                    # better if closer; but data is sparse (directional only)
+
+# KNOWN GAP: detailed fiber backbone routes are not openly available — redacted
+# for national security. Open data shows coverage polygons / served areas, not
+# backbone topology. v1 strategy: use per-country coverage datasets; flag
+# prominently as "directional only" per Nordic atlas plan transparency rules.
+
+authority:
+  name: Per-country telecom regulators (coverage only) + OpenInfraMap telecom (OSM-based)
+  country: per-country
+  url: multiple
+
+dataset:
+  name: Per-country broadband coverage + OSM telecom infrastructure
+  landing_url: |
+    SE: https://bredbandskartan.pts.se/ (PTS Bredbandskartan)
+    NO: https://nettkart.nkom.no/ (Nkom Nettkart)
+    FI: https://tiili.traficom.fi/ (Traficom Monitori / MONITORi)
+    OSM visual: https://openinframap.org/#8.08/59.362/11.196/L,,T
+  download_url: |
+    SE PTS: https://bredbandskartan.pts.se/karttjanster (WMS/WFS — check bulk export)
+    NO Nkom: https://nettkart.nkom.no/ (WMS)
+    FI Traficom: https://tiili.traficom.fi/ (WMS)
+    OSM telecom tags: via Overpass API (man_made=tower + tower:type=communication, man_made=communications_tower, etc.)
+  api: WMS/WFS per country; Overpass for OSM
+  format: SHP / GeoJSON / WMS raster tiles
+  native_crs: per-country         # SE: 3006, NO: 25833, FI: 3067
+  size_estimate: ~100 MB coverage polygons combined
+  license: per-country open (confirm)
+  attribution_required: true
+  update_cadence: annual (regulators) / continuous (OSM)
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false     # some only WMS raster — may need manual extract
+
+quality:
+  known_caveats: |
+    This layer CANNOT represent true fiber-route proximity — regulator maps show
+    SERVICE AREAS, not backbone topology. Use as a coarse "is there fiber near
+    this municipality" binary, or at best as a coverage-density score.
+    OSM telecom tagging is incomplete for backbone routes; towers and landing
+    sites are better covered but are a weak proxy for fiber.
+    UI must show "directional only" warning — rank a cell with fiber-rich
+    municipality higher, but do not over-interpret differences.
+    Consider proxying via "distance to nearest 10k+ population center" since
+    fiber tracks urban infrastructure closely — simpler and more honest.
+  spatial_completeness: partial
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

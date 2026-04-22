@@ -1,0 +1,55 @@
+layer_id: seveso_sites
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: buffer(500)    # 500m default buffer around each Seveso establishment
+score_sign: null
+
+# Seveso III Directive establishments — hazardous substances sites.
+# Source is POINT locations; buffer on ingest to produce exclusion zones.
+# 500m is a conservative v1 default; upper-tier sites may warrant 1000m.
+
+authority:
+  name: EEA eSPIRS (pan-EU) + per-country registers
+  country: EU / per-country
+  url: https://ipr.eea.europa.eu/
+
+dataset:
+  name: European Seveso Plant Information Retrieval System (eSPIRS)
+  landing_url: https://ipr.eea.europa.eu/
+  download_url: https://ipr.eea.europa.eu/#!/overview?exportCsv=1    # CSV export; geocode lat/lon directly
+  api: REST (IPR data access)
+  format: CSV                     # needs point geometry construction
+  native_crs: EPSG:4326            # per-site lat/lon
+  size_estimate: ~5 MB Nordic subset
+  license: EEA open data (CC BY)
+  attribution_required: true
+  update_cadence: annual
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+# Per-country primary registers (cross-check):
+#   SE: Arbetsmiljöverket Seveso-register https://www.av.se/produktion-industri-och-logistik/kemiska-risker-och-luftfororeningar/kemiska-amnen/seveso/
+#   NO: DSB (Direktoratet for samfunnssikkerhet og beredskap) Storulykkevirksomheter
+#       https://www.dsb.no/menyartikler/statistikk/storulykkevirksomheter/
+#   FI: Tukes VALVOJA / KemiDigi https://tukes.fi/tuotteet-ja-palvelut/vaaralliset-aineet-ja-kaasut
+
+quality:
+  known_caveats: |
+    Source is POINT locations; ingest must apply buffer (configurable per-site
+    if tier information is available — upper-tier vs lower-tier Seveso).
+    Geocoding accuracy varies — cross-check with per-country registers for
+    sites in SE/NO/FI before relying on eSPIRS coordinates.
+    Some sites geocode to company HQ, not actual plant location — flag as a
+    known-gap in UI. Manual spot-checks recommended for top 20 Nordic sites.
+    Buffer value (500m default) should be exposed as a config parameter.
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

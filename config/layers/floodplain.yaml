@@ -1,0 +1,51 @@
+layer_id: floodplain
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: overlap_gte_50pct
+score_sign: null
+
+authority:
+  name: Per-country flood authorities
+  country: per-country
+  url: multiple
+
+dataset:
+  name: 100-year flood extent polygons (BHF100 / 200-yr equivalents)
+  landing_url: |
+    SE: https://www.msb.se/sv/amnesomraden/skydd-mot-olyckor-och-farliga-amnen/naturolyckor-och-klimat/oversvamning/oversvamningsportalen/
+    NO: https://www.nve.no/flaum-og-skred/kartlegging/aktsemdskart-for-flaum/
+    FI: https://www.ymparisto.fi/fi-FI/Vesi/Tulviin_varautuminen/Tulvakartat
+  download_url: |
+    SE: https://gis-services.metria.se/arcgis/rest/services/oversvamningsportalen/ (WMS/WFS)
+    NO: https://nedlasting.nve.no/gis/ (Flaumsoner dataset)
+    FI: https://www.syke.fi/avoindata (Tulvavaarakartat)
+  api: WMS/WFS per country
+  format: SHP / GPKG              # some only WMS without bulk export
+  native_crs: per-country         # SE: 3006, NO: 25833, FI: 3067
+  size_estimate: ~200 MB combined
+  license: per-country open data (CC BY variants)
+  attribution_required: true
+  update_cadence: ad_hoc           # mapped per-river-basin, irregular
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false     # some WFS-only, may need per-basin stitching
+
+quality:
+  known_caveats: |
+    Coverage is NOT complete across all Nordic rivers/lakes — typically covers
+    designated flood-risk areas under EU Flood Directive (2007/60/EC) only.
+    Cells outside mapped basins will have NULL floodplain status, not "no flood".
+    Use return period 100-yr as baseline; some datasets distinguish 200-yr and
+    climate-adjusted scenarios — pick one consistent return period on ingest.
+    Coastal flood (sea-level rise) may be in a separate layer in NO (NVE) and
+    not covered at all in SE/FI — document as partial coverage.
+  spatial_completeness: partial
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

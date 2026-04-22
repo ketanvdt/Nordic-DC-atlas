@@ -1,0 +1,53 @@
+layer_id: transmission_lines
+category: feature
+countries: [SE, NO, FI]
+priority: W3
+exclusion_semantics: null
+score_sign: -1                    # distance to transmission: shorter = better
+
+# Feature: Euclidean distance from H3 cell centroid to nearest high-voltage
+# transmission line (≥132 kV). Normalize 0-1 with configurable ceiling.
+
+authority:
+  name: OpenStreetMap (primary) + ENTSO-E Gridmap cross-check
+  country: GLOBAL / EU
+  url: https://www.openstreetmap.org/
+
+dataset:
+  name: OSM features with `power=line` AND `voltage>=132000`
+  landing_url: https://www.openstreetmap.org/
+  download_url: https://download.geofabrik.de/europe.html    # per-country PBF
+  api: https://overpass-api.de/
+  format: OSM PBF / GeoJSON
+  native_crs: EPSG:4326
+  size_estimate: ~5 MB for Nordic transmission extract
+  license: ODbL 1.0
+  attribution_required: true
+  update_cadence: continuous
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+# Cross-check authorities:
+#   ENTSO-E Gridmap (pan-EU): https://www.entsoe.eu/data/map/
+#   OpenInfraMap (OSM-based visual): https://openinframap.org/
+#   Svk/Statnett/Fingrid per-country network maps (PDF — not bulk-downloadable as vector)
+
+quality:
+  known_caveats: |
+    Use a voltage threshold — ≥132kV catches primary transmission; 50–132kV is
+    regional sub-transmission (keep if scoring rewards regional grid proximity too).
+    OSM `voltage` tag is free-text — needs careful parsing ("132 kV", "132000",
+    "132,000 / 220,000" for multi-circuit). Write a normalizer on ingest.
+    Underground cables marked `location=underground` — same scoring treatment
+    as overhead lines.
+    For distance computation, ST_Distance to the polyline (not just endpoints).
+  spatial_completeness: partial
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

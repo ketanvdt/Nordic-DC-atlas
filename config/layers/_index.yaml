@@ -1,0 +1,41 @@
+# Priority-ordered index of all Nordic Atlas v1 layers.
+# Ingest scheduler materializes in W1 → W4 order.
+# Every layer_id here must have a corresponding <layer_id>.yaml in this directory.
+
+w1_base_and_first_exclusion:
+  - country_boundary
+  - municipal_boundary
+  - land_mask
+  - natura_2000
+
+w2_hard_exclusions:
+  - protected_areas
+  - floodplain
+  - heritage
+  - military_zones           # deferred if blocked by classification
+  - slope_gt_10pct
+  - surface_water_polygons
+  - urban_industrial
+  - sami_reindeer_husbandry
+  - seveso_sites
+  - airport_ols
+  - dh_offtake_tier          # manual, starts W1, lands W2
+
+w3_infrastructure_and_power:
+  - substations
+  - transmission_lines
+  - fiber_backbone
+  - subsea_cable_landings
+  - bidding_zones
+  - grid_capacity_heatmap    # manual digitization
+
+w4_soft_features_and_climate:
+  - free_cooling_hours
+  - population_density
+  - road_network
+  - workforce_catchment      # derived from road_network + population_density
+  - announced_dc_projects
+  - municipal_receptivity
+
+deferred_or_paid:
+  - land_cost                # Lantmäteriet Fastighetsprisregistret is paid; use population_density inverse as v1 proxy

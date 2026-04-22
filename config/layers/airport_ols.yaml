@@ -1,0 +1,57 @@
+layer_id: airport_ols
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: buffer(15000)  # v1 pragmatic: 15km buffer around commercial airports
+score_sign: null
+
+# True OLS (Obstacle Limitation Surfaces) are ICAO Annex 14 surfaces published
+# in national AIPs as text + PDF — NOT as GIS polygons. v1 strategy: use a simple
+# 15km buffer around commercial airports as the coarse exclusion. Upgrade to true
+# OLS digitization only if specific sites are in the shortlist (v2).
+
+authority:
+  name: OurAirports.com (coarse v1) + national CAA / AIP (for true OLS)
+  country: GLOBAL (v1) / per-country (upgrade)
+  url: https://ourairports.com/
+
+dataset:
+  name: OurAirports airport registry (v1); national AIP obstacle data (v2+)
+  landing_url: https://ourairports.com/data/
+  download_url: https://davidmegginson.github.io/ourairports-data/airports.csv
+  api: null
+  format: CSV                     # filter to type=large_airport or medium_airport
+  native_crs: EPSG:4326            # lat/lon columns
+  size_estimate: ~10 MB global; Nordic filter <1 MB
+  license: CC0 (OurAirports is public domain)
+  attribution_required: false
+  update_cadence: continuous       # community-maintained
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+# True OLS sources (v2 upgrade path):
+#   SE: Transportstyrelsen / LFV AIP Sverige https://aro.lfv.se/Editorial/View/IAIP
+#   NO: Avinor AIP https://ais.avinor.no/en/AIP/View/
+#   FI: Finavia / Traficom AIP https://www.ais.fi/
+
+quality:
+  known_caveats: |
+    15km buffer is a coarse proxy — true OLS extend further horizontally for
+    large airports (Arlanda, Gardermoen, Helsinki-Vantaa) but less for small ones.
+    Rural/decommissioned airfields still in OurAirports as closed=false may
+    trigger false exclusions — filter by type and scheduled_service=yes.
+    For v1, exclusion via buffer is acceptable; MARK in UI as coarse approximation.
+    Manual OLS digitization (tracing from AIP charts) is a v2 work item — track
+    as a follow-up in the Nordic atlas plan.
+    For rooftop equipment / antenna siting on top of DCs near airports, this
+    layer may be insufficient — document in UI.
+  spatial_completeness: full       # all commercial airports covered
+  attribute_completeness: partial  # coarse approximation
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

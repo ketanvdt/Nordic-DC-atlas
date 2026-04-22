@@ -1,0 +1,54 @@
+layer_id: military_zones
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: overlap_gte_50pct
+score_sign: null
+
+# LIKELY BLOCKED for free/open sourcing: most detailed military exclusion zones
+# are classified. v1 strategy: use only publicly published
+# restriction / noise zones (e.g., firing ranges, low-fly corridors) and document
+# incompleteness in the UI. If no usable public data: mark status: blocked, skip.
+
+authority:
+  name: Per-country defense authorities (public info only)
+  country: per-country
+  url: multiple
+
+dataset:
+  name: Publicly published military restriction and noise zones
+  landing_url: |
+    SE: https://www.forsvarsmakten.se/ (public "skjutfält" lists; GIS layers rarely published)
+    NO: https://forsvarsbygg.no/ (skyte- og øvingsfelt; some public GIS)
+    FI: https://puolustusvoimat.fi/ (harjoitusalueet; limited public GIS)
+  download_url: unknown           # rarely bulk-downloadable; investigate per-country
+  api: null
+  format: unknown                 # may end up as manual digitization from PDFs
+  native_crs: unknown
+  size_estimate: unknown
+  license: unknown
+  attribution_required: unknown
+  update_cadence: ad_hoc
+
+access:
+  requires_account: unknown
+  requires_api_key: false
+  robots_friendly: unknown
+  manual_download_only: unknown
+
+quality:
+  known_caveats: |
+    DO NOT scrape or attempt to reconstruct classified zones — free/open sources
+    only. If no free data exists, mark blocked and document as a known gap
+    rather than using unreliable proxies.
+    A DC project near a public training area still has surmountable consultation
+    risk; hard exclusion may be too strong a treatment — consider soft-exclusion
+    tier if researcher finds published zones.
+    For v1, if a clean source is not found within the Day 4–10 window, defer to v2
+    and document via UI warning.
+  spatial_completeness: partial
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification      # may become `blocked` or `deferred` after research

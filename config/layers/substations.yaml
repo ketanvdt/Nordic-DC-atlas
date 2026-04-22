@@ -1,0 +1,55 @@
+layer_id: substations
+category: feature
+countries: [SE, NO, FI]
+priority: W3
+exclusion_semantics: null
+score_sign: -1                    # distance to substation: shorter = better
+
+# Feature: Euclidean distance from each H3 cell centroid to nearest substation.
+# Normalize to 0-1 on ingest using a distance ceiling (e.g., 50km = 0, 0km = 1).
+
+authority:
+  name: OpenStreetMap (primary) + TSO cross-check
+  country: GLOBAL / per-country
+  url: https://www.openstreetmap.org/
+
+dataset:
+  name: OSM features with `power=substation`; cross-check Svk/Statnett/Fingrid network maps
+  landing_url: https://www.openstreetmap.org/
+  download_url: https://download.geofabrik.de/europe.html    # per-country PBF extracts: sweden, norway, finland
+  api: https://overpass-api.de/ (Overpass API for tag-filtered queries)
+  format: OSM PBF / GeoJSON (after Overpass extraction)
+  native_crs: EPSG:4326
+  size_estimate: ~1 MB for Nordic substation extract
+  license: ODbL 1.0 (OpenStreetMap)
+  attribution_required: true      # "© OpenStreetMap contributors"
+  update_cadence: continuous
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+# TSO cross-check (no bulk downloads, but validate OSM coverage):
+#   SE: https://www.svk.se/om-kraftsystemet/om-systemansvaret/sa-funkar-stamnatet/stamnatet/ (Svenska Kraftnät network map)
+#   NO: https://www.statnett.no/en/about-statnett/our-mission-and-vision/our-business-plan/ (Statnett grid map)
+#   FI: https://www.fingrid.fi/en/grid/finland-s-power-transmission-grid/ (Fingrid network map)
+#   Curated view: https://openinframap.org/ (OSM-based, easier to visually verify)
+
+quality:
+  known_caveats: |
+    OSM power coverage in Nordics is generally good but varies by country —
+    Sweden best covered, northern Norway and inland Finland have gaps.
+    Distinguish transmission substations (TSO-owned, ≥130kV) from distribution
+    substations (DSO, 10-20kV) via voltage tag — the Power sub-score in Nordic
+    atlas plan should weight transmission more heavily (grid connection feasibility).
+    Cross-check sample with ENTSO-E Gridmap + OpenInfraMap visually.
+    Feature includes BOTH transmission and distribution — consider splitting
+    into two layers if scoring differentiates.
+  spatial_completeness: partial     # OSM completeness
+  attribute_completeness: partial   # voltage tag not always populated
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

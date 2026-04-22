@@ -1,0 +1,41 @@
+layer_id: country_boundary
+category: base
+countries: [SE, NO, FI]
+priority: W1
+exclusion_semantics: null
+score_sign: null
+
+authority:
+  name: Eurostat GISCO
+  country: EU
+  url: https://ec.europa.eu/eurostat/web/gisco
+
+dataset:
+  name: NUTS 2024 — NUTS level 0 (country) polygons, 1:1M resolution
+  landing_url: https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics
+  download_url: https://gisco-services.ec.europa.eu/distribution/v2/nuts/download/
+  api: https://gisco-services.ec.europa.eu/distribution/v2/nuts/
+  format: SHP                     # also GPKG, GeoJSON, TopoJSON available
+  native_crs: EPSG:4326            # also distributed in 3035 and 3857 — prefer 3035 for area ops
+  size_estimate: ~5 MB
+  license: CC BY 4.0 (© EuroGeographics for administrative boundaries)
+  attribution_required: true
+  update_cadence: triennial        # NUTS 2021, 2024, 2027...
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    Norway is included in GISCO despite not being an EU member (EuroGeographics coverage).
+    NUTS 1:1M is coarse — use for country outlines only, not for exclusion masking along coastlines.
+    Attribution "© EuroGeographics" must appear in the Streamlit About panel.
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

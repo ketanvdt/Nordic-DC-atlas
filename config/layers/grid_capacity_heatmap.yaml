@@ -1,0 +1,63 @@
+layer_id: grid_capacity_heatmap
+category: feature
+countries: [SE, NO, FI]
+priority: W3
+exclusion_semantics: null
+score_sign: +1                    # higher published available capacity = better
+
+# MANUAL DIGITIZATION layer: TSOs publish grid-capacity heatmaps as PDF maps,
+# not vector data. Researcher traces published legend bands (e.g., "red = no
+# capacity", "yellow = limited", "green = available") into coarse polygons
+# per transmission region. Output: GeoJSON in data/manual/ with a `capacity_tier`
+# attribute (0–3) and a `source_date` for the publication cycle.
+
+authority:
+  name: Svenska Kraftnät (SE) / Statnett (NO) / Fingrid (FI)
+  country: per-country
+  url: multiple
+
+dataset:
+  name: Regional grid capacity heatmap, manually digitized per TSO publication
+  landing_url: |
+    SE: https://www.svk.se/utveckling-av-kraftsystemet/nats-och-systemutveckling/kapacitetsbrister/ (Svk kapacitetskartor)
+    NO: https://www.statnett.no/for-aktorer-i-kraftbransjen/tilknytning-til-nettet/ (Statnett NUP kapasitet)
+    FI: https://www.fingrid.fi/en/grid/grid-development/vision-of-the-future-grid/ (Fingrid kantaverkon saatavuus)
+  download_url: null              # PDFs only; manual digitization is the deliverable
+  api: null
+  format: GeoJSON                 # researcher-produced in data/manual/
+  native_crs: EPSG:4326            # digitize in 4326 for simplicity; reproject on ingest
+  size_estimate: <500 KB total
+  license: derived (researcher-produced, cite TSO source per publication)
+  attribution_required: true      # credit Svk/Statnett/Fingrid per region
+  update_cadence: annual           # TSOs republish heatmaps roughly annually
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: true
+
+# Digitization procedure (document in data/manual/source_notes.md):
+#   1. Download latest PDF heatmap from each TSO link above.
+#   2. Georeference in QGIS (use municipal_boundary as ground truth).
+#   3. Trace each color band as a polygon; assign tier:
+#      3 = green (capacity available), 2 = yellow (limited), 1 = orange (constrained), 0 = red (no capacity)
+#   4. Export as GeoJSON with attributes: region, country, capacity_tier, source_date, source_url, confidence (low/med/high)
+#   5. Re-digitize when TSO publishes new heatmap (at least annually)
+
+quality:
+  known_caveats: |
+    Coarse by construction — published bands are themselves aggregated TSO
+    assessments, not precise capacity numbers. Expect 5–20 polygons per country.
+    Capacity is the TRUE Power-sub-score bottleneck (a substation 1km away with
+    no queue capacity is worse than 10km away with capacity).
+    Stale within 6 months — electrification demand is moving fast. MUST refresh
+    annually; MUST show source_date prominently in UI.
+    Digitization accuracy ~5km; not suitable for site-level decisions — use as
+    regional screening only.
+  spatial_completeness: full       # each TSO covers full national grid
+  attribute_completeness: partial  # coarse tiers, not numeric MW
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

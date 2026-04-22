@@ -1,0 +1,43 @@
+# Copy this file to <layer_id>.yaml and fill every field.
+# Mark uncertain fields as `unknown` with a short comment explaining what to verify.
+# See README.md for the full researcher workflow.
+
+layer_id: example_layer           # snake_case unique id, matches filename
+category: exclusion               # exclusion | feature | base
+countries: [SE, NO, FI]           # subset of {SE, NO, FI}
+priority: W2                      # W1 | W2 | W3 | W4
+exclusion_semantics: null         # centroid | overlap_gte_Npct | buffer(meters) | null
+score_sign: null                  # +1 | -1 | piecewise | null (null for exclusions)
+
+authority:
+  name: unknown
+  country: unknown                # SE | NO | FI | EU | GLOBAL
+  url: unknown
+
+dataset:
+  name: unknown
+  landing_url: unknown
+  download_url: unknown
+  api: null                       # WMS/WFS/REST endpoint if any
+  format: unknown                 # SHP | GPKG | GeoJSON | CSV | PDF | raster
+  native_crs: unknown             # EPSG:xxxx
+  size_estimate: unknown
+  license: unknown
+  attribution_required: unknown
+  update_cadence: unknown
+
+access:
+  requires_account: unknown
+  requires_api_key: unknown
+  robots_friendly: unknown
+  manual_download_only: unknown
+
+quality:
+  known_caveats: |
+    unknown
+  spatial_completeness: unknown   # full | partial | point-sample | unknown
+  attribute_completeness: unknown
+  last_verified: null             # YYYY-MM-DD
+  verified_by: null
+
+status: pending_verification      # pending_verification | verified | blocked | deferred

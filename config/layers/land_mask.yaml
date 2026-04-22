@@ -1,0 +1,42 @@
+layer_id: land_mask
+category: base
+countries: [SE, NO, FI]
+priority: W1
+exclusion_semantics: null
+score_sign: null
+
+authority:
+  name: Natural Earth
+  country: GLOBAL
+  url: https://www.naturalearthdata.com/
+
+dataset:
+  name: Natural Earth 10m Physical — Land
+  landing_url: https://www.naturalearthdata.com/downloads/10m-physical-vectors/10m-land/
+  download_url: https://naciscdn.org/naturalearth/10m/physical/ne_10m_land.zip
+  api: null
+  format: SHP
+  native_crs: EPSG:4326
+  size_estimate: ~10 MB global
+  license: Public Domain (Natural Earth)
+  attribution_required: false
+  update_cadence: ad_hoc
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    10m (~1:10,000,000) is coarse — adequate for clipping the H3 grid to land
+    but NOT for coastal exclusion zoning. For Norwegian fjords/archipelagos,
+    use a higher-resolution per-country coastline if fjord-level precision matters.
+    H3 res8 cells (~0.74 km²) will have coarse boundaries regardless.
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

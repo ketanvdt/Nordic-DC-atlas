@@ -1,0 +1,60 @@
+layer_id: municipal_receptivity
+category: feature
+countries: [SE, NO, FI]
+priority: W4
+exclusion_semantics: null
+score_sign: +1                    # higher tier = more receptive = better
+
+# Manually-coded 3-tier tag (Active / Neutral / Resistant) per municipality,
+# seeded from announced_dc_projects and publicly-stated regional strategies.
+# Joins to municipal_boundary via municipality code.
+
+authority:
+  name: Manual research (seeded from announced_dc_projects + regional plans)
+  country: per-country
+  url: null
+
+dataset:
+  name: Manually-coded municipal receptivity CSV
+  landing_url: null
+  download_url: null              # researcher-produced
+  api: null
+  format: CSV                     # columns: muni_code, muni_name, country, tier {active,neutral,resistant}, notes, sources, last_updated
+  native_crs: null                # joined to municipal_boundary
+  size_estimate: ~50 KB
+  license: internal (derived)
+  attribution_required: false
+  update_cadence: annual
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: true
+
+# Tier rubric:
+#   active:    Municipality has published DC-welcoming strategy, planning approvals for
+#              DC use, or hosts operational/under-construction DCs with stated support.
+#              Examples: Luleå, Skellefteå, Boden, Gävle, Mäntsälä, Hamina, Rjukan.
+#   neutral:   No public stance; treat as default for unresearched municipalities.
+#   resistant: Municipality has rejected DC permit applications, published restrictions
+#              on industrial water/power use, or has active community opposition.
+#              Examples: certain Stockholm inner suburbs due to power constraints;
+#              research per-case.
+
+quality:
+  known_caveats: |
+    Subjective; MUST document source per row (planning document URL, news article,
+    municipal stated policy).
+    Regional/county-level stances vary — cross-check with länsstyrelser (SE),
+    fylker (NO), maakunnat (FI) positions.
+    Refresh annually + after any public municipal decision re DC projects.
+    Default to `neutral` for unresearched municipalities; do NOT leave NULL.
+    Researcher should tag the top 50 Nordic municipalities by existing DC
+    clustering OR by known DC-relevant industrial strategies first.
+  spatial_completeness: partial     # top 50 tiered, rest default neutral
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

@@ -1,0 +1,56 @@
+layer_id: municipal_boundary
+category: base
+countries: [SE, NO, FI]
+priority: W1
+exclusion_semantics: null
+score_sign: null
+
+# v1 STRATEGY: use Eurostat GISCO LAU (Local Administrative Units) for pan-Nordic
+# harmonized coverage in a single fetch. Switch to per-country authoritative
+# sources only if attribute fidelity proves insufficient (e.g., need kommun code
+# that matches SCB tables). Per-country sources documented below as fallbacks.
+
+authority:
+  name: Eurostat GISCO (pan-Nordic harmonized)
+  country: EU
+  url: https://ec.europa.eu/eurostat/web/gisco
+
+dataset:
+  name: LAU 2023 — Local Administrative Units
+  landing_url: https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/local-administrative-units
+  download_url: https://gisco-services.ec.europa.eu/distribution/v2/lau/download/
+  api: https://gisco-services.ec.europa.eu/distribution/v2/lau/
+  format: SHP
+  native_crs: EPSG:3035
+  size_estimate: ~50 MB pan-EU; filter to SE/NO/FI on ingest
+  license: CC BY 4.0 (© EuroGeographics)
+  attribution_required: true
+  update_cadence: annual
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+# Per-country authoritative fallbacks (verify attribute schemas if using):
+#   SE: Lantmäteriet "Kommun, län och rike Nedladdning"
+#       https://www.lantmateriet.se/sv/geodata/vara-produkter/produktlista/kommun-lan-och-rike-nedladdning/
+#   NO: Kartverket "Administrative enheter - kommuner"
+#       https://kartkatalog.geonorge.no/metadata/administrative-enheter-kommuner/...
+#   FI: Maanmittauslaitos "Kuntajako"
+#       https://www.maanmittauslaitos.fi/en/maps-and-spatial-data/expert-users/product-descriptions/municipal-division
+
+quality:
+  known_caveats: |
+    LAU attribute codes may not match per-country municipality ID conventions
+    (SCB kommunkod, SSB kommunenummer, Tilastokeskus kuntakoodi). If joining to
+    per-country receptivity/DH-tier tables, cross-walk via ISO 3166-2 codes or
+    municipality name — expect 1–2% manual reconciliation.
+    Norway coverage inside LAU is derived from EuroGeographics, may lag Kartverket.
+  spatial_completeness: full
+  attribute_completeness: partial     # municipality codes vary by source
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

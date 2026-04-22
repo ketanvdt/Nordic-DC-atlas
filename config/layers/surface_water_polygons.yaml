@@ -1,0 +1,53 @@
+layer_id: surface_water_polygons
+category: exclusion                # also reused as feature (see score_sign)
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: overlap_gte_50pct   # excludes cells that are mostly water
+score_sign: piecewise                    # for feature reuse: -1 <500m, +1 for 0.5-5km, 0 beyond
+
+# Dual-use layer: acts as hard exclusion for cells that are mostly water, AND
+# drives the piecewise water-proximity feature (see nordic_atlas_v1_plan W3).
+
+authority:
+  name: EEA EU-Hydro + OpenStreetMap fallback
+  country: EU / GLOBAL
+  url: https://www.eea.europa.eu/
+
+dataset:
+  name: EEA EU-Hydro River Network Database; OSM water relations as cross-check
+  landing_url: https://www.eea.europa.eu/data-and-maps/data/eu-hydro-river-network-database
+  download_url: https://sdi.eea.europa.eu/catalogue/srv/eng/catalog.search#/metadata/...
+  api: null
+  format: SHP                     # EU-Hydro ships SHP + GDB
+  native_crs: EPSG:3035
+  size_estimate: ~2 GB pan-EU; filter to Nordic on ingest
+  license: CC BY 4.0
+  attribution_required: true
+  update_cadence: ad_hoc           # EU-Hydro 2013/2019 releases
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+# Per-country authoritative fallbacks with better currency:
+#   SE: SMHI SVAR-databas (Svenskt vattenarkiv) https://www.smhi.se/data/hydrologi/sjoar-och-vattendrag/ladda-ner-data-fran-svenskt-vattenarkiv
+#   NO: NVE REGINE https://nedlasting.nve.no/gis/
+#   FI: SYKE Ranta10 https://www.syke.fi/avoindata (rantaviiva)
+
+quality:
+  known_caveats: |
+    EU-Hydro is reasonable pan-Nordic but dated; per-country sources are fresher.
+    Small water bodies (<0.01 km²) often missing — fine for res8 scoring.
+    Coastal waters NOT in this layer — use land_mask for ocean exclusion.
+    Ensure consistent definition of "water body" across sources (inland surface
+    water only; wetlands are ambiguous — treat separately if needed).
+    For the piecewise proximity feature: distance computed to nearest water
+    polygon boundary, NOT centroid.
+  spatial_completeness: partial
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

@@ -1,0 +1,64 @@
+layer_id: dh_offtake_tier
+category: feature
+countries: [SE, NO, FI]
+priority: W2                        # starts W1 in research, lands W2
+exclusion_semantics: null
+score_sign: +1                      # higher tier = more desirable
+
+# NO open polygon dataset for DH network extents in the Nordics — manual curation
+# is the deliverable. Output: CSV keyed by municipality code with a 0–3 tier tag.
+
+authority:
+  name: Manual research (seeded from industry directories)
+  country: per-country
+  url: multiple
+
+dataset:
+  name: Manually-coded DH offtake readiness tier per municipality
+  landing_url: |
+    Industry directories for seeding:
+    SE: https://www.energiforetagen.se/ (Energiföretagen Sverige member list + Fjärrvärmens miljövärdering)
+    NO: https://fjernvarme.no/ (Norsk Fjernvarme — medlemmer + nettkart)
+    FI: https://energia.fi/en/ (Finnish Energy Kaukolämpö statistics)
+    Cross-check: Stockholm Data Parks official list https://stockholmdataparks.com/
+  download_url: null                # deliverable IS the CSV; produced by researcher
+  api: null
+  format: CSV                     # columns: muni_code, muni_name, country, tier (0-3), notes, last_updated
+  native_crs: null                # joined to municipal_boundary on muni_code
+  size_estimate: ~10 KB (one row per Nordic municipality)
+  license: internal (derived work)
+  attribution_required: false
+  update_cadence: ad_hoc           # refresh annually or on project onboarding
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: true
+
+# Tier rubric (configurable):
+#   3 = Active offtake customer engagement; published heat-recovery deals (Stockholm Exergi w/ DC tenants)
+#   2 = DH network exists at scale; operator has stated DC heat recovery intent
+#   1 = DH network exists but small scale or no stated DC interest
+#   0 = No material DH network OR closed/decommissioning
+
+# Seed cities (top ~20 priority municipalities to tier on day 1):
+#   SE: Stockholm, Göteborg, Malmö, Uppsala, Linköping, Västerås, Örebro, Jönköping, Umeå, Luleå, Skellefteå
+#   NO: Oslo, Bergen, Trondheim, Stavanger, Kristiansand, Drammen, Tromsø
+#   FI: Helsinki, Espoo, Tampere, Turku, Oulu, Kuopio, Jyväskylä, Vantaa, Lahti
+
+quality:
+  known_caveats: |
+    Subjective tiering; document criteria in a tier-rubric markdown alongside
+    the CSV. Each row needs a `notes` field citing the source used (operator
+    public statement, press release, annual report page).
+    Re-tier annually — operator stances on DC heat offtake are evolving quickly
+    (Stockholm Exergi model being adopted elsewhere).
+    Non-seed municipalities default to tier 0 until researched.
+    UI must show tier + source-notes tooltip on hover per transparency requirements.
+  spatial_completeness: partial    # top 20 tiered; rest default 0
+  attribute_completeness: full     # for tiered municipalities
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

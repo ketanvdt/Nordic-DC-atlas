@@ -1,0 +1,59 @@
+layer_id: subsea_cable_landings
+category: feature
+countries: [SE, NO, FI]
+priority: W3
+exclusion_semantics: null
+score_sign: -1                    # shorter distance to landing = better connectivity
+
+# Feature: distance from H3 cell centroid to nearest subsea cable landing station.
+# Manual digitization — geocode landing points from public sources to GeoJSON.
+
+authority:
+  name: TeleGeography Submarine Cable Map (free interactive) + manual geocoding
+  country: GLOBAL
+  url: https://www.submarinecablemap.com/
+
+dataset:
+  name: Manually-geocoded landing station points for Nordic-relevant cables
+  landing_url: https://www.submarinecablemap.com/
+  download_url: null              # interactive map only; manual geocoding is the deliverable
+  api: null
+  format: GeoJSON                 # researcher-produced; lands in data/manual/
+  native_crs: EPSG:4326
+  size_estimate: <100 KB
+  license: derived (researcher-produced)
+  attribution_required: true      # credit TeleGeography + Wikipedia as sources
+  update_cadence: ad_hoc           # refresh annually or when major cables land
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: true
+
+# Key Nordic cable landings to seed (researcher should complete from TeleGeography):
+#   SE: Varberg (BCS, C-Lion1), Kattegat, Öresund (several)
+#   NO: Stavanger (NO-UK), Kristiansand, Tromsø (Svalbard Fibre), Andøya
+#   FI: Helsinki/Hanko (C-Lion1 Rostock), Turku/Kemi
+# Cross-check sources:
+#   Wikipedia list of submarine cables + national landing facility names
+#   https://en.wikipedia.org/wiki/List_of_international_submarine_communications_cables
+#   OpenInfraMap (has some cable landings): https://openinframap.org/
+
+quality:
+  known_caveats: |
+    TeleGeography free data is visual-only (Submarine Cable Map). Full vector
+    dataset is a paid product — out of scope per v1 budget decision.
+    Manual geocoding is approximate — landing station exact location may be
+    obscured for security. Accept ±5km precision.
+    Some DCs are sited specifically for landing proximity (e.g., Digiplex
+    Stavanger) — this feature differentiates meaningfully along the coasts.
+    Less relevant for interior northern Sweden/Finland (Luleå, Boden, Skellefteå)
+    since terrestrial fiber backbones dominate there.
+    Refresh annually — new cables land every 1–2 years (Havsil, Polar Connect).
+  spatial_completeness: partial
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

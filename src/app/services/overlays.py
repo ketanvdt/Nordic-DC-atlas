@@ -1,0 +1,40 @@
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+import geopandas as gpd
+import streamlit as st
+
+
+def get_overlay_mtime(path: str) -> float:
+    file_path = Path(path)
+    return file_path.stat().st_mtime if file_path.exists() else 0.0
+
+
+def _to_geojson_dict(path: str, simplify_tolerance: float = 0.0) -> dict[str, Any] | None:
+    file_path = Path(path)
+    if not file_path.exists():
+        return None
+    gdf = gpd.read_file(file_path)
+    if gdf.empty:
+        return None
+    if gdf.crs is None:
+        gdf = gdf.set_crs("EPSG:4326")
+    else:
+        gdf = gdf.to_crs("EPSG:4326")
+    if simplify_tolerance > 0:
+        gdf["geometry"] = gdf.geometry.simplify(simplify_tolerance)
+    return gdf.__geo_interface__
+
+
+@st.cache_data(show_spinner=False)
+def load_municipality_overlay(path: str, mtime: float) -> dict[str, Any] | None:
+    _ = mtime
+    return _to_geojson_dict(path, simplify_tolerance=0.001)
+
+
+@st.cache_data(show_spinner=False)
+def load_roads_overlay(path: str, mtime: float) -> dict[str, Any] | None:
+    _ = mtime
+    return _to_geojson_dict(path, simplify_tolerance=0.0005)

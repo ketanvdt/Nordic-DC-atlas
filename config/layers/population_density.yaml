@@ -1,0 +1,59 @@
+layer_id: population_density
+category: feature
+countries: [SE, NO, FI]
+priority: W4
+exclusion_semantics: null
+score_sign: piecewise              # piecewise: negative in dense urban (exclusion), positive for workforce catchment mid-range, zero far out
+
+# Dual-use feature: drives workforce catchment (positive) AND the land_cost inverse
+# proxy (positive). Do NOT use as an exclusion — the urban_industrial layer already
+# handles urban density exclusion.
+
+authority:
+  name: JRC Global Human Settlement Layer (primary) or Eurostat GEOSTAT
+  country: EU
+  url: https://ghsl.jrc.ec.europa.eu/
+
+dataset:
+  name: GHS-POP R2023A — Global Human Settlement population grid, 100m resolution
+  landing_url: https://ghsl.jrc.ec.europa.eu/download.php?ds=pop
+  download_url: https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/GHSL/GHS_POP_GLOBE_R2023A/
+  api: null                       # FTP-style bulk download
+  format: raster (GeoTIFF)
+  native_crs: EPSG:54009 Mollweide    # also available in EPSG:4326
+  size_estimate: ~500 MB global; ~50 MB for Nordic tile subset
+  license: CC BY 4.0 (JRC open data)
+  attribution_required: true
+  update_cadence: ~5 years         # GHS-POP releases in 2015, 2018, 2023
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+# Alternative: Eurostat GEOSTAT 1km² population grid
+#   https://ec.europa.eu/eurostat/web/gisco/geodata/grids
+#   Census-based, 5-year cadence, 1km² rather than 100m — coarser but officially
+#   harmonized across EU.
+#   Norway included via GEOSTAT? Check per release.
+
+quality:
+  known_caveats: |
+    GHS-POP 100m is spatially continuous — no grid artifacts at municipality
+    boundaries. Preferred over GEOSTAT for this project.
+    Values are modeled population (satellite-derived built-up × census totals),
+    not census counts — accuracy degrades in low-density rural areas.
+    Zonal-aggregate to H3 res8 using SUM (population per cell), then compute
+    density (pop / cell_area). Cache both.
+    Piecewise scoring curve (tune in scoring config):
+      pop_density > 5000/km² → score = 0 (too urban, land unavailable)
+      1000–5000 → score = 1.0 (good workforce catchment)
+      100–1000 → score = 0.7
+      < 100 → score = 0.3 (too remote, no workforce)
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

@@ -1,0 +1,61 @@
+layer_id: workforce_catchment
+category: feature
+countries: [SE, NO, FI]
+priority: W4
+exclusion_semantics: null
+score_sign: +1                    # higher reachable population = better
+
+# DERIVED feature — not ingested from an external source. Compute for each H3
+# cell: population reachable within a 30/45/60 minute drive. Output is a single
+# numeric column; normalize 0–1 on ingest.
+
+authority:
+  name: Derived from OSM road_network + GHSL population_density
+  country: derived
+  url: null
+
+dataset:
+  name: Per-cell workforce catchment (sum of reachable population within isochrone)
+  landing_url: null
+  download_url: null              # computed in-pipeline
+  api: null
+  format: derived (parquet or postgres column)
+  native_crs: matches grid_cells (EPSG:3035 for H3 ops)
+  size_estimate: ~10 MB for 1.5M cells × 3 catchment bands
+  license: derived
+  attribution_required: true      # cite OSM + GHSL
+  update_cadence: ad_hoc           # recompute when road_network or population_density updates
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+# Computation approach:
+#   1. For each H3 cell centroid, compute driving isochrones at 30/45/60 min
+#      using self-hosted OSRM or OpenRouteService (containerize on docker-compose).
+#   2. Intersect each isochrone polygon with GHS-POP raster; sum reachable pop.
+#   3. Store three columns: workforce_30, workforce_45, workforce_60.
+#   4. Normalize each independently 0–1.
+#
+# Performance note: naive per-cell isochrone on 1.5M cells is too slow.
+# Use representative-cell sampling (1 cell per 25 km²) and nearest-neighbor fill,
+# OR pre-compute from municipal centroids only (faster, slightly coarser).
+
+quality:
+  known_caveats: |
+    Isochrone routing assumes free-flow speeds; real commute times vary with
+    congestion (mostly irrelevant in rural Nordic siting areas).
+    Isochrone shapes are sensitive to disconnected road networks — islands,
+    ferry dependencies — document failures per country.
+    For v1 MVP: compute from municipal centroids only; per-cell refinement is
+    W4 stretch goal.
+    60-min catchment is the primary score driver for data-center workforce
+    (night-shift ops + maintenance).
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification

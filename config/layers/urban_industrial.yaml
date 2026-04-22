@@ -1,0 +1,50 @@
+layer_id: urban_industrial
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: overlap_gte_50pct
+score_sign: null
+
+# Excludes dense urban fabric (no space to build) AND existing heavy-industrial
+# land (conflicting use). CORINE Land Cover 2018 classes 111 (continuous urban),
+# 112 (discontinuous urban), 121 (industrial/commercial) are the v1 selection.
+# Leave agricultural/forest unencoded — not an exclusion, different layer.
+
+authority:
+  name: Copernicus Land Monitoring Service
+  country: EU
+  url: https://land.copernicus.eu/
+
+dataset:
+  name: CORINE Land Cover 2018 (CLC 2018)
+  landing_url: https://land.copernicus.eu/en/products/corine-land-cover/clc2018
+  download_url: https://land.copernicus.eu/en/products/corine-land-cover/clc2018  # requires free Copernicus account; click-through to download
+  api: null
+  format: SHP                     # also raster GeoTIFF
+  native_crs: EPSG:3035
+  size_estimate: ~1 GB pan-EU vector; filter to Nordic on ingest
+  license: Copernicus open (free reuse with attribution)
+  attribution_required: true
+  update_cadence: biennial         # CLC 2018, 2024 when released
+
+access:
+  requires_account: true
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    CORINE 2018 minimum mapping unit is 25 hectares — very small urban/industrial
+    parcels will merge into surrounding class. Adequate for res8 screening.
+    CLC 2024 may be released mid-project — note update cadence.
+    Class selection for exclusion: {111, 112, 121, 122, 123, 124, 131, 132, 133}
+    = continuous urban, discontinuous urban, industrial/commercial, road/rail,
+    port, airport, mineral extraction, dump sites, construction sites.
+    Consider parameterizing the class list in the exclusion semantics config.
+  spatial_completeness: full
+  attribute_completeness: full
+  last_verified: null
+  verified_by: null
+
+status: pending_verification
