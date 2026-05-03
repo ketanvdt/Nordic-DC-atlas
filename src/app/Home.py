@@ -8,7 +8,13 @@ from sqlalchemy import text
 
 from src.app.components.freshness_panel import render_freshness_panel
 from src.app.components.panels import exclusion_panel, weight_panel
-from src.app.services.overlays import get_overlay_mtime, load_municipality_overlay, load_roads_overlay
+from src.app.services.overlays import (
+    get_overlay_mtime,
+    load_municipality_overlay,
+    load_roads_overlay,
+    load_svk_substations_overlay,
+    load_svk_transmission_lines_overlay,
+)
 from src.app.services.scenarios import list_scenarios, save_scenario
 from src.common.db import get_engine
 from src.score.service import fetch_scores, fetch_top_candidates
@@ -72,6 +78,8 @@ def main() -> None:
     st.sidebar.subheader("Map Overlays")
     show_municipalities = st.sidebar.checkbox("Municipality boundaries", value=True)
     show_roads = st.sidebar.checkbox("Road connections", value=True)
+    show_svk_lines = st.sidebar.checkbox("Svk transmission lines (220 + 400 kV)", value=True)
+    show_svk_subs = st.sidebar.checkbox("Svk main substations", value=True)
     show_grid = st.sidebar.checkbox("Grid outlines", value=False)
     roads_opacity = st.sidebar.slider("Road opacity", 10, 255, 120, 5)
     muni_opacity = st.sidebar.slider("Municipality opacity", 10, 255, 80, 5)
@@ -201,6 +209,59 @@ def main() -> None:
                     )
                 else:
                     st.info("Road overlay unavailable or unreadable at `data/processed/roads.gpkg`.")
+
+            svk_lines_path = "data/processed/svk_transmission_lines.gpkg"
+            svk_lines_geojson = (
+                load_svk_transmission_lines_overlay(svk_lines_path, get_overlay_mtime(svk_lines_path))
+                if show_svk_lines
+                else None
+            )
+            if show_svk_lines:
+                if svk_lines_geojson:
+                    layers.append(
+                        pdk.Layer(
+                            "GeoJsonLayer",
+                            data=svk_lines_geojson,
+                            stroked=True,
+                            filled=False,
+                            get_line_color="properties.color_rgba",
+                            line_width_min_pixels=2,
+                            pickable=True,
+                        )
+                    )
+                else:
+                    st.info(
+                        "Svk transmission overlay unavailable at `data/processed/svk_transmission_lines.gpkg`. "
+                        "Run `python scripts/convert_svk_transmission_gml.py` to generate it from the source GML files."
+                    )
+
+            svk_subs_path = "data/processed/svk_transmission_substations.gpkg"
+            svk_subs_geojson = (
+                load_svk_substations_overlay(svk_subs_path, get_overlay_mtime(svk_subs_path))
+                if show_svk_subs
+                else None
+            )
+            if show_svk_subs:
+                if svk_subs_geojson:
+                    layers.append(
+                        pdk.Layer(
+                            "GeoJsonLayer",
+                            data=svk_subs_geojson,
+                            stroked=True,
+                            filled=True,
+                            get_fill_color="properties.color_rgba",
+                            get_line_color=[20, 20, 20, 255],
+                            line_width_min_pixels=1,
+                            point_radius_min_pixels=4,
+                            point_radius_max_pixels=8,
+                            pickable=True,
+                        )
+                    )
+                else:
+                    st.info(
+                        "Svk substation overlay unavailable at `data/processed/svk_transmission_substations.gpkg`. "
+                        "Run `python scripts/convert_svk_transmission_gml.py` to generate it."
+                    )
 
             if show_grid:
                 grid_df = top10_df.copy()
