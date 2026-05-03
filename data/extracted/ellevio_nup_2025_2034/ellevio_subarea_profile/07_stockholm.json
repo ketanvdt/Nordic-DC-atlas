@@ -1,0 +1,33 @@
+{
+  "subarea_key": "ellevio_stockholm",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Stockholm",
+  "subarea_number": 7,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Stockholm", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio's grid in this subarea serves approximately 500,000 customers, about half of Ellevio's total customer base."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [220, 110, 33], "local_grid_kv": [10]},
+  "interconnection_points": [
+    {"station_name": null, "upstream_owner": "Svenska Kraftnät", "voltage_kv": 220, "role": "supply", "aggregate_count": 5, "note": "Five interconnection points to Svenska Kraftnät at 220 kV; station names not enumerated in the source."},
+    {"station_name": "Älvsjö", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": null},
+    {"station_name": "Järva", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": null},
+    {"station_name": "Koltorp", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": null},
+    {"station_name": "Skanstull", "upstream_owner": "Nacka Energi", "voltage_kv": null, "role": "both", "aggregate_count": null, "note": "Interconnection point to neighboring local-grid operator."}
+  ],
+  "consumption": {"peak_load_mw": 1761, "peak_load_basis": "historic_max", "composition_note": "Residential and small commercial load plus heavy industry, infrastructure (subway, harbors), and data centers."},
+  "production_installed": [
+    {"type": "solar_distributed", "installed_mw": null, "note": "Included in the aggregate 77 MW figure below."},
+    {"type": "wind", "installed_mw": null, "note": "Smaller solar and wind installations with combined installed capacity of approximately 77 MW."},
+    {"type": "chp", "installed_mw": null, "note": "Larger production from CHP plants; capacity not separately stated."},
+    {"type": "gas_turbine", "installed_mw": null, "note": "Larger production from gas turbines; capacity not separately stated."}
+  ],
+  "neighboring_dsos": ["Vattenfall Eldistribution", "Nacka Energi"],
+  "narrative_note": "Subarea covers the City of Stockholm and its municipal borders. Pure urban grid — predominantly cable, with a few overhead-line sections planned for removal. Distribution voltage 10 kV throughout. Regional grid: 220 kV feeds a 110 kV grid which in turn feeds some distribution substations connected at 33 kV; some distribution substations are fed directly from 220 kV and 110 kV. All produced electricity is consumed within the subarea.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 10,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

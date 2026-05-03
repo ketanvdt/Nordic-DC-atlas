@@ -1,0 +1,28 @@
+{
+  "subarea_key": "ellevio_ekero",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Ekerö",
+  "subarea_number": 6,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Ekerö", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio holds the area concession for the entire subarea Ekerö, including a few smaller islands outside the municipal borders that fall within Ellevio's grid area."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [], "local_grid_kv": [24]},
+  "interconnection_points": [
+    {"station_name": "Sånga", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point to upstream regional grid."},
+    {"station_name": "Älvnäs", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point to upstream regional grid."}
+  ],
+  "consumption": {"peak_load_mw": 84, "peak_load_basis": "historic_max", "composition_note": "Majority residential and small commercial load, plus some industrial load."},
+  "production_installed": [
+    {"type": "solar_distributed", "installed_mw": 15, "note": "Distributed solar (rooftop/small)."},
+    {"type": "wind", "installed_mw": null, "note": "Individual wind installations; capacity not separately stated."}
+  ],
+  "neighboring_dsos": [],
+  "narrative_note": "Local grid runs at voltages up to 24 kV.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 9,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

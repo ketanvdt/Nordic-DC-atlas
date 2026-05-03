@@ -1,0 +1,22 @@
+{
+  "snitt_key": "se4_to_se3",
+  "snitt_label": "SE4 to SE3",
+  "from_zone": "SE4",
+  "to_zone": "SE3",
+  "country": "SE",
+  "current_capacity_mw": 2800,
+  "current_capacity_period": "2021-2023",
+  "targets": [
+    {"target_year": 2030, "capacity_mw": 2800},
+    {"target_year": 2035, "capacity_mw": 3300},
+    {"target_year": 2040, "capacity_mw": 3500},
+    {"target_year": 2045, "capacity_mw": 3600}
+  ],
+  "narrative_note": "Northbound across snitt 4 (least-constrained direction historically — SE4 is consumption-heavy). Modest capacity growth planned over the long horizon.",
+  "source_doc_key": "svk_nup_2026_2035",
+  "source_page": 29,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-svk-nup-4.4-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

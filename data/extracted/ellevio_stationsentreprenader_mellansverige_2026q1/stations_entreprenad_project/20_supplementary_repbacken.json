@@ -1,0 +1,54 @@
+{
+  "project_key": "ellevio_supplementary_repbacken",
+  "project_name": "Repbäcken",
+  "station_name": "Repbäcken",
+  "subproject_grouping": null,
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "supplementary",
+  "project_type": "brownfield",
+  "voltage_levels": {
+    "existing_kv": [400, 130],
+    "new_kv": [400, 130],
+    "decommissioned_kv": [],
+    "voltage_note": "Existing 400/130 kV transmission substation. 130 kV rebuilt from single-breaker to double-breaker design."
+  },
+  "scope_description": "Brownfield expansion of Repbäcken transmission substation (400/130 kV) located in Borlänge, Dalarna. Expansion of existing station area to enable rebuild — large portion can be built outside energized parts. New portals to handle increased short-circuit forces. Rebuild of 130 kV from single-breaker to double-breaker design (9 existing bays, line, and transformer). Connects to the transmission grid via a 420 kV line from Svenska Kraftnät's station at Bäsna. Strategic node in Dalarna's regional grid with seven 130 kV line bays and need for more.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 15, "count_max": 20, "note": "Rebuild of existing single-breaker 130 kV bays to double-breaker; 9 existing bays plus line and transformer bays."},
+    {"equipment_type": "shunt_reactor", "voltage_kv": null, "count_min": 1, "count_max": 1, "note": null}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2030,
+    "commission_quarter": 2,
+    "procurement_start_date": "2026-03-20",
+    "procurement_end_date": "2026-09-24",
+    "construction_start_date": "2027-04-01",
+    "construction_end_date": "2030-04-01",
+    "timeline_note": "Procurement 2026-03-20 to 2026-09-24. Construction 2027-04 to 2030-04 per slide 19. Commission marker on Gantt at 2030."
+  },
+  "contract": {
+    "value_band_msek": "over_200",
+    "estimated_value_msek": 200,
+    "package_id": "separate",
+    "currency": "SEK",
+    "contract_note": "Estimated contract value >200 MSEK per slide 19. Standalone supplementary procurement."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": null,
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "permitted",
+  "raw_status": "Kommande annons (upcoming announcement)",
+  "narrative_note": "Repbäcken is the most concretely scheduled supplementary project in this deck — explicit procurement and construction dates published. Connects to Svenska Kraftnät via 420 kV line to Svk station at Bäsna.",
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 19,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

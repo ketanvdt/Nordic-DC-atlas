@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "vattenfall_macro_area_profile",
+  "title": "Vattenfall Eldistribution NUP §1.2 macro-area profile",
+  "description": "One record per macro area (5 total: North, Central, Stockholm, East, West). Vattenfall partitions its grid into 5 large areas (vs Ellevio's 17 detailed subareas). These areas carry a qualitative outlook per pillar (local grid, regional grid, transmission relations, production, consumption) but DO NOT enumerate municipalities — that mapping lives in Annex 1 ('Forecast local grid per municipality') and is loaded into a separate schema (vattenfall_municipality_forecast).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "macro_area_key",
+    "dso_operator",
+    "macro_area_name",
+    "country",
+    "source_doc_key",
+    "source_page",
+    "extraction_method",
+    "extraction_run_id",
+    "extraction_prompt_version",
+    "confidence_tier"
+  ],
+  "properties": {
+    "macro_area_key": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$", "description": "Stable snake_case ASCII key, e.g. vattenfall_north, vattenfall_central."},
+    "dso_operator": {"type": "string", "enum": ["Vattenfall Eldistribution"]},
+    "macro_area_name": {"type": "string", "description": "Full name as published in the source (proper noun in original Swedish where applicable, e.g. 'Norrland'; or English translation of descriptive name, e.g. 'Central Sweden (excluding Stockholm)')."},
+    "macro_area_short_name": {"type": ["string", "null"], "description": "Short English label (e.g. 'North', 'Central', 'Stockholm', 'East', 'West')."},
+    "country": {"type": "string", "enum": ["SE", "NO", "FI"]},
+    "regions_or_counties": {
+      "type": "array",
+      "description": "County or region names mentioned as part of this area in §1.1 or §1.2 (qualitative). NOT a definitive municipality list — those come from Annex 1.",
+      "items": {"type": "string"}
+    },
+    "specific_locations_mentioned": {
+      "type": "array",
+      "description": "Specific municipalities or geographic features named in the §1.2 narrative (e.g. 'Gotland', 'Askersund municipality', 'west coast'). Useful for anchoring the area but not exhaustive.",
+      "items": {"type": "string"}
+    },
+    "voltage_levels": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "regional_grid_kv": {"type": "array", "items": {"type": "integer"}},
+        "local_grid_kv": {"type": "array", "items": {"type": "integer"}},
+        "voltage_note": {"type": ["string", "null"], "description": "Free text on voltage upgrade plans (e.g. 220 to 400 kV transmission grid, 70 to 130 kV regional grid)."}
+      }
+    },
+    "local_grid_outlook": {"type": ["string", "null"], "description": "Vattenfall's narrative on local-grid growth, characteristics, and needs in this area."},
+    "regional_grid_outlook": {"type": ["string", "null"], "description": "Vattenfall's narrative on regional-grid needs in this area (capacity, investment, structural changes)."},
+    "transmission_grid_relations": {"type": ["string", "null"], "description": "How the area's regional grid relates to Svenska Kraftnät's transmission grid (programs, voltage upgrades, connection points)."},
+    "production_outlook": {"type": ["string", "null"], "description": "Production trends and characteristics (wind, hydro, CHP, solar, surplus/deficit patterns, seasonal balance)."},
+    "consumption_outlook": {"type": ["string", "null"], "description": "Consumption trends and characteristics (industry, residential, growth drivers)."},
+    "relevant_transmission_programs": {
+      "type": "array",
+      "description": "Named Svenska Kraftnät / TSO programs affecting this area (e.g. 'NordSyd').",
+      "items": {"type": "string"}
+    },
+    "narrative_note": {"type": ["string", "null"], "description": "Free-text English narrative for context that does not fit the structured fields (risks, dependencies, geographic overlaps with other DSOs, source-published name if it differs from macro_area_name, etc.)."},
+    "source_doc_key": {"type": "string", "const": "vattenfall_eldistribution_nup_2025_2034"},
+    "source_page": {"type": "integer", "minimum": 1},
+    "extraction_method": {"type": "string", "const": "llm_extracted"},
+    "extraction_run_id": {"type": "string"},
+    "extraction_prompt_version": {"type": "string"},
+    "confidence_tier": {"type": "string", "enum": ["observed", "derived", "estimated", "narrative"]}
+  }
+}

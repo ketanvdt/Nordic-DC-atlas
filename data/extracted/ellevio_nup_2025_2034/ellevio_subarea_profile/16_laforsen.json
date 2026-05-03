@@ -1,0 +1,25 @@
+{
+  "subarea_key": "ellevio_laforsen",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Laforsen",
+  "subarea_number": 16,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Ljusdal", "municipality_code_scb": null, "concession_type": "line_concession_only", "partial": true, "note": "Ellevio holds line concession for 130 kV lines in the area; the network also serves Härjeåns elnät, which holds the area concession in this subarea."},
+    {"municipality_name": "Härjedalen", "municipality_code_scb": null, "concession_type": "line_concession_only", "partial": true, "note": "Ellevio holds line concession for 130 kV lines in the area; the network also serves Härjeåns elnät."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [130, 220, 400], "local_grid_kv": []},
+  "interconnection_points": [
+    {"station_name": "Laforsen", "upstream_owner": "Svenska Kraftnät", "voltage_kv": 220, "role": "both", "aggregate_count": null, "note": "Ellevio has an interconnection point to Svenska Kraftnät at 220 kV. Laforsen will be affected by Svenska Kraftnät's NordSyd program — 220 kV is being decommissioned and replaced by a new 400 kV supply."}
+  ],
+  "consumption": null,
+  "production_installed": [{"type": "hydro", "installed_mw": 370, "note": "Total installed production capacity in the area is approximately 370 MW; primarily hydropower."}],
+  "neighboring_dsos": ["Härjeåns elnät"],
+  "narrative_note": "Subarea spans parts of Ljusdal and Härjedalen municipalities. The network connects production primarily in the form of hydropower, but also serves Härjeåns elnät, which holds the area concession in this subarea. The network is interconnected with the Tovåsen transmission substation via the regional grid. Laforsen will be affected by Svenska Kraftnät's NordSyd program (220 kV decommissioned, replaced by new 400 kV supply).",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 14,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

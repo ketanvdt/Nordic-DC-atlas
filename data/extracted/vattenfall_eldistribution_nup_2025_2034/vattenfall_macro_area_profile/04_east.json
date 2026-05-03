@@ -1,0 +1,23 @@
+{
+  "macro_area_key": "vattenfall_east",
+  "dso_operator": "Vattenfall Eldistribution",
+  "macro_area_name": "Eastern Sweden",
+  "macro_area_short_name": "East",
+  "country": "SE",
+  "regions_or_counties": ["Östergötland"],
+  "specific_locations_mentioned": ["Gotland", "Östgötaslätten", "Askersund municipality"],
+  "voltage_levels": null,
+  "local_grid_outlook": "The area has weak consumption growth except in industry and electricity-intensive operations.",
+  "regional_grid_outlook": "On Gotland, currently fed from Vattenfall Eldistribution's regional grid, electricity consumption is increasing.",
+  "transmission_grid_relations": "Gotland will eventually be connected to Svenska Kraftnät's transmission grid.",
+  "production_outlook": "Dispatchable production in the form of CHP in several larger cities, connected to the local grid or to underlying grid owners, but production is not in proportion to capacity demand in winter. Wind power is connected primarily on or near Östgötaslätten and within Askersund municipality.",
+  "consumption_outlook": "Weak consumption growth except in industry and electricity-intensive operations.",
+  "relevant_transmission_programs": [],
+  "narrative_note": "Source publishes this area as 'Östra Sverige' (short label 'Öst' on maps).",
+  "source_doc_key": "vattenfall_eldistribution_nup_2025_2034",
+  "source_page": 6,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-vattenfall-eldist-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

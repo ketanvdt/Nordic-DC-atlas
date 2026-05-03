@@ -1,0 +1,29 @@
+{
+  "subarea_key": "ellevio_halland",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Halland",
+  "subarea_number": 1,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Kungsbacka", "municipality_code_scb": null, "concession_type": "excluded", "partial": false, "note": "City center of Kungsbacka is explicitly excluded from Ellevio's area concession in this subarea."},
+    {"municipality_name": "Mölndal", "municipality_code_scb": null, "concession_type": "excluded", "partial": true, "note": "Northern Mölndal is explicitly excluded from Ellevio's area concession."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [130, 50, 40], "local_grid_kv": [10, 20, 6]},
+  "interconnection_points": [
+    {"station_name": "Lindome", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Transmission substation. Vattenfall Eldistribution in turn has a subscription against Svenska Kraftnät."},
+    {"station_name": "Lahall", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Transmission-grid supply via Vattenfall Eldistribution."}
+  ],
+  "consumption": {"peak_load_mw": 640, "peak_load_basis": "current_typical", "composition_note": "Reaches at most approximately 640 MW; primarily residential and small commercial load."},
+  "production_installed": [
+    {"type": "chp", "installed_mw": 30, "note": "In today's grid."},
+    {"type": "wind", "installed_mw": 60, "note": "In today's grid."}
+  ],
+  "neighboring_dsos": ["E.ON", "Varbergsorten", "Varbergs Energi", "Mölndal Energi Nät", "Göteborgs Energi"],
+  "narrative_note": "Geographic span: between Öckerö and Södra Göteborg down to Falkenberg. Ellevio holds the area concession in the northern part of the subarea, except in the city center of Kungsbacka and northern Mölndal. The local grid runs at 10 kV but with geographic variations: the northern archipelago uses 20 + 6 kV. Ellevio's regional grid is meshed between the networks of Vattenfall Eldistribution, E.ON, and Svenska Kraftnät. Other municipalities with Ellevio coverage in the Öckerö-to-Falkenberg span are not explicitly listed in the source.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 7,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

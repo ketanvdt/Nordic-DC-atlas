@@ -1,0 +1,26 @@
+{
+  "subarea_key": "ellevio_lidingo",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Lidingö",
+  "subarea_number": 8,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Lidingö", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio holds the area concession for the entire subarea, plus line concession for 220 kV cables to Koltorp."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [220], "local_grid_kv": [24]},
+  "interconnection_points": [
+    {"station_name": "Kyrkviken", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point to upstream regional grid."},
+    {"station_name": "Högberga", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point to upstream regional grid."},
+    {"station_name": "Koltorp", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": 220, "role": "supply", "aggregate_count": null, "note": "Line concession for 220 kV cables to Koltorp."}
+  ],
+  "consumption": {"peak_load_mw": 88, "peak_load_basis": "historic_max", "composition_note": "Majority residential and small commercial load."},
+  "production_installed": [{"type": "solar_distributed", "installed_mw": 7.5, "note": "Distributed solar (rooftop/small)."}],
+  "neighboring_dsos": [],
+  "narrative_note": "Covers the City of Lidingö and broadly follows its municipal borders, with the exception of a few smaller islands outside the borders that are part of the subarea.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 10,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

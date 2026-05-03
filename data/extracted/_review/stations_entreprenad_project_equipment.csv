@@ -1,0 +1,52 @@
+project_key,station_name,program,equipment_type,voltage_kv,count_min,count_max,note,source_page
+ellevio_nordsyd_gronviken,Grönviken,nordsyd,circuit_breaker,420,2,2,,9
+ellevio_nordsyd_gronviken,Grönviken,nordsyd,circuit_breaker,145,10,12,,9
+ellevio_nordsyd_ockelbo,Ockelbo,nordsyd,circuit_breaker,145,6,8,,9
+ellevio_nordsyd_ockelbo,Ockelbo,nordsyd,transformer,,2,3,Cross-voltage; count not split per voltage class.,9
+ellevio_nordsyd_laforsen,Laforsen,nordsyd,circuit_breaker,145,6,8,,11
+ellevio_nordsyd_enan,Enån,nordsyd,circuit_breaker,420,4,4,,11
+ellevio_nordsyd_enan,Enån,nordsyd,circuit_breaker,145,6,8,,11
+ellevio_nordsyd_simessjon,Simessjön,nordsyd,circuit_breaker,145,4,6,Double-breaker switchgear.,18
+ellevio_nordsyd_branderna,Brändarna,nordsyd,switchgear,12,,,12 kV switchgear (rated voltage class 12 kV for nominal 10 kV operation).,18
+ellevio_nordsyd_prastnaset,Prästnäset,nordsyd,circuit_breaker,145,6,8,Double-breaker switchgear.,18
+ellevio_nordsyd_prastnaset,Prästnäset,nordsyd,circuit_breaker,72,2,2,,18
+ellevio_nordsyd_prastnaset,Prästnäset,nordsyd,transformer,,3,3,Cross-voltage; count not split per voltage class.,18
+ellevio_nordsyd_prastnaset,Prästnäset,nordsyd,switchgear,12,,,12 kV switchgear.,18
+ellevio_nordsyd_bolle,Bolle,nordsyd,circuit_breaker,145,4,6,,18
+ellevio_nordsyd_soderala,Söderala,nordsyd,circuit_breaker,145,4,6,,20
+ellevio_nordsyd_norrange,Norränge,nordsyd,circuit_breaker,145,2,4,,20
+ellevio_nordsyd_savsberg,Sävsberg,nordsyd,circuit_breaker,145,1,2,Source Gantt lists 145 kV breaker count even though slide 7 references 70 kV station; flag for validation.,20
+ellevio_nordsyd_untra,Untra,nordsyd,circuit_breaker,145,2,4,,13
+ellevio_nordsyd_lindbacka,Lindbacka,nordsyd,circuit_breaker,145,15,20,,14
+ellevio_nordsyd_lindbacka,Lindbacka,nordsyd,shunt_reactor,,1,1,,14
+ellevio_nordsyd_lindbacka,Lindbacka,nordsyd,transformer,,2,2,Transformer ratings per slide 14: T3 = 220/130 kV 470 MVA (existing); T6 = 400/130 kV 500 MVA.,14
+ellevio_nordsyd_lindbacka,Lindbacka,nordsyd,circuit_breaker,52,2,4,,14
+ellevio_nordsyd_karlslund,Karlslund,nordsyd,circuit_breaker,420,2,2,,14
+ellevio_nordsyd_karlslund,Karlslund,nordsyd,circuit_breaker,145,2,4,,14
+ellevio_customer_tovasen,Tovåsen,customer_driven,circuit_breaker,145,6,12,,22
+ellevio_customer_alby,Alby,customer_driven,circuit_breaker,145,6,12,,22
+ellevio_supplementary_brattstrommen,Brattströmmen,supplementary,circuit_breaker,145,2,4,,21
+ellevio_supplementary_brattstrommen,Brattströmmen,supplementary,transformer,,2,2,Cross-voltage; count not split per voltage class.,21
+ellevio_supplementary_brattstrommen,Brattströmmen,supplementary,circuit_breaker,72,8,10,,21
+ellevio_supplementary_repbacken,Repbäcken,supplementary,circuit_breaker,145,15,20,Rebuild of existing single-breaker 130 kV bays to double-breaker; 9 existing bays plus line and transformer bays.,19
+ellevio_supplementary_repbacken,Repbäcken,supplementary,shunt_reactor,,1,1,,19
+ellevio_supplementary_ulvsby,Ulvsby,supplementary,circuit_breaker,36,6,8,,21
+ellevio_supplementary_ulvsby,Ulvsby,supplementary,transformer,,2,2,,21
+ellevio_supplementary_grava,Grava,supplementary,circuit_breaker,36,6,8,,21
+ellevio_supplementary_grava,Grava,supplementary,transformer,,2,2,,21
+ellevio_supplementary_grava,Grava,supplementary,switchgear,12,,,,21
+ellevio_supplementary_vase,Väse,supplementary,circuit_breaker,145,8,10,,21
+ellevio_supplementary_vase,Väse,supplementary,transformer,,2,2,,21
+ellevio_supplementary_vase,Väse,supplementary,phase_shifter,,1,1,,21
+ellevio_supplementary_broby,Broby,supplementary,circuit_breaker,145,1,2,,21
+ellevio_supplementary_broby,Broby,supplementary,transformer,,1,1,,21
+ellevio_supplementary_broby,Broby,supplementary,switchgear,36,,,,21
+ellevio_supplementary_kvarnberg,Kvarnberg,supplementary,circuit_breaker,145,2,4,,21
+ellevio_supplementary_hogaberg,Högaberg,supplementary,circuit_breaker,145,4,6,,21
+ellevio_supplementary_sarna,Särna,supplementary,circuit_breaker,72,4,6,,21
+ellevio_supplementary_sarna,Särna,supplementary,transformer,,2,3,,21
+ellevio_supplementary_sarna,Särna,supplementary,switchgear,24,,,,21
+ellevio_supplementary_lomsmyren,Lomsmyren,supplementary,circuit_breaker,72,6,8,,21
+ellevio_supplementary_lomsmyren,Lomsmyren,supplementary,transformer,,2,3,,21
+ellevio_supplementary_lomsmyren,Lomsmyren,supplementary,switchgear,12,,,12 kV switchgear (rated voltage class for nominal 10 kV operation).,21
+ellevio_supplementary_soderfors,Söderfors,supplementary,circuit_breaker,145,3,5,,21

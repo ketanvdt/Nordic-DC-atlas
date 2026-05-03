@@ -1,0 +1,54 @@
+{
+  "project_key": "ellevio_nordsyd_enan",
+  "project_name": "Enån",
+  "station_name": "Enån",
+  "subproject_grouping": "Laforsen",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "greenfield",
+  "voltage_levels": {
+    "existing_kv": [],
+    "new_kv": [400, 130],
+    "decommissioned_kv": [],
+    "voltage_note": "New 400/130 kV transmission station built from scratch."
+  },
+  "scope_description": "New 400/130 kV transmission station Enån. Ellevio installs new 400/130 kV transformers and builds the 130 kV switchgear for Enån. New 130 kV lines from Enån feed Laforsen.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 420, "count_min": 4, "count_max": 4, "note": null},
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 6, "count_max": 8, "note": null}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2028,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": null
+  },
+  "contract": {
+    "value_band_msek": "over_200",
+    "estimated_value_msek": null,
+    "package_id": "1",
+    "currency": "SEK",
+    "contract_note": "Package 1 (>200 MSEK), bundled with Laforsen."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd",
+    "production_transfer_note": "Fortum T3 production transfer to Ellevio (relates to the Laforsen pair)."
+  },
+  "lifecycle_phase": "permit_pending",
+  "raw_status": "projektfas",
+  "narrative_note": null,
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 11,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

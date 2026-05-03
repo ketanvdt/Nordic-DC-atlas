@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "stations_entreprenad_project",
+  "title": "Ellevio Stationsentreprenader Q1-2026 — station project",
+  "description": "One record per station-level project from Ellevio's Q1-2026 station-procurement deck. Covers (a) NordSyd projects (Svenska Kraftnät's transmission-grid reinforcement program in central Sweden), (b) customer-driven projects (driven by specific connection agreements), and (c) supplementary projects (other Ellevio station investments in the same geography). Captures station name, project type, voltage transitions, equipment scope, construction/commission timeline, contract value band, and procurement package grouping.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "project_key",
+    "project_name",
+    "station_name",
+    "operator",
+    "country",
+    "program",
+    "project_type",
+    "lifecycle_phase",
+    "source_doc_key",
+    "source_page",
+    "extraction_method",
+    "extraction_run_id",
+    "extraction_prompt_version",
+    "confidence_tier"
+  ],
+  "properties": {
+    "project_key": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "Stable snake_case ASCII key. Format: ellevio_<program>_<station_normalized>. Examples: ellevio_nordsyd_njutanger, ellevio_supplementary_repbacken, ellevio_customer_tovasen."
+    },
+    "project_name": {
+      "type": "string",
+      "description": "Display name. Often equal to station_name; may be an umbrella name when multiple stations are planned together (e.g. 'Östra Hälsingland'). Original Swedish proper nouns preserved."
+    },
+    "station_name": {
+      "type": "string",
+      "description": "Primary station name (proper noun, original Swedish spelling preserved)."
+    },
+    "subproject_grouping": {
+      "type": ["string", "null"],
+      "description": "Higher-level planning grouping the station belongs to (e.g. 'Östra Hälsingland', 'Laforsen', 'Lindbacka-Karlslund', 'Bollnästriangeln', 'Karlstad benet')."
+    },
+    "operator": {"type": "string", "enum": ["Ellevio"]},
+    "country": {"type": "string", "enum": ["SE", "NO", "FI"]},
+    "program": {
+      "type": "string",
+      "enum": ["nordsyd", "customer_driven", "supplementary"],
+      "description": "nordsyd = part of Svenska Kraftnät's NordSyd transmission-grid reinforcement program. customer_driven = driven by a specific customer connection agreement. supplementary = other Ellevio station investment in the same geography but outside NordSyd."
+    },
+    "project_type": {
+      "type": "string",
+      "enum": ["greenfield", "brownfield", "ground_work", "mixed"],
+      "description": "greenfield = entirely new station on a new site. brownfield = reconstruction or expansion of an existing station. ground_work = preparation/site work (typically a precursor procurement). mixed = both ground_work and brownfield/greenfield bundled."
+    },
+    "voltage_levels": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "existing_kv": {"type": "array", "items": {"type": "integer"}, "description": "Voltage levels at the station before this project."},
+        "new_kv": {"type": "array", "items": {"type": "integer"}, "description": "Voltage levels at the station after this project completes."},
+        "decommissioned_kv": {"type": "array", "items": {"type": "integer"}, "description": "Voltage levels being removed by this project."},
+        "voltage_note": {"type": ["string", "null"]}
+      }
+    },
+    "scope_description": {"type": ["string", "null"], "description": "Brief English narrative of the station-level work scope."},
+    "equipment_scope": {
+      "type": "array",
+      "description": "List of equipment items in scope. Each item is one (equipment_type, voltage_kv, count_range) tuple. The source typically expresses counts as ranges (e.g. '6-8 pcs').",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["equipment_type"],
+        "properties": {
+          "equipment_type": {
+            "type": "string",
+            "enum": ["circuit_breaker", "transformer", "switchgear", "shunt_reactor", "phase_shifter", "other"]
+          },
+          "voltage_kv": {"type": ["integer", "null"], "description": "Equipment voltage rating (e.g. 145, 420, 36, 12). Null when not applicable (e.g. transformers crossing voltage levels)."},
+          "count_min": {"type": ["integer", "null"]},
+          "count_max": {"type": ["integer", "null"]},
+          "note": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "timeline": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "field_work_start_year": {"type": ["integer", "null"]},
+        "field_work_start_quarter": {"type": ["integer", "null"], "minimum": 1, "maximum": 4},
+        "commission_year": {"type": ["integer", "null"], "description": "Year the station enters operation (Gantt 'star' marker)."},
+        "commission_quarter": {"type": ["integer", "null"], "minimum": 1, "maximum": 4},
+        "procurement_start_date": {"type": ["string", "null"], "format": "date", "description": "Procurement announcement / RFP start date if explicitly stated. ISO date YYYY-MM-DD."},
+        "procurement_end_date": {"type": ["string", "null"], "format": "date"},
+        "construction_start_date": {"type": ["string", "null"], "format": "date"},
+        "construction_end_date": {"type": ["string", "null"], "format": "date"},
+        "timeline_note": {"type": ["string", "null"]}
+      }
+    },
+    "contract": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "value_band_msek": {
+          "type": ["string", "null"],
+          "enum": ["under_100", "between_100_and_200", "over_200", "over_500", null],
+          "description": "Contract value band as labeled on the source Gantt: <100 MSEK = under_100; 100-200 MSEK = between_100_and_200; >200 MSEK = over_200; >500 MSEK = over_500."
+        },
+        "estimated_value_msek": {"type": ["number", "null"], "description": "Explicit value if given (e.g. Repbäcken: >200)."},
+        "package_id": {"type": ["string", "null"], "description": "Procurement package identifier from the Gantt (e.g. '1', '2', '3', '4', or 'separate' for stand-alone procurements)."},
+        "currency": {"type": "string", "default": "SEK"},
+        "contract_note": {"type": ["string", "null"]}
+      }
+    },
+    "dependencies": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "svenska_kraftnat_dependency": {"type": "boolean", "default": false, "description": "True if the project depends on Svenska Kraftnät transmission-grid changes."},
+        "customer_agreement": {"type": ["string", "null"], "description": "Description of any customer connection agreement that drives this project."},
+        "related_program": {"type": ["string", "null"], "description": "Named TSO program this project belongs to (e.g. 'NordSyd')."},
+        "production_transfer_note": {"type": ["string", "null"], "description": "Notes on any production-asset transfer (e.g. 'Fortum T3 production transfer to Ellevio')."}
+      }
+    },
+    "lifecycle_phase": {
+      "type": "string",
+      "enum": ["conceptual", "permit_pending", "permitted", "construction", "in_service"],
+      "description": "Aligned with sql/draft/007_knowledge_base.sql grid_projects.lifecycle_phase. Mapping from the source's Swedish status labels: 'Utredningsfas' (investigation phase) maps to conceptual. 'Förstudie' (pre-study) and 'Förberedelsefas' (preparation phase) map to permit_pending. 'Nätplaneringsfas (avtal med Svk)' (grid-planning phase, agreement with Svk) maps to permit_pending. 'Projektfas' (project phase) maps to permitted. 'Construction' and 'in_service' apply once the Gantt shows field work started or commissioning passed."
+    },
+    "raw_status": {"type": ["string", "null"], "description": "Original Swedish status label from the source if explicitly stated (e.g. 'Nätplaneringsfas', 'Utredningsfas', 'Behöver inte vara med')."},
+    "narrative_note": {"type": ["string", "null"], "description": "Free-text English context that does not fit the structured fields."},
+    "source_doc_key": {"type": "string", "const": "ellevio_stationsentreprenader_mellansverige_2026q1"},
+    "source_page": {"type": "integer", "minimum": 1},
+    "extraction_method": {"type": "string", "const": "llm_extracted"},
+    "extraction_run_id": {"type": "string"},
+    "extraction_prompt_version": {"type": "string"},
+    "confidence_tier": {"type": "string", "enum": ["observed", "derived", "estimated", "narrative"]}
+  }
+}

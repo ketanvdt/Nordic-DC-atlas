@@ -1,0 +1,27 @@
+{
+  "macro_area_key": "vattenfall_stockholm",
+  "dso_operator": "Vattenfall Eldistribution",
+  "macro_area_name": "Stockholm",
+  "macro_area_short_name": "Stockholm",
+  "country": "SE",
+  "regions_or_counties": ["Stockholm region"],
+  "specific_locations_mentioned": [],
+  "voltage_levels": {
+    "regional_grid_kv": [70, 130],
+    "local_grid_kv": [],
+    "voltage_note": "Transmission grid voltage is being raised from 220 to 400 kV. The regional grid currently at 70 kV will be replaced over time by a 130 kV grid — significantly increased transfer capacity."
+  },
+  "local_grid_outlook": "Characterized by an increase in the number of customers and, over time, increased consumption. Connection of micro-production (primarily rooftop solar on single- and multi-family houses) has reduced peak demand on sunny summer days, but consumption need remains because this production does not follow the daily consumption pattern.",
+  "regional_grid_outlook": "The regional grid currently at 70 kV will be replaced over time by a 130 kV grid, significantly increasing transfer capacity in the regional grid.",
+  "transmission_grid_relations": "Rapid rebuilding of both transmission and regional grid is underway in Stockholm to handle increased consumption. Transmission grid voltage is being raised from 220 kV to 400 kV.",
+  "production_outlook": "Some dispatchable production in the form of CHP, but a large deficit of dispatchable production connected to local and regional grid means that a large share of capacity demand must be supplied from the transmission grid.",
+  "consumption_outlook": "Increased consumption is the driver for transmission and regional grid rebuilding. Customer count is growing over time.",
+  "relevant_transmission_programs": [],
+  "narrative_note": "Vattenfall Eldistribution's Stockholm area overlaps geographically with Ellevio's subareas 7 (Stockholm) and 8 (Lidingö). Vattenfall is the upstream grid owner for several of Ellevio's interconnection points (Älvsjö, Järva, Koltorp, Kyrkviken, Högberga). Cell mapping must handle the overlap.",
+  "source_doc_key": "vattenfall_eldistribution_nup_2025_2034",
+  "source_page": 5,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-vattenfall-eldist-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

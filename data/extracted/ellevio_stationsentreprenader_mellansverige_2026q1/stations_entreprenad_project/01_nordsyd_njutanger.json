@@ -1,0 +1,51 @@
+{
+  "project_key": "ellevio_nordsyd_njutanger",
+  "project_name": "Njutånger",
+  "station_name": "Njutånger",
+  "subproject_grouping": "Östra Hälsingland",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "greenfield",
+  "voltage_levels": {
+    "existing_kv": [],
+    "new_kv": [],
+    "decommissioned_kv": [],
+    "voltage_note": "New transmission substation in Östra Hälsingland; voltage classes not separately enumerated in the procurement Gantt. Likely 220/400 kV given its role replacing the decommissioned 220 kV stations Ljusdal/Dönje/Söderala."
+  },
+  "scope_description": "New transmission substation as part of the Östra Hälsingland reorganization (decommissioning of 220 kV at Ljusdal, Dönje, Söderala in favor of a new transmission node at Njutånger).",
+  "equipment_scope": [],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2027,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": "Commission marker visible on the Gantt around 2027. Listed as 'separate' package — flagged as 'Behöver inte vara med' (does not need to be included in this Q1-2026 procurement round)."
+  },
+  "contract": {
+    "value_band_msek": null,
+    "estimated_value_msek": null,
+    "package_id": "separate",
+    "currency": "SEK",
+    "contract_note": "Listed as separate package. Source flag 'Behöver inte vara med' indicates not part of this procurement round."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd",
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "permit_pending",
+  "raw_status": "Behöver inte vara med",
+  "narrative_note": "Njutånger is the new transmission substation that replaces the decommissioned 220 kV nodes at Ljusdal, Dönje, and Söderala under the Östra Hälsingland reorganization (slide 7).",
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 20,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

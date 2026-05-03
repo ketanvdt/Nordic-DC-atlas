@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "svk_snitt_capacity_target",
+  "title": "Svenska Kraftnät NUP — transmission cross-section (snitt) capacity target",
+  "description": "One record per directional transmission cross-section in the Swedish grid. Captures current allocated trade capacity and Svenska Kraftnät's target levels for 2030/2035/2040/2045 per Tabell 3 in NUP §4.2. The 'snitt' concept partitions the grid where bottlenecks limit transfer between bidding zones; targets here drive Pillar 1 (existing transmission baseline) and Pillar 2 (transmission development over time) at the highest aggregation level. Used as one input to the buildability gate at the bidding-zone scope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "snitt_key", "snitt_label", "from_zone", "to_zone", "country",
+    "current_capacity_mw", "current_capacity_period", "targets",
+    "source_doc_key", "source_page", "extraction_method",
+    "extraction_run_id", "extraction_prompt_version", "confidence_tier"
+  ],
+  "properties": {
+    "snitt_key": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$", "description": "Stable snake_case key. Format: <from_zone_lower>_to_<to_zone_lower>. Example: se1_to_se2."},
+    "snitt_label": {"type": "string", "description": "Human-readable label, e.g. 'SE1 to SE2'."},
+    "from_zone": {"type": "string", "enum": ["SE1", "SE2", "SE3", "SE4"], "description": "Source bidding zone."},
+    "to_zone": {"type": "string", "enum": ["SE1", "SE2", "SE3", "SE4"], "description": "Destination bidding zone."},
+    "country": {"type": "string", "enum": ["SE"]},
+    "current_capacity_mw": {"type": "number", "description": "Maximum allocated trade capacity in MW for the most recent reported period."},
+    "current_capacity_period": {"type": "string", "description": "Period the current_capacity_mw refers to (e.g. '2021-2023')."},
+    "targets": {
+      "type": "array",
+      "description": "Capacity targets at future milestones. Source NUP §4.2 reports for 2030, 2035, 2040, 2045.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["target_year", "capacity_mw"],
+        "properties": {
+          "target_year": {"type": "integer", "minimum": 2025},
+          "capacity_mw": {"type": "number"}
+        }
+      }
+    },
+    "narrative_note": {"type": ["string", "null"], "description": "Free-text English narrative for context (which Svk programs drive these targets, e.g. 'NordSyd reinforces snitt 2')."},
+    "source_doc_key": {"type": "string", "const": "svk_nup_2026_2035"},
+    "source_page": {"type": "integer", "minimum": 1},
+    "extraction_method": {"type": "string", "const": "llm_extracted"},
+    "extraction_run_id": {"type": "string"},
+    "extraction_prompt_version": {"type": "string"},
+    "confidence_tier": {"type": "string", "enum": ["observed", "derived", "estimated", "narrative"]}
+  }
+}

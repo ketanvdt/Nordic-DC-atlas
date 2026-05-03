@@ -1,0 +1,53 @@
+{
+  "project_key": "ellevio_nordsyd_bolle",
+  "project_name": "Bolle",
+  "station_name": "Bolle",
+  "subproject_grouping": "Östra Hälsingland (Bollnästriangeln)",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "greenfield",
+  "voltage_levels": {
+    "existing_kv": [],
+    "new_kv": [130],
+    "decommissioned_kv": [],
+    "voltage_note": "New greenfield 130 kV substation per slide 7 — listed as new substation in Östra Hälsingland scope."
+  },
+  "scope_description": "New 130 kV substation. Part of the Bollnästriangeln greenfield cluster.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 4, "count_max": 6, "note": null}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2030,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": "Commission marker visible on the Gantt around 2029-2030."
+  },
+  "contract": {
+    "value_band_msek": "over_200",
+    "estimated_value_msek": null,
+    "package_id": "2",
+    "currency": "SEK",
+    "contract_note": "Package 2 (>200 MSEK), bundled with Simessjön, Brändarna, and Prästnäset."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd",
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "permit_pending",
+  "raw_status": "Pågående prekval",
+  "narrative_note": "Slide 20 Gantt shows Bolle as 'Brownfield', but slide 7 (Östra Hälsingland Stationer list) classifies Bolle among greenfield stations. Treating as greenfield per the upstream slide; flag for validation.",
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 18,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "estimated"
+}

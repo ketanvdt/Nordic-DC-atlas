@@ -1,0 +1,24 @@
+{
+  "subarea_key": "ellevio_tovasen",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Tovåsen",
+  "subarea_number": 17,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Ljusdal", "municipality_code_scb": null, "concession_type": "line_concession_only", "partial": true, "note": "Primarily a production cluster. Ellevio holds line concession for the 130 kV lines; the network also serves Härjeåns elnät, which holds the area concession in the area."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [130], "local_grid_kv": []},
+  "interconnection_points": [
+    {"station_name": "Tovåsen", "upstream_owner": "Svenska Kraftnät", "voltage_kv": null, "role": "injection", "aggregate_count": null, "note": "Transmission substation; Ellevio has one interconnection point to Svenska Kraftnät."}
+  ],
+  "consumption": null,
+  "production_installed": [{"type": "wind", "installed_mw": 650, "note": "Currently approximately 650 MW of wind power is connected to the transmission grid via 130 kV lines and the Tovåsen transmission substation."}],
+  "neighboring_dsos": ["Härjeåns elnät"],
+  "narrative_note": "Primarily a production cluster in Ljusdal municipality, but the network also serves Härjeåns elnät, which holds the area concession in the area. Tovåsen was connected to the original network around Laforsen in 2022 and is interconnected with the Laforsen transmission substation via the regional grid.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 15,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

@@ -1,0 +1,30 @@
+project_key,project_name,station_name,subproject_grouping,program,project_type,existing_kv,new_kv,decommissioned_kv,commission_year,commission_quarter,value_band_msek,package_id,equipment_summary,lifecycle_phase,raw_status,svk_dependency,customer_agreement,source_page,confidence_tier
+ellevio_nordsyd_njutanger,Njutånger,Njutånger,Östra Hälsingland,nordsyd,greenfield,,,,,2027,,,,separate,,permit_pending,Behöver inte vara med,true,,20,observed
+ellevio_nordsyd_gronviken,Grönviken,Grönviken,Ockelbo,nordsyd,mixed,400,400;130,,2028,,between_100_and_200,separate,420kV CB(2);145kV CB(10-12),construction,Anslutningsavtal med kund,true,Customer in Grönviken — immediate start,9,observed
+ellevio_nordsyd_ockelbo,Ockelbo,Ockelbo,Ockelbo,nordsyd,mixed,220,130,220,2028,,under_100,separate,145kV CB(6-8);transformer(2-3),permit_pending,projektfas,true,,9,observed
+ellevio_nordsyd_laforsen,Laforsen,Laforsen,Laforsen,nordsyd,brownfield,220;130,130,220,2028,,over_200,1,145kV CB(6-8),permit_pending,projektfas,true,,11,observed
+ellevio_nordsyd_enan,Enån,Enån,Laforsen,nordsyd,greenfield,,400;130,,2028,,over_200,1,420kV CB(4);145kV CB(6-8),permit_pending,projektfas,true,,11,observed
+ellevio_nordsyd_simessjon,Simessjön,Simessjön,Östra Hälsingland (Bollnästriangeln),nordsyd,greenfield,,130,,2028,,over_200,2,145kV CB(4-6),permit_pending,Pågående prekval,true,,18,observed
+ellevio_nordsyd_branderna,Brändarna,Brändarna,Östra Hälsingland (Bollnästriangeln),nordsyd,greenfield,,10,,2028,,over_200,2,12kV switchgear,permit_pending,Pågående prekval,true,,18,observed
+ellevio_nordsyd_prastnaset,Prästnäset,Prästnäset,Östra Hälsingland (Bollnästriangeln),nordsyd,greenfield,,130;70;10,,2029,,over_200,2,145kV CB(6-8);72kV CB(2);transformer(3);12kV switchgear,permit_pending,Pågående prekval,true,,18,observed
+ellevio_nordsyd_bolle,Bolle,Bolle,Östra Hälsingland (Bollnästriangeln),nordsyd,greenfield,,130,,2030,,over_200,2,145kV CB(4-6),permit_pending,Pågående prekval,true,,18,estimated
+ellevio_nordsyd_soderala,Söderala,Söderala,Östra Hälsingland,nordsyd,brownfield,220,130,220,2029,,under_100,3,145kV CB(4-6),permit_pending,,true,,20,observed
+ellevio_nordsyd_norrange,Norränge,Norränge,Östra Hälsingland,nordsyd,brownfield,,130,,2029,,under_100,3,145kV CB(2-4),permit_pending,,true,,20,observed
+ellevio_nordsyd_savsberg,Sävsberg,Sävsberg,Östra Hälsingland,nordsyd,brownfield,,70,,2030,,under_100,3,145kV CB(1-2),permit_pending,,true,,20,estimated
+ellevio_nordsyd_untra,Untra,Untra,Untra,nordsyd,brownfield,220,130,220,2031,,under_100,separate,145kV CB(2-4),permit_pending,,true,,13,observed
+ellevio_nordsyd_lindbacka,Lindbacka,Lindbacka,Lindbacka-Karlslund,nordsyd,brownfield,400;220;130;40,400;130;40,220,2031,,over_500,4,145kV CB(15-20);shunt reactor(1);transformer(2);52kV CB(2-4),conceptual,Teknisk lösning ej klar,true,,14,observed
+ellevio_nordsyd_karlslund,Karlslund,Karlslund,Lindbacka-Karlslund,nordsyd,brownfield,400;220,400;130,220,2031,,over_500,4,420kV CB(2);145kV CB(2-4),permit_pending,,true,,14,observed
+ellevio_nordsyd_nya_borgvik,Nya Borgvik,Nya Borgvik,Karlstad benet,nordsyd,greenfield,,400,,2035,,,,,conceptual,Utredningsfas,true,,15,observed
+ellevio_customer_tovasen,Tovåsen,Tovåsen,,customer_driven,brownfield,130,130,,2028,,,,145kV CB(6-12),permit_pending,,false,Customer connection,22,observed
+ellevio_customer_alby,Alby,Alby,,customer_driven,greenfield,,130,,2029,,,,145kV CB(6-12),permit_pending,,false,Customer connection,22,observed
+ellevio_supplementary_brattstrommen,Brattströmmen,Brattströmmen,,supplementary,greenfield,,130;70,,2028,,over_200,separate,145kV CB(2-4);transformer(2);72kV CB(8-10),permit_pending,,false,,21,observed
+ellevio_supplementary_repbacken,Repbäcken,Repbäcken,,supplementary,brownfield,400;130,400;130,,2030,2,over_200,separate,145kV CB(15-20);shunt reactor(1),permitted,Kommande annons,true,,19,observed
+ellevio_supplementary_ulvsby,Ulvsby,Ulvsby,,supplementary,brownfield,,36,,2028,,under_100,separate,36kV CB(6-8);transformer(2),permit_pending,,false,,21,observed
+ellevio_supplementary_grava,Grava,Grava,,supplementary,brownfield,,36;12,,2028,,under_100,separate,36kV CB(6-8);transformer(2);12kV switchgear,permit_pending,,false,,21,observed
+ellevio_supplementary_vase,Väse,Väse,,supplementary,brownfield,,130,,2028,,under_100,separate,145kV CB(8-10);transformer(2);phase shifter(1),permit_pending,,false,,21,observed
+ellevio_supplementary_broby,Broby,Broby,Broby-Kvarnberg,supplementary,greenfield,,130;36,,2027,,under_100,separate,145kV CB(1-2);transformer(1);36kV switchgear,permit_pending,,false,,21,observed
+ellevio_supplementary_kvarnberg,Kvarnberg,Kvarnberg,Broby-Kvarnberg,supplementary,brownfield,,130,,2027,,under_100,separate,145kV CB(2-4),permit_pending,,false,,21,observed
+ellevio_supplementary_hogaberg,Högaberg,Högaberg,,supplementary,brownfield,,130,,2029,,under_100,separate,145kV CB(4-6),permit_pending,,false,,21,observed
+ellevio_supplementary_sarna,Särna,Särna,,supplementary,brownfield,,70;24,,2028,,under_100,separate,72kV CB(4-6);transformer(2-3);24kV switchgear,permit_pending,,false,,21,observed
+ellevio_supplementary_lomsmyren,Lomsmyren,Lomsmyren,,supplementary,brownfield,,70;10,,2030,,under_100,separate,72kV CB(6-8);transformer(2-3);12kV switchgear,permit_pending,,false,,21,observed
+ellevio_supplementary_soderfors,Söderfors,Söderfors,,supplementary,brownfield,,130,,2029,,under_100,separate,145kV CB(3-5),permit_pending,,false,,21,observed

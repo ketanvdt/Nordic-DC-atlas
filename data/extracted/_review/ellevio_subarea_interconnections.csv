@@ -1,0 +1,45 @@
+subarea_key,subarea_name,station_name,upstream_owner,voltage_kv,role,aggregate_count,note,source_page
+ellevio_halland,Halland,Lindome,Vattenfall Eldistribution,,supply,,"Transmission substation. Vattenfall Eldistribution in turn has a subscription against Svenska Kraftnät.",7
+ellevio_halland,Halland,Lahall,Vattenfall Eldistribution,,supply,,"Transmission-grid supply via Vattenfall Eldistribution.",7
+ellevio_orust_tjorn,Orust-Tjörn,Horleby,Vattenfall Eldistribution,130,supply,,"Supply from Vattenfall's 130 kV grid.",7
+ellevio_orust_tjorn,Orust-Tjörn,Ängås,Vattenfall Eldistribution,130,supply,,"Supply from Vattenfall's 130 kV grid.",7
+ellevio_norra_bohuslan,Norra Bohuslän,Hjälmstad,Vattenfall Eldistribution,130,supply,,"Interconnection point for Ellevio's 40 kV grid against the upstream 130 kV grid.",8
+ellevio_norra_bohuslan,Norra Bohuslän,Tanum,Vattenfall Eldistribution,130,supply,,"Interconnection point for Ellevio's 40 kV grid.",8
+ellevio_norra_bohuslan,Norra Bohuslän,Kville,Vattenfall Eldistribution,130,supply,,"Interconnection point for Ellevio's 40 kV grid.",8
+ellevio_norra_bohuslan,Norra Bohuslän,Tolvmanstegen,Vattenfall Eldistribution,130,injection,,"Interconnection point for injection.",8
+ellevio_norra_bohuslan,Norra Bohuslän,Bramseröd,Vattenfall Eldistribution,130,injection,,"Interconnection point for injection.",8
+ellevio_skaraborg,Skaraborg,Moholm,Vattenfall Eldistribution,,supply,,"Transmission substation; Vattenfall in turn has interconnection points to Svenska Kraftnät.",8
+ellevio_skaraborg,Skaraborg,Timmersdala,Vattenfall Eldistribution,,supply,,"Transmission substation; Vattenfall in turn has interconnection points to Svenska Kraftnät.",8
+ellevio_nynashamn,Nynäshamn,Ösmo,Vattenfall Eldistribution,,supply,,"Interconnection point to upstream regional grid.",9
+ellevio_nynashamn,Nynäshamn,Kvarnängen,Vattenfall Eldistribution,,supply,,"Interconnection point to upstream regional grid.",9
+ellevio_ekero,Ekerö,Sånga,Vattenfall Eldistribution,,supply,,"Interconnection point to upstream regional grid.",9
+ellevio_ekero,Ekerö,Älvnäs,Vattenfall Eldistribution,,supply,,"Interconnection point to upstream regional grid.",9
+ellevio_stockholm,Stockholm,,Svenska Kraftnät,220,supply,5,"Five interconnection points to Svenska Kraftnät at 220 kV; station names not enumerated in the source.",10
+ellevio_stockholm,Stockholm,Älvsjö,Vattenfall Eldistribution,,supply,,,10
+ellevio_stockholm,Stockholm,Järva,Vattenfall Eldistribution,,supply,,,10
+ellevio_stockholm,Stockholm,Koltorp,Vattenfall Eldistribution,,supply,,,10
+ellevio_stockholm,Stockholm,Skanstull,Nacka Energi,,both,,"Interconnection point to neighboring local-grid operator.",10
+ellevio_lidingo,Lidingö,Kyrkviken,Vattenfall Eldistribution,,supply,,"Interconnection point to upstream regional grid.",10
+ellevio_lidingo,Lidingö,Högberga,Vattenfall Eldistribution,,supply,,"Interconnection point to upstream regional grid.",10
+ellevio_lidingo,Lidingö,Koltorp,Vattenfall Eldistribution,220,supply,,"Line concession for 220 kV cables to Koltorp.",10
+ellevio_taby,Täby,Ensta/Myrängen,Vattenfall Eldistribution,,supply,,"Interconnection point feeding the local grid from upstream.",11
+ellevio_taby,Täby,Tibble,Vattenfall Eldistribution,,supply,,"Interconnection point feeding the local grid.",11
+ellevio_taby,Täby,Arninge,Vattenfall Eldistribution,,supply,,"Interconnection point feeding the local grid.",11
+ellevio_taby,Täby,,Vattenfall Eldistribution,,supply,1,"An additional interconnection point is planned within approximately two years; name not stated.",11
+ellevio_vallentuna,Vallentuna,Vallentuna,Vattenfall Eldistribution,,supply,,"Interconnection point to upstream regional grid.",11
+ellevio_vallentuna,Vallentuna,Mörby,Vattenfall Eldistribution,,supply,,"Interconnection point to upstream regional grid.",11
+ellevio_varmland,Värmland,Borgvik,Vattenfall Eldistribution,,supply,,"Transmission substation; Vattenfall is the upstream grid owner.",12
+ellevio_varmland,Värmland,Lindbacka,Svenska Kraftnät,,supply,,"Transmission substation; Ellevio connects directly to the transmission grid via Lindbacka.",12
+ellevio_dalarna,Dalarna,Repbäcken,Svenska Kraftnät,,supply,,"Interconnection point to the transmission grid, located outside Borlänge.",12
+ellevio_dalarna,Dalarna,Horndal,Svenska Kraftnät,,supply,,"Interconnection point to the transmission grid (from the east).",12
+ellevio_dalarna,Dalarna,Stackbo,Svenska Kraftnät,,supply,,"Interconnection point to the transmission grid (from the east).",12
+ellevio_halsingland,Hälsingland,Ljusdal,Svenska Kraftnät,220,supply,,"Connected to Svenska Kraftnät's 220 kV grid; part of the meshed regional grid.",13
+ellevio_halsingland,Hälsingland,Dönje,Svenska Kraftnät,220,supply,,"Connected to Svenska Kraftnät's 220 kV grid; part of the meshed regional grid.",13
+ellevio_halsingland,Hälsingland,Söderala,Svenska Kraftnät,220,supply,,"Connected to Svenska Kraftnät's 220 kV grid; part of the meshed regional grid.",13
+ellevio_halsingland,Hälsingland,Ockelbo,Svenska Kraftnät,220,supply,,"Connected to Svenska Kraftnät's 220 kV grid; part of the meshed regional grid.",13
+ellevio_halsingland,Hälsingland,Grönviken,Svenska Kraftnät,,injection,,"400/130 kV station that today connects only wind power injected into the transmission grid.",13
+ellevio_halsingland,Hälsingland,Sandbäcken,E.ON,130,supply,,"Interconnection point to E.ON's 130 kV grid.",13
+ellevio_torpberget,Torpberget,Torpberget,Svenska Kraftnät,,injection,,"Transmission substation; Ellevio has one interconnection point to Svenska Kraftnät.",13
+ellevio_olingan,Olingan,Olingan,Svenska Kraftnät,,injection,,"Transmission substation; Ellevio has one interconnection point to Svenska Kraftnät.",14
+ellevio_laforsen,Laforsen,Laforsen,Svenska Kraftnät,220,both,,"Ellevio has an interconnection point to Svenska Kraftnät at 220 kV. Affected by Svenska Kraftnät's NordSyd program — 220 kV is being decommissioned and replaced by a new 400 kV supply.",14
+ellevio_tovasen,Tovåsen,Tovåsen,Svenska Kraftnät,,injection,,"Transmission substation; Ellevio has one interconnection point to Svenska Kraftnät.",15

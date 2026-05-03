@@ -1,0 +1,34 @@
+{
+  "subarea_key": "ellevio_dalarna",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Dalarna",
+  "subarea_number": 12,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Gagnef", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio owns the local grid."},
+    {"municipality_name": "Mora", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio owns the local grid."},
+    {"municipality_name": "Orsa", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio owns the local grid."},
+    {"municipality_name": "Vansbro", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio owns the local grid."},
+    {"municipality_name": "Älvdalen", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio owns the local grid."},
+    {"municipality_name": "Ludvika", "municipality_code_scb": null, "concession_type": "area_concession_partial", "partial": true, "note": "Ellevio owns the local grid in parts of Ludvika."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [130, 50], "local_grid_kv": [10, 20]},
+  "interconnection_points": [
+    {"station_name": "Repbäcken", "upstream_owner": "Svenska Kraftnät", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point to the transmission grid, located outside Borlänge."},
+    {"station_name": "Horndal", "upstream_owner": "Svenska Kraftnät", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point to the transmission grid (from the east)."},
+    {"station_name": "Stackbo", "upstream_owner": "Svenska Kraftnät", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point to the transmission grid (from the east)."}
+  ],
+  "consumption": {"peak_load_mw": 800, "peak_load_basis": "today_estimate", "composition_note": "Power and voltage levels in the subarea vary considerably depending on current consumption, production, and transmission-grid flows."},
+  "production_installed": [
+    {"type": "hydro", "installed_mw": 800, "note": null},
+    {"type": "wind", "installed_mw": 100, "note": "Just over 100 MW spread across a large geographic area."}
+  ],
+  "neighboring_dsos": ["Malung-Sälens Elnät", "Dala Energi Elnät", "Falu Elnät", "Västerbergslagens Elnät", "Borlänge Energi Elnät", "Hedemora Elnät"],
+  "narrative_note": "Subarea covers Dalarna county but extends slightly outside the county borders via a line corridor going east into Uppsala and Gävleborg counties. Regional grid is a meshed 130 kV grid with an underlying 50 kV grid. In the remaining municipalities (outside Gagnef/Mora/Orsa/Vansbro/Älvdalen/parts of Ludvika), other DSOs own the local grid and connect to Ellevio's regional grid at interconnection points. Those municipalities are not explicitly listed in the source.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 12,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

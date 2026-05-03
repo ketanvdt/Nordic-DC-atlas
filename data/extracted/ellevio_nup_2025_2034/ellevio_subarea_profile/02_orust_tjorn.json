@@ -1,0 +1,28 @@
+{
+  "subarea_key": "ellevio_orust_tjorn",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Orust-Tjörn",
+  "subarea_number": 2,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Orust", "municipality_code_scb": null, "concession_type": "area_concession_shared", "partial": false, "note": "Ellevio holds the area concession in the entire subarea jointly with Västra Orust Elförening."},
+    {"municipality_name": "Tjörn", "municipality_code_scb": null, "concession_type": "area_concession_shared", "partial": false, "note": "Ellevio holds the area concession in the entire subarea jointly with Västra Orust Elförening."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [40], "local_grid_kv": [10]},
+  "interconnection_points": [
+    {"station_name": "Horleby", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": 130, "role": "supply", "aggregate_count": null, "note": "Supply from Vattenfall's 130 kV grid."},
+    {"station_name": "Ängås", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": 130, "role": "supply", "aggregate_count": null, "note": "Supply from Vattenfall's 130 kV grid."}
+  ],
+  "consumption": {"peak_load_mw": 90, "peak_load_basis": "today_estimate", "composition_note": "Primarily residential and small commercial load; reaches approximately 90 MW at peak hour today."},
+  "production_installed": [
+    {"type": "solar_distributed", "installed_mw": 28, "note": "Distributed solar (rooftop/small)."}
+  ],
+  "neighboring_dsos": ["Västra Orust Elförening"],
+  "narrative_note": "Currently essentially all production is consumed within Ellevio's grid, so there is no injection subscription against Vattenfall's grid.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 7,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

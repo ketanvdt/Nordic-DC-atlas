@@ -1,0 +1,56 @@
+{
+  "project_key": "ellevio_nordsyd_lindbacka",
+  "project_name": "Lindbacka",
+  "station_name": "Lindbacka",
+  "subproject_grouping": "Lindbacka-Karlslund",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "brownfield",
+  "voltage_levels": {
+    "existing_kv": [400, 220, 130, 40],
+    "new_kv": [400, 130, 40],
+    "decommissioned_kv": [220],
+    "voltage_note": "220 kV razed at Lindbacka. Complete rebuild of 130/40 kV at new or existing site under planning. Svenska Kraftnät builds entirely new 400 kV at Lindbacka."
+  },
+  "scope_description": "Complete rebuild of Lindbacka 130/40 kV at new or existing site (network planning ongoing). 220 kV decommissioning at Lindbacka. Ellevio split in three phases: reactor at Lindbacka, rebuild of Karlslund, rebuild of Lindbacka.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 15, "count_max": 20, "note": null},
+    {"equipment_type": "shunt_reactor", "voltage_kv": null, "count_min": 1, "count_max": 1, "note": null},
+    {"equipment_type": "transformer", "voltage_kv": null, "count_min": 2, "count_max": 2, "note": "Transformer ratings per slide 14: T3 = 220/130 kV, 470 MVA (existing); T6 = 400/130 kV, 500 MVA."},
+    {"equipment_type": "circuit_breaker", "voltage_kv": 52, "count_min": 2, "count_max": 4, "note": null}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2031,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": null
+  },
+  "contract": {
+    "value_band_msek": "over_500",
+    "estimated_value_msek": null,
+    "package_id": "4",
+    "currency": "SEK",
+    "contract_note": "Package 4 (>500 MSEK), bundled with Karlslund."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd",
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "conceptual",
+  "raw_status": "Teknisk lösning ej klar",
+  "narrative_note": "Source explicitly notes 'Teknisk lösning ej klar' (technical solution not yet clear) for Lindbacka-Karlslund. Located in Örebro municipality.",
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 14,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

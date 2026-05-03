@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "svk_villkorad_connection_agreement",
+  "title": "Svenska Kraftnät NUP — conditional connection agreement (villkorad anslutningsavtal) mechanism",
+  "description": "One record per published mechanism / rule that allows transmission-grid connections to be granted earlier than the underlying grid reinforcement timeline. Per NUP §4.4.2. The mechanism is a temporary measure ('tillfällig åtgärd') — the connecting party accepts conditions including curtailment ('nedstyrning') under specified operating conditions in exchange for an earlier in-service date. For the cell-feasibility model, this mechanism relaxes the buildability gate: a node where the queue is closed against firm capacity may still be 'open' for actors willing to accept conditional terms.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mechanism_key", "mechanism_name", "operator", "country", "applicability_period_start_year",
+    "selection_criteria", "implementation_phase", "source_doc_key", "source_page",
+    "extraction_method", "extraction_run_id", "extraction_prompt_version", "confidence_tier"
+  ],
+  "properties": {
+    "mechanism_key": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "mechanism_name": {"type": "string", "description": "Display name."},
+    "operator": {"type": "string", "enum": ["Svenska Kraftnät"]},
+    "country": {"type": "string", "enum": ["SE"]},
+    "applicability_period_start_year": {"type": "integer", "description": "First year the mechanism is applicable to new connections."},
+    "applicability_period_end_year": {"type": ["integer", "null"], "description": "Last year of applicability for the priority window. Source uses 'närtid (2026-2030)'."},
+    "scope": {
+      "type": "string",
+      "enum": ["national", "snitt", "region", "station"],
+      "description": "Geographic scope at which the mechanism is granted. National per §4.4.2 — applies wherever Svenska Kraftnät identifies suitable opportunities."
+    },
+    "implementation_phase": {
+      "type": "string",
+      "enum": ["proposed", "limited_pilot", "full_implementation"],
+      "description": "Where the mechanism stands in deployment. Per §4.4.2 source: starts with limited scope ('begränsad omfattning'), evaluated for broader implementation later."
+    },
+    "selection_criteria": {
+      "type": "array",
+      "description": "Criteria the source explicitly states for selecting which queue applicants get a conditional agreement.",
+      "items": {"type": "string"}
+    },
+    "stated_benefits": {
+      "type": "array",
+      "description": "Benefits the source explicitly states.",
+      "items": {"type": "string"}
+    },
+    "stated_constraints": {
+      "type": "array",
+      "description": "Constraints / conditions on the connecting party that the source explicitly states.",
+      "items": {"type": "string"}
+    },
+    "expected_in_service_acceleration_years": {"type": ["integer", "null"], "description": "Source states the mechanism should bring in-service date forward by at least this many years to be relevant for selection."},
+    "narrative_note": {"type": ["string", "null"]},
+    "source_doc_key": {"type": "string", "const": "svk_nup_2026_2035"},
+    "source_page": {"type": "integer", "minimum": 1},
+    "extraction_method": {"type": "string", "const": "llm_extracted"},
+    "extraction_run_id": {"type": "string"},
+    "extraction_prompt_version": {"type": "string"},
+    "confidence_tier": {"type": "string", "enum": ["observed", "derived", "estimated", "narrative"]}
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "snitt_key": "se3_to_se4",
+  "snitt_label": "SE3 to SE4",
+  "from_zone": "SE3",
+  "to_zone": "SE4",
+  "country": "SE",
+  "current_capacity_mw": 5600,
+  "current_capacity_period": "2021-2023",
+  "targets": [
+    {"target_year": 2030, "capacity_mw": 6200},
+    {"target_year": 2035, "capacity_mw": 6200},
+    {"target_year": 2040, "capacity_mw": 6200},
+    {"target_year": 2045, "capacity_mw": 6200}
+  ],
+  "narrative_note": "Southbound across snitt 4 (between SE3 and SE4 — the southernmost snitt). The last reinforcement step here was tied to the SydVästlänken HVDC commissioning in 2021 (per NUP §4.6.1.3). Future reinvestments planned in southwest Sweden — Halland and Västra Götaland — drive maintenance more than capacity expansion.",
+  "source_doc_key": "svk_nup_2026_2035",
+  "source_page": 29,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-svk-nup-4.4-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

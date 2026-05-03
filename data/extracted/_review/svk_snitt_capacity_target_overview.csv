@@ -1,0 +1,7 @@
+snitt_key,snitt_label,from_zone,to_zone,current_capacity_mw,current_period,target_2030_mw,target_2035_mw,target_2040_mw,target_2045_mw,growth_2045_vs_current_pct,nordsyd_reinforced,source_page
+se1_to_se2,SE1 to SE2,SE1,SE2,3300,2021-2023,3300,3300,3700,4000,21.2,no,29
+se2_to_se1,SE2 to SE1,SE2,SE1,3300,2021-2023,3300,5500,6500,7500,127.3,no,29
+se2_to_se3,SE2 to SE3,SE2,SE3,7300,2021-2023,8100,9600,10500,10500,43.8,yes,29
+se3_to_se2,SE3 to SE2,SE3,SE2,7300,2021-2023,7300,7300,7300,7300,0.0,no,29
+se3_to_se4,SE3 to SE4,SE3,SE4,5600,2021-2023,6200,6200,6200,6200,10.7,no,29
+se4_to_se3,SE4 to SE3,SE4,SE3,2800,2021-2023,2800,3300,3500,3600,28.6,no,29

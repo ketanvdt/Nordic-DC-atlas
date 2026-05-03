@@ -1,0 +1,53 @@
+{
+  "project_key": "ellevio_nordsyd_savsberg",
+  "project_name": "Sävsberg",
+  "station_name": "Sävsberg",
+  "subproject_grouping": "Östra Hälsingland",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "brownfield",
+  "voltage_levels": {
+    "existing_kv": [],
+    "new_kv": [70],
+    "decommissioned_kv": [],
+    "voltage_note": "Brownfield rebuild at 70 kV per slide 7 Stationer list."
+  },
+  "scope_description": "Brownfield rebuild of Sävsberg at 70 kV. Part of the Östra Hälsingland reorganization.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 1, "count_max": 2, "note": "Source Gantt lists 145 kV breaker count even though slide 7 references 70 kV station; flag for validation."}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2030,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": null
+  },
+  "contract": {
+    "value_band_msek": "under_100",
+    "estimated_value_msek": null,
+    "package_id": "3",
+    "currency": "SEK",
+    "contract_note": "Package 3 (<100 MSEK), bundled with Söderala and Norränge."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd",
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "permit_pending",
+  "raw_status": null,
+  "narrative_note": "Inconsistency between slide 7 (Stationer list shows Sävsberg at 70 kV) and slide 20 Gantt (lists 145 kV breakers). Flagged in equipment_scope note.",
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 20,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "estimated"
+}

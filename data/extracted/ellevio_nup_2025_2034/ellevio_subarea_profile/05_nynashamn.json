@@ -1,0 +1,25 @@
+{
+  "subarea_key": "ellevio_nynashamn",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Nynäshamn",
+  "subarea_number": 5,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Nynäshamn", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio holds the area concession for the entire subarea."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [], "local_grid_kv": [24]},
+  "interconnection_points": [
+    {"station_name": "Ösmo", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point to upstream regional grid."},
+    {"station_name": "Kvarnängen", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point to upstream regional grid."}
+  ],
+  "consumption": {"peak_load_mw": 66, "peak_load_basis": "historic_max", "composition_note": "Majority residential and small commercial load, plus some industry and harbor activity."},
+  "production_installed": [{"type": "solar_distributed", "installed_mw": 12, "note": "Distributed solar (rooftop/small)."}],
+  "neighboring_dsos": [],
+  "narrative_note": "Subarea broadly follows the borders of Nynäshamn municipality. Local grid runs at voltages up to 24 kV.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 9,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

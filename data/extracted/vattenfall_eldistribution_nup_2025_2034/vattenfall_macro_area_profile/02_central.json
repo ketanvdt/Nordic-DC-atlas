@@ -1,0 +1,27 @@
+{
+  "macro_area_key": "vattenfall_central",
+  "dso_operator": "Vattenfall Eldistribution",
+  "macro_area_name": "Central Sweden (excluding Stockholm)",
+  "macro_area_short_name": "Central",
+  "country": "SE",
+  "regions_or_counties": ["Uppland", "Västmanland", "Södermanland", "southern Närke"],
+  "specific_locations_mentioned": [],
+  "voltage_levels": {
+    "regional_grid_kv": [70, 130, 40],
+    "local_grid_kv": [10, 20],
+    "voltage_note": "Local grid runs primarily at 10 kV and 20 kV; regional grid primarily at 130 kV and 40 kV. Exception: parts of Mälardalen, the Stockholm region, and Uppland where the regional grid for historical reasons runs at 70 kV and the local grid at 20 kV."
+  },
+  "local_grid_outlook": "Local grid that, with the exception of a number of larger cities, has weak consumption growth and large solar growth.",
+  "regional_grid_outlook": "Regional grid sees a large inflow of solar and electricity-intensive operations. This creates a relatively large need for investment in the regional grid, which must adapt to the new transmission-grid structure.",
+  "transmission_grid_relations": "The transmission grid is being rebuilt under Svenska Kraftnät's large NordSyd program, which enables growth of electricity-intensive industry but also creates a relatively large investment need in the regional grid.",
+  "production_outlook": "Dispatchable production in the form of CHP in several larger cities. Dispatchable production does not match consumption need in winter. In the northwestern and northern parts there is at times a production surplus from a large amount of wind power connected to the regional grid.",
+  "consumption_outlook": "Growth of electricity-intensive industry (driver for regional-grid investment). Otherwise: weak consumption growth except in larger cities.",
+  "relevant_transmission_programs": ["NordSyd"],
+  "narrative_note": "Source publishes this area as 'Mellersta Sverige (exklusive Stockholm)' (short label 'Mellan' on maps).",
+  "source_doc_key": "vattenfall_eldistribution_nup_2025_2034",
+  "source_page": 5,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-vattenfall-eldist-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

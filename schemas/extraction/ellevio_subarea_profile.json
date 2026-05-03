@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ellevio_subarea_profile",
+  "title": "Ellevio NUP §1.2 subarea profile",
+  "description": "One record per subarea in Ellevio's grid development plan §1.2. Captures the municipality list with Ellevio's role per municipality, voltage levels, interconnection points to upstream networks, peak load, and installed production. Used to derive (a) DSO-to-municipality mapping for cell linkage and (b) subarea-level pillar 1/3/4 attributes.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "subarea_key",
+    "dso_operator",
+    "subarea_name",
+    "country",
+    "municipalities",
+    "source_doc_key",
+    "source_page",
+    "extraction_method",
+    "extraction_run_id",
+    "extraction_prompt_version",
+    "confidence_tier"
+  ],
+  "properties": {
+    "subarea_key": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "description": "Stable snake_case ASCII key. Format: <dso_short>_<name_normalized>. Examples: ellevio_halland, ellevio_orust_tjorn, ellevio_norra_bohuslan."
+    },
+    "dso_operator": {"type": "string", "enum": ["Ellevio", "Vattenfall Eldistribution"]},
+    "subarea_name": {"type": "string", "description": "Subarea name as printed in the source. Source-published name preserved (Swedish proper nouns)."},
+    "subarea_number": {"type": ["integer", "null"], "description": "DSO's own subarea numbering (Ellevio numbers them 1-17)."},
+    "country": {"type": "string", "enum": ["SE", "NO", "FI"]},
+    "municipalities": {
+      "type": "array",
+      "description": "Municipalities explicitly named in the source profile, with the DSO's relationship to each. Unnamed municipalities are NOT inferred — leave them out, even if geographically plausible. Cell linkage will combine this with cross-source data.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["municipality_name", "concession_type"],
+        "properties": {
+          "municipality_name": {"type": "string", "description": "Original Swedish spelling preserved (e.g. 'Mölndal', 'Älvdalen')."},
+          "municipality_code_scb": {"type": ["string", "null"], "description": "SCB municipality code (4-digit string, e.g. '0180' for Stockholm). Null until resolved by downstream resolver against an SCB lookup."},
+          "concession_type": {
+            "type": "string",
+            "enum": ["area_concession_full", "area_concession_partial", "area_concession_shared", "regional_grid_only", "line_concession_only", "excluded", "neighbor", "unknown"],
+            "description": "DSO's relationship to this municipality within this subarea. area_concession_full = sole holder of the area concession. area_concession_partial = covers parts of the municipality. area_concession_shared = DSO and other DSOs hold area concession in different parts. regional_grid_only = DSO operates regional grid; another DSO holds local-grid area concession. line_concession_only = DSO holds only line concession for specific lines. excluded = municipality named as explicitly NOT in DSO's coverage in this subarea. neighbor = named for context only (border, etc.)."
+          },
+          "partial": {"type": "boolean", "default": false, "description": "True if only part of the municipality is in this subarea."},
+          "note": {"type": ["string", "null"], "description": "Free-text per-municipality note. Use to record which other DSO holds the local grid in regional_grid_only / shared cases."}
+        }
+      }
+    },
+    "voltage_levels": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "regional_grid_kv": {"type": "array", "items": {"type": "integer"}, "description": "Voltage classes operated at regional-grid level."},
+        "local_grid_kv": {"type": "array", "items": {"type": "integer"}, "description": "Voltage classes operated at local-grid level."}
+      }
+    },
+    "interconnection_points": {
+      "type": "array",
+      "description": "Interconnection points to upstream/neighboring networks. station_name may be null when the source describes 'N interconnection points to X' without naming each — set aggregate_count and put detail in note.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["upstream_owner"],
+        "properties": {
+          "station_name": {"type": ["string", "null"], "description": "Station as named in the source (proper noun, original Swedish spelling preserved)."},
+          "upstream_owner": {"type": "string", "description": "Owner of the upstream network. Examples: 'Svenska Kraftnät', 'Vattenfall Eldistribution', 'Nacka Energi', 'E.ON'."},
+          "voltage_kv": {"type": ["integer", "null"]},
+          "role": {
+            "type": "string",
+            "enum": ["supply", "injection", "both", "unknown"],
+            "default": "unknown",
+            "description": "supply = downstream feed to DSO (load supply). injection = upstream from DSO (e.g. production export). both = both directions."
+          },
+          "aggregate_count": {"type": ["integer", "null"], "description": "Use when source says 'N interconnection points' without naming each. Then station_name is null."},
+          "note": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "consumption": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "peak_load_mw": {"type": ["number", "null"], "description": "Peak load in MW."},
+        "peak_load_basis": {
+          "type": ["string", "null"],
+          "enum": ["historic_max", "current_typical", "today_estimate", null],
+          "description": "historic_max = source explicitly notes peak as historical/measured maximum. today_estimate = source describes current/today's consumption with present-tense estimate. current_typical = source uses present-tense aggregate ('reaches at most') without a max-history qualifier."
+        },
+        "composition_note": {"type": ["string", "null"], "description": "Free text describing load mix (residential/small-commercial, heavy industry, data centers, public transport infrastructure, etc.)."}
+      }
+    },
+    "production_installed": {
+      "type": "array",
+      "description": "Production currently installed within the subarea, broken down by type. Each entry is one (type, mw) pair — emit multiple entries if the source reports multiple types.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["type", "installed_mw"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["wind", "solar_distributed", "solar_utility", "chp", "hydro", "gas_turbine", "other", "unknown"],
+            "description": "wind = onshore or offshore wind power. solar_distributed = small/rooftop solar. solar_utility = utility-scale solar park. chp = combined heat and power. hydro = hydropower. gas_turbine = gas turbine."
+          },
+          "installed_mw": {"type": ["number", "null"], "description": "Installed capacity in MW. Null if mentioned but not separately quantified."},
+          "note": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "neighboring_dsos": {
+      "type": "array",
+      "description": "Other DSOs operating within or bordering this subarea (named in the source). Free text per entry.",
+      "items": {"type": "string"}
+    },
+    "narrative_note": {"type": ["string", "null"], "description": "Free-text English narrative for context that does not fit the structured fields (geographic span, partial coverage explanations, residual unnamed municipalities, etc.)."},
+    "source_doc_key": {"type": "string", "const": "ellevio_nup_2025_2034"},
+    "source_page": {"type": "integer", "minimum": 1},
+    "extraction_method": {"type": "string", "const": "llm_extracted"},
+    "extraction_run_id": {"type": "string"},
+    "extraction_prompt_version": {"type": "string"},
+    "confidence_tier": {"type": "string", "enum": ["observed", "derived", "estimated", "narrative"]}
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "macro_area_key": "vattenfall_west",
+  "dso_operator": "Vattenfall Eldistribution",
+  "macro_area_name": "Western Sweden",
+  "macro_area_short_name": "West",
+  "country": "SE",
+  "regions_or_counties": ["Västra Götaland"],
+  "specific_locations_mentioned": ["west coast", "southern Sweden"],
+  "voltage_levels": null,
+  "local_grid_outlook": null,
+  "regional_grid_outlook": "In areas with dispatchable production connected to the regional grid, the network has historically been dimensioned around those conditions. This was rational economically since the regional grid did not need to be built out as much as if the production had not existed. However, this means capacity shortages will arise in the network if dispatchable production is shut down. A shutdown decision can come with short notice relative to the lead times required for the network reinforcements often needed to meet supply requirements without local dispatchable production.",
+  "transmission_grid_relations": "The transmission grid in the area is currently designed and dimensioned around the assumption that there are large dispatchable production facilities on the west coast and in southern Sweden. This means transmission-grid reinforcement is needed to enable connection of new production and consumption.",
+  "production_outlook": "Good solar and wind locations, so new production will develop and need to be connected. There is generally a production deficit in the area, but in summer regional production surplus arises from wind and solar. This presents challenges since today's production does not align temporally with consumption need.",
+  "consumption_outlook": "Western Sweden's industry is targeting a green transition and will therefore increase electricity consumption.",
+  "relevant_transmission_programs": [],
+  "narrative_note": "Source publishes this area as 'Västra Sverige' (short label 'Väst' on maps). Risk of capacity shortage in the regional grid if dispatchable production is shut down with short notice, since the regional grid has historically been dimensioned around that production. This is a future uncertainty, not a current shortage.",
+  "source_doc_key": "vattenfall_eldistribution_nup_2025_2034",
+  "source_page": 6,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-vattenfall-eldist-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

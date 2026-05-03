@@ -1,0 +1,22 @@
+{
+  "snitt_key": "se2_to_se3",
+  "snitt_label": "SE2 to SE3",
+  "from_zone": "SE2",
+  "to_zone": "SE3",
+  "country": "SE",
+  "current_capacity_mw": 7300,
+  "current_capacity_period": "2021-2023",
+  "targets": [
+    {"target_year": 2030, "capacity_mw": 8100},
+    {"target_year": 2035, "capacity_mw": 9600},
+    {"target_year": 2040, "capacity_mw": 10500},
+    {"target_year": 2045, "capacity_mw": 10500}
+  ],
+  "narrative_note": "Southbound across snitt 2 — the most strategically important snitt in the Swedish grid, connecting surplus SE2 to deficit SE3. Reinforced by the NordSyd program (NUP §4.6.1.2), which raises capacity from today's 7300 MW to over 10500 MW. NordSyd is Svenska Kraftnät's largest-ever grid development initiative, affecting nine regions.",
+  "source_doc_key": "svk_nup_2026_2035",
+  "source_page": 29,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-svk-nup-4.4-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

@@ -1,0 +1,22 @@
+{
+  "snitt_key": "se3_to_se2",
+  "snitt_label": "SE3 to SE2",
+  "from_zone": "SE3",
+  "to_zone": "SE2",
+  "country": "SE",
+  "current_capacity_mw": 7300,
+  "current_capacity_period": "2021-2023",
+  "targets": [
+    {"target_year": 2030, "capacity_mw": 7300},
+    {"target_year": 2035, "capacity_mw": 7300},
+    {"target_year": 2040, "capacity_mw": 7300},
+    {"target_year": 2045, "capacity_mw": 7300}
+  ],
+  "narrative_note": "Northbound across snitt 2. Target stays flat at 7300 MW because the dominant flow is southbound (SE2 surplus to SE3 deficit); northbound capacity is not the binding constraint.",
+  "source_doc_key": "svk_nup_2026_2035",
+  "source_page": 29,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-svk-nup-4.4-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

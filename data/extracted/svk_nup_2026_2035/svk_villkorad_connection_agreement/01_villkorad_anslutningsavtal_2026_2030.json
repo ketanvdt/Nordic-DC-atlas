@@ -1,0 +1,38 @@
+{
+  "mechanism_key": "svk_villkorad_anslutningsavtal_2026_2030",
+  "mechanism_name": "Conditional connection agreement (villkorad anslutningsavtal)",
+  "operator": "Svenska Kraftnät",
+  "country": "SE",
+  "applicability_period_start_year": 2026,
+  "applicability_period_end_year": 2030,
+  "scope": "national",
+  "implementation_phase": "limited_pilot",
+  "selection_criteria": [
+    "The applicant closest in the queue must have flexibility in their consumption / production. If they cannot or will not be flexible to the offered conditions, the next applicant in the queue may instead receive the conditional capacity.",
+    "Conditional connection agreement must result in commissioning being moved forward by at least two years to be relevant in selection.",
+    "The applicant must be flexible regarding the conditions that may apply.",
+    "Svenska Kraftnät must consider queue priority order ('turordningsprincip').",
+    "A deeper investigation is required for each specific connection to determine whether conditions are feasible, plus the scope of conditions, when curtailment may apply, and how curtailment shall proceed."
+  ],
+  "stated_benefits": [
+    "Actors can connect earlier in areas with large connection inquiries where grid reinforcements are required to meet capacity needs.",
+    "Risk decreases that delayed grid reinforcements affect connecting parties and (where applicable) their customers.",
+    "Connecting parties — and where applicable their customers — get better opportunities to make final investment decisions."
+  ],
+  "stated_constraints": [
+    "Conditions limit and control injection to and draw from the transmission grid.",
+    "When the conditional connection agreement transitions to a regular connection agreement, allocated capacity can be used continuously without curtailment.",
+    "Curtailment conditions apply in normal operation when there is overload risk; for other operating states Svenska Kraftnät retains other intervention possibilities (e.g. system protection schemes / 'nätvärn').",
+    "Since conditional connection agreements are not a market-based method, they are used only when no market-based alternative exists or such alternatives are already in use.",
+    "Initially no priority is given to connections that have the ability to control their consumption.",
+    "Conditional connection agreements do not entail any reduction of connection fees, network tariffs, or imbalance-cost adjustments if curtailment becomes applicable."
+  ],
+  "expected_in_service_acceleration_years": 2,
+  "narrative_note": "The mechanism is described in §4.4.2 as a 'temporary measure to connect actors earlier, before necessary grid measures are in place.' It is a deliberately limited tool — Svenska Kraftnät plans to introduce conditional connection agreements 'in limited scope' first, then evaluate broader implementation. Per the source, the demanded queue capacity is still more than double Sweden's current peak load hour, so even with this mechanism the binding constraint is grid reinforcement timeline, not the agreement type. Reference document: 'flexiN' potential study (footnote 26 in source).",
+  "source_doc_key": "svk_nup_2026_2035",
+  "source_page": 31,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-svk-nup-4.4-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

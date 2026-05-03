@@ -1,0 +1,51 @@
+{
+  "project_key": "ellevio_nordsyd_nya_borgvik",
+  "project_name": "Nya Borgvik",
+  "station_name": "Nya Borgvik",
+  "subproject_grouping": "Karlstad benet",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "greenfield",
+  "voltage_levels": {
+    "existing_kv": [],
+    "new_kv": [400],
+    "decommissioned_kv": [],
+    "voltage_note": "New 400 kV transmission station planned in conjunction with the Karlstadbenet 400 kV line program."
+  },
+  "scope_description": "New 400 kV transmission station Nya Borgvik in conjunction with the Karlstadbenet line program. Station solution not yet fixed; in investigation phase.",
+  "equipment_scope": [],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2035,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": "Karlstadbenet lines to be in operation by 2035; station commissioning aligned to that target."
+  },
+  "contract": {
+    "value_band_msek": null,
+    "estimated_value_msek": null,
+    "package_id": null,
+    "currency": "SEK",
+    "contract_note": "Not yet in the procurement Gantt; too early in lifecycle."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd (Karlstadbenet)",
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "conceptual",
+  "raw_status": "Utredningsfas",
+  "narrative_note": "Source explicitly notes 'Stationslösning ej fastlagen' (station solution not yet fixed). Karlstadbenet 400 kV line program is being designed by Svenska Kraftnät; Borgvik (existing transmission substation in subarea Värmland per Ellevio NUP §1.2) will be replaced or augmented by Nya Borgvik.",
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 15,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

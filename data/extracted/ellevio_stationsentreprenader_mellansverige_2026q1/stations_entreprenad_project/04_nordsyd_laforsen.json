@@ -1,0 +1,53 @@
+{
+  "project_key": "ellevio_nordsyd_laforsen",
+  "project_name": "Laforsen",
+  "station_name": "Laforsen",
+  "subproject_grouping": "Laforsen",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "brownfield",
+  "voltage_levels": {
+    "existing_kv": [220, 130],
+    "new_kv": [130],
+    "decommissioned_kv": [220],
+    "voltage_note": "220 kV decommissioned at Laforsen; 130 kV rebuilt. New 400 kV supply comes via the new Enån station via 130 kV lines from Enån."
+  },
+  "scope_description": "Decommissioning of 220 kV at Laforsen and rebuild of 130 kV. New 400/130 kV station Enån feeds Laforsen via new 130 kV lines from Enån. Includes Fortum T3 production transfer to Ellevio.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 6, "count_max": 8, "note": null}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2028,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": null
+  },
+  "contract": {
+    "value_band_msek": "over_200",
+    "estimated_value_msek": null,
+    "package_id": "1",
+    "currency": "SEK",
+    "contract_note": "Package 1 (>200 MSEK), bundled with Enån."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd",
+    "production_transfer_note": "Fortum T3 production transfer to Ellevio."
+  },
+  "lifecycle_phase": "permit_pending",
+  "raw_status": "projektfas",
+  "narrative_note": "Laforsen is paired with new station Enån as one procurement package. Per Ellevio NUP §1.2 (subarea 16), Laforsen will be affected by Svenska Kraftnät's NordSyd program with 220 kV decommissioned and replaced by a new 400 kV supply.",
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 11,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

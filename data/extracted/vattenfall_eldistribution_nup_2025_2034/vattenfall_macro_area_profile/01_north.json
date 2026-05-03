@@ -1,0 +1,23 @@
+{
+  "macro_area_key": "vattenfall_north",
+  "dso_operator": "Vattenfall Eldistribution",
+  "macro_area_name": "Norrland",
+  "macro_area_short_name": "North",
+  "country": "SE",
+  "regions_or_counties": ["northern Norrland", "northern parts of central Norrland"],
+  "specific_locations_mentioned": [],
+  "voltage_levels": null,
+  "local_grid_outlook": "The local grid is dominated by sparse rural distribution with low growth in both production and consumption.",
+  "regional_grid_outlook": "Beyond the local grids in the area, the regional grid serves industry expected to increase consumption sharply and wind power construction expected to increase production. A large share of the heavy industry undergoing the green transition is located here and will increase electricity consumption sharply.",
+  "transmission_grid_relations": null,
+  "production_outlook": "In this area, particularly the southern parts within bidding zone SE2, there is a large production surplus from hydropower and wind power.",
+  "consumption_outlook": "A large share of heavy industry undergoing the green transition will increase electricity consumption sharply. Other consumption: sparse rural distribution with low growth.",
+  "relevant_transmission_programs": [],
+  "narrative_note": "Source publishes this area as 'Norrland' (short label 'Norr' on maps). regions_or_counties reflects the §1.1 wording 'Vattenfall Eldistribution AB's local grid is found primarily in northern Norrland and northern parts of central Norrland'. The definitive municipality list comes from Annex 1.",
+  "source_doc_key": "vattenfall_eldistribution_nup_2025_2034",
+  "source_page": 5,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-vattenfall-eldist-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

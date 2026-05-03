@@ -1,0 +1,27 @@
+subarea_key,subarea_name,production_type,installed_mw,note,source_page
+ellevio_halland,Halland,chp,30,In today's grid.,7
+ellevio_halland,Halland,wind,60,In today's grid.,7
+ellevio_orust_tjorn,Orust-Tjörn,solar_distributed,28,Distributed solar (rooftop/small).,7
+ellevio_norra_bohuslan,Norra Bohuslän,wind,200,Predominantly wind.,8
+ellevio_skaraborg,Skaraborg,wind,100,,8
+ellevio_nynashamn,Nynäshamn,solar_distributed,12,Distributed solar (rooftop/small).,9
+ellevio_ekero,Ekerö,solar_distributed,15,Distributed solar (rooftop/small).,9
+ellevio_ekero,Ekerö,wind,,Individual wind installations; capacity not separately stated.,9
+ellevio_stockholm,Stockholm,solar_distributed,,Included in the aggregate 77 MW figure below.,10
+ellevio_stockholm,Stockholm,wind,,Smaller solar and wind installations with combined installed capacity of approximately 77 MW.,10
+ellevio_stockholm,Stockholm,chp,,Larger production from CHP plants; capacity not separately stated.,10
+ellevio_stockholm,Stockholm,gas_turbine,,Larger production from gas turbines; capacity not separately stated.,10
+ellevio_lidingo,Lidingö,solar_distributed,7.5,Distributed solar (rooftop/small).,10
+ellevio_taby,Täby,solar_distributed,23,Distributed solar (rooftop/small). Production is consumed locally; no surplus is exported to the upstream grid.,11
+ellevio_vallentuna,Vallentuna,solar_distributed,13,Distributed solar (rooftop/small).,11
+ellevio_varmland,Värmland,hydro,700,Significant hydropower in the northern parts; the largest production facility is located furthest north at Höljes.,12
+ellevio_varmland,Värmland,wind,500,,12
+ellevio_dalarna,Dalarna,hydro,800,,12
+ellevio_dalarna,Dalarna,wind,100,Just over 100 MW spread across a large geographic area.,12
+ellevio_halsingland,Hälsingland,wind,620,,13
+ellevio_halsingland,Hälsingland,hydro,330,,13
+ellevio_halsingland,Hälsingland,chp,70,Source uses the term 'värmekraft' (heat power).,13
+ellevio_torpberget,Torpberget,wind,230,Wind production connected via radial 130 kV lines to the Torpberget transmission substation.,13
+ellevio_olingan,Olingan,wind,286,Wind production connected via radial 130 kV supply to the Olingan transmission substation.,14
+ellevio_laforsen,Laforsen,hydro,370,Total installed production capacity in the area is approximately 370 MW; primarily hydropower.,14
+ellevio_tovasen,Tovåsen,wind,650,Currently approximately 650 MW of wind power is connected to the transmission grid via 130 kV lines and the Tovåsen transmission substation.,15

@@ -1,0 +1,34 @@
+{
+  "subarea_key": "ellevio_varmland",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Värmland",
+  "subarea_number": 11,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Arvika", "municipality_code_scb": null, "concession_type": "area_concession_shared", "partial": false, "note": "Ellevio holds an area concession; other DSOs also hold area concessions for the local grid."},
+    {"municipality_name": "Karlstad", "municipality_code_scb": null, "concession_type": "area_concession_shared", "partial": false, "note": "Ellevio holds an area concession; other DSOs also hold area concessions for the local grid."},
+    {"municipality_name": "Torsby", "municipality_code_scb": null, "concession_type": "area_concession_shared", "partial": false, "note": "Ellevio holds an area concession; other DSOs also hold area concessions for the local grid."},
+    {"municipality_name": "Filipstad", "municipality_code_scb": null, "concession_type": "area_concession_shared", "partial": false, "note": "Ellevio holds an area concession; other DSOs also hold area concessions for the local grid."},
+    {"municipality_name": "Karlskoga", "municipality_code_scb": null, "concession_type": "area_concession_shared", "partial": false, "note": "Örebro county. Ellevio holds an area concession; other DSOs also hold area concessions for the local grid."},
+    {"municipality_name": "Kristinehamn", "municipality_code_scb": null, "concession_type": "area_concession_shared", "partial": false, "note": "Ellevio holds an area concession; other DSOs also hold area concessions for the local grid."},
+    {"municipality_name": "Degerfors", "municipality_code_scb": null, "concession_type": "area_concession_shared", "partial": false, "note": "Örebro county. Ellevio holds an area concession; other DSOs also hold area concessions for the local grid."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [130, 50, 40, 30], "local_grid_kv": [10, 20]},
+  "interconnection_points": [
+    {"station_name": "Borgvik", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Transmission substation; Vattenfall is the upstream grid owner."},
+    {"station_name": "Lindbacka", "upstream_owner": "Svenska Kraftnät", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Transmission substation; Ellevio connects directly to the transmission grid via Lindbacka."}
+  ],
+  "consumption": {"peak_load_mw": 1500, "peak_load_basis": "today_estimate", "composition_note": "Consumption in Värmland is concentrated in the southern parts of the subarea where the population and largest industries are located."},
+  "production_installed": [
+    {"type": "hydro", "installed_mw": 700, "note": "Significant hydropower in the northern parts; the largest production facility is located furthest north at Höljes."},
+    {"type": "wind", "installed_mw": 500, "note": null}
+  ],
+  "neighboring_dsos": [],
+  "narrative_note": "Ellevio owns an extensive 130 kV line grid in the Värmland region, extending into Örebro county to the east and Västra Götaland county to the southeast. Two transmission substations in the area: Borgvik (Vattenfall is the upstream owner) and Lindbacka (direct to the transmission grid). Ellevio also owns regional grid at 50 kV, 40 kV, and 30 kV. Local grid mainly 10 kV but 20 kV also occurs. Other municipalities in the subarea are not explicitly listed in the source.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 12,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

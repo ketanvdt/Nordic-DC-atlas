@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "svk_region_connection_queue",
+  "title": "Svenska Kraftnät NUP — per-region connection queue snapshot",
+  "description": "One record per Svenska Kraftnät region. Reports requested capacity in the connection queue as of September 2025 per region per side (inmatning = production injection requests, uttag = consumption draw requests). Source: NUP §4.6 figures (Figur 6/8/10/12/14/16/18/20/23/25/27/29). MW values are read from bar charts in the source; bar-chart axes do not have fine gridlines, so values are approximate and tagged with confidence_tier='estimated'. For the cell-feasibility model, per-region queue size is one input to the buildability gate at region scope.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "region_key", "region_name", "country", "as_of_date",
+    "production_request_mw_estimated", "consumption_request_mw_estimated",
+    "queue_pattern", "source_doc_key", "source_page", "extraction_method",
+    "extraction_run_id", "extraction_prompt_version", "confidence_tier"
+  ],
+  "properties": {
+    "region_key": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "region_name": {"type": "string", "description": "Source-published region name in original Swedish (e.g. 'Region Norrbotten', 'Regionerna Sörmland och Östergötland')."},
+    "bidding_zones": {
+      "type": "array",
+      "description": "Bidding zones the region overlaps (per §4.6 narrative).",
+      "items": {"type": "string", "enum": ["SE1", "SE2", "SE3", "SE4"]}
+    },
+    "country": {"type": "string", "enum": ["SE"]},
+    "as_of_date": {"type": "string", "format": "date"},
+    "production_request_mw_estimated": {"type": ["number", "null"], "description": "Inmatning bar height in MW, read from chart. Null if too small to read."},
+    "consumption_request_mw_estimated": {"type": ["number", "null"], "description": "Uttag bar height in MW, read from chart. Null if too small to read."},
+    "queue_pattern": {
+      "type": "string",
+      "enum": [
+        "consumption_dominant_heavy",
+        "consumption_dominant_moderate",
+        "production_dominant_heavy",
+        "production_dominant_moderate",
+        "balanced",
+        "small_queue"
+      ],
+      "description": "Qualitative pattern. _heavy = at least one side > 5000 MW. _moderate = both sides 500-5000 MW. balanced = sides within 30% of each other and both > 500 MW. small_queue = both < 500 MW."
+    },
+    "narrative_note": {"type": ["string", "null"], "description": "Free-text English context, especially flagging regions where the source narrative explicitly notes capacity shortage (kapacitetsbrist) or that current capacity is insufficient."},
+    "source_doc_key": {"type": "string", "const": "svk_nup_2026_2035"},
+    "source_page": {"type": "integer", "minimum": 1},
+    "source_figure": {"type": ["string", "null"], "description": "Figure label in source (e.g. 'Figur 6', 'Figur 18')."},
+    "extraction_method": {"type": "string", "const": "llm_extracted"},
+    "extraction_run_id": {"type": "string"},
+    "extraction_prompt_version": {"type": "string"},
+    "confidence_tier": {"type": "string", "enum": ["observed", "derived", "estimated", "narrative"]}
+  }
+}

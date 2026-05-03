@@ -1,0 +1,54 @@
+{
+  "project_key": "ellevio_nordsyd_ockelbo",
+  "project_name": "Ockelbo",
+  "station_name": "Ockelbo",
+  "subproject_grouping": "Ockelbo",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "mixed",
+  "voltage_levels": {
+    "existing_kv": [220],
+    "new_kv": [130],
+    "decommissioned_kv": [220],
+    "voltage_note": "220 kV decommissioned at Ockelbo; station rebuilt to 130 kV."
+  },
+  "scope_description": "Decommissioning of the 220 kV switchgear at Ockelbo and rebuild to 130 kV. Tied to the new double 130 kV line from Grönviken to Ockelbo and Grönviken's new 400/130 kV transformer.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 6, "count_max": 8, "note": null},
+    {"equipment_type": "transformer", "voltage_kv": null, "count_min": 2, "count_max": 3, "note": "Cross-voltage; count not split per voltage class in source."}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2028,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": null
+  },
+  "contract": {
+    "value_band_msek": "under_100",
+    "estimated_value_msek": null,
+    "package_id": "separate",
+    "currency": "SEK",
+    "contract_note": "Gantt label '<100 MSEK' (separate package). Bundled with a separate ground-work procurement."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd",
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "permit_pending",
+  "raw_status": "projektfas",
+  "narrative_note": null,
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 9,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

@@ -1,0 +1,8 @@
+breakdown_key,side,connection_type,requested_mw,as_of_date,country,source_doc_key,source_page,extraction_method,extraction_run_id,extraction_prompt_version,confidence_tier
+svk_2025_inmatning_energilager,inmatning,energy_storage,1600,2025-09-30,SE,svk_nup_2026_2035,30,llm_extracted,2026-05-03-svk-nup-4.4-v1,v1.0,observed
+svk_2025_inmatning_landbaserad_vind,inmatning,wind_onshore,7200,2025-09-30,SE,svk_nup_2026_2035,30,llm_extracted,2026-05-03-svk-nup-4.4-v1,v1.0,observed
+svk_2025_inmatning_solkraft,inmatning,solar,3400,2025-09-30,SE,svk_nup_2026_2035,30,llm_extracted,2026-05-03-svk-nup-4.4-v1,v1.0,observed
+svk_2025_inmatning_ovrig,inmatning,other_production,5500,2025-09-30,SE,svk_nup_2026_2035,30,llm_extracted,2026-05-03-svk-nup-4.4-v1,v1.0,observed
+svk_2025_uttag_energilager,uttag,energy_storage,1900,2025-09-30,SE,svk_nup_2026_2035,30,llm_extracted,2026-05-03-svk-nup-4.4-v1,v1.0,observed
+svk_2025_uttag_industri,uttag,industry,23700,2025-09-30,SE,svk_nup_2026_2035,30,llm_extracted,2026-05-03-svk-nup-4.4-v1,v1.0,observed
+svk_2025_uttag_ovrig,uttag,other_consumption,8200,2025-09-30,SE,svk_nup_2026_2035,30,llm_extracted,2026-05-03-svk-nup-4.4-v1,v1.0,observed

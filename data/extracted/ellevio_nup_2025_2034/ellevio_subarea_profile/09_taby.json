@@ -1,0 +1,27 @@
+{
+  "subarea_key": "ellevio_taby",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Täby",
+  "subarea_number": 9,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Täby", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio holds the area concession for the entire subarea; local grid runs at voltages up to 24 kV."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [], "local_grid_kv": [24]},
+  "interconnection_points": [
+    {"station_name": "Ensta/Myrängen", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point feeding the local grid from upstream."},
+    {"station_name": "Tibble", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point feeding the local grid."},
+    {"station_name": "Arninge", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Interconnection point feeding the local grid."},
+    {"station_name": null, "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": 1, "note": "An additional interconnection point is planned within approximately two years; name not stated."}
+  ],
+  "consumption": {"peak_load_mw": 165, "peak_load_basis": "historic_max", "composition_note": "Residential and small commercial load, plus a significant share from industry, offices, and businesses."},
+  "production_installed": [{"type": "solar_distributed", "installed_mw": 23, "note": "Distributed solar (rooftop/small). Production is consumed locally; no surplus is exported to the upstream grid."}],
+  "neighboring_dsos": [],
+  "narrative_note": "Subarea broadly follows the municipal borders. Three interconnection points today plus one planned within approximately two years.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 11,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

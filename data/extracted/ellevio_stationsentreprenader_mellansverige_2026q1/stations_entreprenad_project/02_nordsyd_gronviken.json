@@ -1,0 +1,54 @@
+{
+  "project_key": "ellevio_nordsyd_gronviken",
+  "project_name": "Grönviken",
+  "station_name": "Grönviken",
+  "subproject_grouping": "Ockelbo",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "mixed",
+  "voltage_levels": {
+    "existing_kv": [400],
+    "new_kv": [400, 130],
+    "decommissioned_kv": [],
+    "voltage_note": "Existing 400/130 kV station expanded with a new 400/130 kV transformer and a new 130 kV switchgear."
+  },
+  "scope_description": "Expansion of Grönviken with a new 400/130 kV transformer and new 130 kV switchgear. Bundled with a new double line from Grönviken to Ockelbo. A signed customer connection agreement at Grönviken triggers immediate start.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 420, "count_min": 2, "count_max": 2, "note": null},
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 10, "count_max": 12, "note": null}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2028,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": "Two-phase commissioning visible on the Gantt: 2028 and 2029."
+  },
+  "contract": {
+    "value_band_msek": "between_100_and_200",
+    "estimated_value_msek": null,
+    "package_id": "separate",
+    "currency": "SEK",
+    "contract_note": "Gantt label '<200 MSEK' (separate package). Bundled with a separate ground-work procurement for the same site."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": "Signed customer connection agreement at Grönviken — implies immediate project start.",
+    "related_program": "NordSyd",
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "construction",
+  "raw_status": "Anslutningsavtal med kund — innebär omgående start",
+  "narrative_note": "Grönviken is a 400/130 kV node that today injects only wind into the transmission grid. The new transformer + 130 kV switchgear plus the new double line to Ockelbo enable load supply once the Ockelbo 220 kV is decommissioned.",
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 9,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

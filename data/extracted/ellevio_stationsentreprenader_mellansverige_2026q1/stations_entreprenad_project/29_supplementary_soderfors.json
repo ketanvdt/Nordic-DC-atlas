@@ -1,0 +1,53 @@
+{
+  "project_key": "ellevio_supplementary_soderfors",
+  "project_name": "Söderfors",
+  "station_name": "Söderfors",
+  "subproject_grouping": null,
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "supplementary",
+  "project_type": "brownfield",
+  "voltage_levels": {
+    "existing_kv": [],
+    "new_kv": [130],
+    "decommissioned_kv": [],
+    "voltage_note": "Brownfield 145 kV breaker upgrade."
+  },
+  "scope_description": "Brownfield rebuild of Söderfors with 145 kV breakers.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 3, "count_max": 5, "note": null}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2029,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": null
+  },
+  "contract": {
+    "value_band_msek": "under_100",
+    "estimated_value_msek": null,
+    "package_id": "separate",
+    "currency": "SEK",
+    "contract_note": "Standalone supplementary procurement (<100 MSEK)."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": false,
+    "customer_agreement": null,
+    "related_program": null,
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "permit_pending",
+  "raw_status": null,
+  "narrative_note": null,
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 21,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

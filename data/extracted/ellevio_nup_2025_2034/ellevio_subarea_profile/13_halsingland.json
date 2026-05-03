@@ -1,0 +1,40 @@
+{
+  "subarea_key": "ellevio_halsingland",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Hälsingland",
+  "subarea_number": 13,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Nordanstig", "municipality_code_scb": null, "concession_type": "excluded", "partial": false, "note": "Explicitly excluded from the subarea despite being in Gävleborg county."},
+    {"municipality_name": "Hofors", "municipality_code_scb": null, "concession_type": "excluded", "partial": false, "note": "Explicitly excluded from the subarea despite being in Gävleborg county."},
+    {"municipality_name": "Sandviken", "municipality_code_scb": null, "concession_type": "excluded", "partial": false, "note": "Explicitly excluded from the subarea despite being in Gävleborg county."},
+    {"municipality_name": "Orsa", "municipality_code_scb": null, "concession_type": "area_concession_partial", "partial": true, "note": "Parts of Orsa municipality (Dalarna county) are part of the Hälsingenät structure."},
+    {"municipality_name": "Rättvik", "municipality_code_scb": null, "concession_type": "area_concession_partial", "partial": true, "note": "Parts of Rättvik municipality (Dalarna county) are part of the Hälsingenät structure."},
+    {"municipality_name": "Ljusdal", "municipality_code_scb": null, "concession_type": "regional_grid_only", "partial": false, "note": "Ellevio owns the regional grid; Ljusdals Elnät owns the local grid."},
+    {"municipality_name": "Söderhamn", "municipality_code_scb": null, "concession_type": "regional_grid_only", "partial": false, "note": "Ellevio owns the regional grid; Söderhamn Elnät owns the local grid."},
+    {"municipality_name": "Gävle", "municipality_code_scb": null, "concession_type": "area_concession_partial", "partial": true, "note": "Gävle Energi holds the area concession for most of Gävle municipality."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [130, 70, 50, 40, 30], "local_grid_kv": []},
+  "interconnection_points": [
+    {"station_name": "Ljusdal", "upstream_owner": "Svenska Kraftnät", "voltage_kv": 220, "role": "supply", "aggregate_count": null, "note": "Connected to Svenska Kraftnät's 220 kV grid; part of the meshed regional grid."},
+    {"station_name": "Dönje", "upstream_owner": "Svenska Kraftnät", "voltage_kv": 220, "role": "supply", "aggregate_count": null, "note": "Connected to Svenska Kraftnät's 220 kV grid; part of the meshed regional grid."},
+    {"station_name": "Söderala", "upstream_owner": "Svenska Kraftnät", "voltage_kv": 220, "role": "supply", "aggregate_count": null, "note": "Connected to Svenska Kraftnät's 220 kV grid; part of the meshed regional grid."},
+    {"station_name": "Ockelbo", "upstream_owner": "Svenska Kraftnät", "voltage_kv": 220, "role": "supply", "aggregate_count": null, "note": "Connected to Svenska Kraftnät's 220 kV grid; part of the meshed regional grid."},
+    {"station_name": "Grönviken", "upstream_owner": "Svenska Kraftnät", "voltage_kv": null, "role": "injection", "aggregate_count": null, "note": "400/130 kV station that today connects only wind power injected into the transmission grid."},
+    {"station_name": "Sandbäcken", "upstream_owner": "E.ON", "voltage_kv": 130, "role": "supply", "aggregate_count": null, "note": "Interconnection point to E.ON's 130 kV grid."}
+  ],
+  "consumption": {"peak_load_mw": 400, "peak_load_basis": "today_estimate", "composition_note": null},
+  "production_installed": [
+    {"type": "wind", "installed_mw": 620, "note": null},
+    {"type": "hydro", "installed_mw": 330, "note": null},
+    {"type": "chp", "installed_mw": 70, "note": "Source uses the term 'värmekraft' (heat power)."}
+  ],
+  "neighboring_dsos": ["Ljusdals Elnät", "Söderhamn Elnät", "Gävle Energi", "E.ON"],
+  "narrative_note": "Subarea covers most of Gävleborg county except for Nordanstig, Hofors, and Sandviken. To the west the area extends into Dalarna county where parts of Orsa and Rättvik municipalities are part of the Hälsingenät structure. Ellevio owns both regional and local grid and holds the area concession for nearly the entire subarea. The subarea has substantial production connected relative to local consumption. Other municipalities in the subarea (the remaining Gävleborg county municipalities such as Bollnäs, Hudiksvall, Ovanåker, Ockelbo) are not explicitly listed in the source.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 13,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

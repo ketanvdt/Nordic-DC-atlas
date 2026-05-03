@@ -1,0 +1,31 @@
+{
+  "subarea_key": "ellevio_norra_bohuslan",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Norra Bohuslän",
+  "subarea_number": 3,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Strömstad", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": null},
+    {"municipality_name": "Tanum", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": null},
+    {"municipality_name": "Sotenäs", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio holds the area concession; the ownership boundary runs at 10 kV — Vattenfall Eldistribution owns the distribution substations."},
+    {"municipality_name": "Munkedal", "municipality_code_scb": null, "concession_type": "area_concession_full", "partial": false, "note": "Ellevio holds the area concession; the ownership boundary runs at 10 kV — Vattenfall Eldistribution owns the distribution substations."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [40], "local_grid_kv": [10]},
+  "interconnection_points": [
+    {"station_name": "Hjälmstad", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": 130, "role": "supply", "aggregate_count": null, "note": "Interconnection point for Ellevio's 40 kV grid against the upstream 130 kV grid."},
+    {"station_name": "Tanum", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": 130, "role": "supply", "aggregate_count": null, "note": "Interconnection point for Ellevio's 40 kV grid."},
+    {"station_name": "Kville", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": 130, "role": "supply", "aggregate_count": null, "note": "Interconnection point for Ellevio's 40 kV grid."},
+    {"station_name": "Tolvmanstegen", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": 130, "role": "injection", "aggregate_count": null, "note": "Interconnection point for injection."},
+    {"station_name": "Bramseröd", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": 130, "role": "injection", "aggregate_count": null, "note": "Interconnection point for injection."}
+  ],
+  "consumption": {"peak_load_mw": 150, "peak_load_basis": "today_estimate", "composition_note": "Primarily residential and small commercial load."},
+  "production_installed": [{"type": "wind", "installed_mw": 200, "note": "Predominantly wind."}],
+  "neighboring_dsos": [],
+  "narrative_note": "Five interconnection points to the upstream 130 kV grid, owned by Vattenfall Eldistribution. In Sotenäs and Munkedal, Ellevio holds the area concession but the ownership boundary runs at 10 kV — Vattenfall Eldistribution thus owns the distribution substations in those municipalities.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 8,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

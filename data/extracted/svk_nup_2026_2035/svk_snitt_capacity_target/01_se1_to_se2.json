@@ -1,0 +1,22 @@
+{
+  "snitt_key": "se1_to_se2",
+  "snitt_label": "SE1 to SE2",
+  "from_zone": "SE1",
+  "to_zone": "SE2",
+  "country": "SE",
+  "current_capacity_mw": 3300,
+  "current_capacity_period": "2021-2023",
+  "targets": [
+    {"target_year": 2030, "capacity_mw": 3300},
+    {"target_year": 2035, "capacity_mw": 3300},
+    {"target_year": 2040, "capacity_mw": 3700},
+    {"target_year": 2045, "capacity_mw": 4000}
+  ],
+  "narrative_note": "Northbound across snitt 1 (between SE1 and SE2). NUP §4.6.1.1 notes that there is a high target ambition to gradually increase transfer capacity over snitt 1, especially in the northbound direction, driven by the large new heavy-industry consumption in SE1 (Norrbotten).",
+  "source_doc_key": "svk_nup_2026_2035",
+  "source_page": 29,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-svk-nup-4.4-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

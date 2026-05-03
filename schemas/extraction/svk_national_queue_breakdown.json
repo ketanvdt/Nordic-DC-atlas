@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "svk_national_queue_breakdown",
+  "title": "Svenska Kraftnät NUP — national connection-queue breakdown by connection type",
+  "description": "One record per (side, connection type) pair from the national connection queue snapshot in NUP §4.4 Figur 5. 'Side' is either inmatning (production injection) or uttag (consumption draw). The MW value is the requested capacity in the queue as of the as_of_date — that is, capacity applied for that has NOT yet been reserved. Distinct from §2.2 Tabell 2 which reports application volumes for the period 2020-2025 (that goes into a separate dataset, svk_application_history). For the cell-feasibility model, this dataset gives the national 'pressure' against transmission capacity by connection type.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "breakdown_key", "side", "connection_type", "requested_mw", "as_of_date", "country",
+    "source_doc_key", "source_page", "extraction_method", "extraction_run_id",
+    "extraction_prompt_version", "confidence_tier"
+  ],
+  "properties": {
+    "breakdown_key": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "side": {
+      "type": "string",
+      "enum": ["inmatning", "uttag"],
+      "description": "inmatning = production-side application (electricity injected into grid). uttag = consumption-side application (electricity drawn from grid)."
+    },
+    "connection_type": {
+      "type": "string",
+      "enum": [
+        "energy_storage", "wind_onshore", "wind_offshore", "solar", "industry",
+        "data_center", "hydrogen", "other_production", "other_consumption", "other"
+      ],
+      "description": "Translation of source labels. energy_storage = energilager. wind_onshore = landbaserad vindkraft. wind_offshore = havsbaserad vindkraft. solar = solkraft. industry = industri. other_production = övrig inmatning. other_consumption = övrig elanvändning."
+    },
+    "requested_mw": {"type": "number", "description": "Requested capacity in the queue (i.e. applied-for capacity NOT yet reserved)."},
+    "as_of_date": {"type": "string", "format": "date"},
+    "country": {"type": "string", "enum": ["SE"]},
+    "narrative_note": {"type": ["string", "null"]},
+    "source_doc_key": {"type": "string", "const": "svk_nup_2026_2035"},
+    "source_page": {"type": "integer", "minimum": 1},
+    "extraction_method": {"type": "string", "const": "llm_extracted"},
+    "extraction_run_id": {"type": "string"},
+    "extraction_prompt_version": {"type": "string"},
+    "confidence_tier": {"type": "string", "enum": ["observed", "derived", "estimated", "narrative"]}
+  }
+}

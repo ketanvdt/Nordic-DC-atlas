@@ -1,0 +1,53 @@
+{
+  "project_key": "ellevio_nordsyd_soderala",
+  "project_name": "Söderala",
+  "station_name": "Söderala",
+  "subproject_grouping": "Östra Hälsingland",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "brownfield",
+  "voltage_levels": {
+    "existing_kv": [220],
+    "new_kv": [130],
+    "decommissioned_kv": [220],
+    "voltage_note": "220 kV decommissioned at Söderala; rebuilt to 130 kV."
+  },
+  "scope_description": "Brownfield rebuild of Söderala from 220 kV to 130 kV. One of the three 220 kV nodes (Ljusdal, Dönje, Söderala) being decommissioned in favor of the new transmission node Njutånger.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 4, "count_max": 6, "note": null}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2029,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": null
+  },
+  "contract": {
+    "value_band_msek": "under_100",
+    "estimated_value_msek": null,
+    "package_id": "3",
+    "currency": "SEK",
+    "contract_note": "Package 3 (<100 MSEK), bundled with Norränge and Sävsberg."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd",
+    "production_transfer_note": null
+  },
+  "lifecycle_phase": "permit_pending",
+  "raw_status": null,
+  "narrative_note": null,
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 20,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

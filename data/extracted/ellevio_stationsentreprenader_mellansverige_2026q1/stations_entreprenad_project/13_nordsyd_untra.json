@@ -1,0 +1,53 @@
+{
+  "project_key": "ellevio_nordsyd_untra",
+  "project_name": "Untra",
+  "station_name": "Untra",
+  "subproject_grouping": "Untra",
+  "operator": "Ellevio",
+  "country": "SE",
+  "program": "nordsyd",
+  "project_type": "brownfield",
+  "voltage_levels": {
+    "existing_kv": [220],
+    "new_kv": [130],
+    "decommissioned_kv": [220],
+    "voltage_note": "220 kV razed at Untra; new construction of Untra station to 130 kV."
+  },
+  "scope_description": "Brownfield rebuild at Untra: 220 kV razed; 2 new 130 kV lines in/out from line L14; new construction of Untra station to 130 kV. Includes Fortum production transfer to Ellevio.",
+  "equipment_scope": [
+    {"equipment_type": "circuit_breaker", "voltage_kv": 145, "count_min": 2, "count_max": 4, "note": null}
+  ],
+  "timeline": {
+    "field_work_start_year": null,
+    "field_work_start_quarter": null,
+    "commission_year": 2031,
+    "commission_quarter": null,
+    "procurement_start_date": null,
+    "procurement_end_date": null,
+    "construction_start_date": null,
+    "construction_end_date": null,
+    "timeline_note": null
+  },
+  "contract": {
+    "value_band_msek": "under_100",
+    "estimated_value_msek": null,
+    "package_id": "separate",
+    "currency": "SEK",
+    "contract_note": "Standalone procurement (<100 MSEK)."
+  },
+  "dependencies": {
+    "svenska_kraftnat_dependency": true,
+    "customer_agreement": null,
+    "related_program": "NordSyd",
+    "production_transfer_note": "Fortum production transfer to Ellevio."
+  },
+  "lifecycle_phase": "permit_pending",
+  "raw_status": null,
+  "narrative_note": "Untra station is located in Untraverkat area on the Dalälven river (per slide 12 map).",
+  "source_doc_key": "ellevio_stationsentreprenader_mellansverige_2026q1",
+  "source_page": 13,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-stationsentreprenader-q1-2026-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

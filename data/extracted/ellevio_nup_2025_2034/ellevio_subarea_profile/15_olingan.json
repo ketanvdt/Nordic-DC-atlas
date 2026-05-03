@@ -1,0 +1,24 @@
+{
+  "subarea_key": "ellevio_olingan",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Olingan",
+  "subarea_number": 15,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Härjedalen", "municipality_code_scb": null, "concession_type": "line_concession_only", "partial": true, "note": "Production cluster — Ellevio holds line concession for radial 130 kV supply to the Olingan transmission substation."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [130], "local_grid_kv": []},
+  "interconnection_points": [
+    {"station_name": "Olingan", "upstream_owner": "Svenska Kraftnät", "voltage_kv": null, "role": "injection", "aggregate_count": null, "note": "Transmission substation; Ellevio has one interconnection point to Svenska Kraftnät."}
+  ],
+  "consumption": null,
+  "production_installed": [{"type": "wind", "installed_mw": 286, "note": "Wind production connected via radial 130 kV supply to the Olingan transmission substation."}],
+  "neighboring_dsos": [],
+  "narrative_note": "Production cluster in Härjedalen municipality.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 14,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}

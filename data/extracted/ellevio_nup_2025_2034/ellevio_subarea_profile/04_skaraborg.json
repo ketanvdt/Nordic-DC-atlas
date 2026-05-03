@@ -1,0 +1,29 @@
+{
+  "subarea_key": "ellevio_skaraborg",
+  "dso_operator": "Ellevio",
+  "subarea_name": "Skaraborg",
+  "subarea_number": 4,
+  "country": "SE",
+  "municipalities": [
+    {"municipality_name": "Gullspång", "municipality_code_scb": null, "concession_type": "neighbor", "partial": false, "note": "The boundary between subarea Skaraborg and subarea Värmland runs through this municipality."},
+    {"municipality_name": "Laxå", "municipality_code_scb": null, "concession_type": "neighbor", "partial": false, "note": "The boundary between subarea Skaraborg and subarea Värmland runs through this municipality (Örebro county)."},
+    {"municipality_name": "Götene", "municipality_code_scb": null, "concession_type": "area_concession_partial", "partial": true, "note": "Götene Elförening and VänerEnergi hold area concession in parts of the municipality."},
+    {"municipality_name": "Mariestad", "municipality_code_scb": null, "concession_type": "area_concession_partial", "partial": true, "note": "Götene Elförening and VänerEnergi hold area concession in parts of the municipality."},
+    {"municipality_name": "Töreboda", "municipality_code_scb": null, "concession_type": "area_concession_partial", "partial": true, "note": "Götene Elförening and VänerEnergi hold area concession in parts of the municipality."}
+  ],
+  "voltage_levels": {"regional_grid_kv": [130, 40], "local_grid_kv": [10]},
+  "interconnection_points": [
+    {"station_name": "Moholm", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Transmission substation; Vattenfall in turn has interconnection points to Svenska Kraftnät."},
+    {"station_name": "Timmersdala", "upstream_owner": "Vattenfall Eldistribution", "voltage_kv": null, "role": "supply", "aggregate_count": null, "note": "Transmission substation; Vattenfall in turn has interconnection points to Svenska Kraftnät."}
+  ],
+  "consumption": {"peak_load_mw": 160, "peak_load_basis": "today_estimate", "composition_note": "Primarily residential and small commercial load plus smaller industries."},
+  "production_installed": [{"type": "wind", "installed_mw": 100, "note": null}],
+  "neighboring_dsos": ["Vattenfall Eldistribution", "VänerEnergi", "Götene Elförening"],
+  "narrative_note": "Located in the northeastern part of Västra Götaland county, bordering subarea Värmland. Ellevio holds the area concession in most of the subarea, except in parts of Götene, Mariestad, and Töreboda. Other municipalities with Ellevio coverage are not explicitly listed in the source.",
+  "source_doc_key": "ellevio_nup_2025_2034",
+  "source_page": 8,
+  "extraction_method": "llm_extracted",
+  "extraction_run_id": "2026-05-03-ellevio-nup-1.2-v1",
+  "extraction_prompt_version": "v1.0",
+  "confidence_tier": "observed"
+}
