@@ -2,6 +2,14 @@
 -- a per-cell coverage fraction = (count of non-NULL norm_* used) / (total
 -- non-NULL norm_* the active weights would have wanted).
 --
+-- The new return signature has an extra `coverage` column. Postgres won't
+-- replace a function whose RETURNS TABLE shape changes, so drop both
+-- functions explicitly first. Drop top_candidate_cells before score_cells
+-- because it depends on it.
+
+DROP FUNCTION IF EXISTS top_candidate_cells(JSONB, JSONB, INTEGER);
+DROP FUNCTION IF EXISTS score_cells(JSONB, JSONB, DOUBLE PRECISION, DOUBLE PRECISION, DOUBLE PRECISION, DOUBLE PRECISION, INTEGER);
+--
 -- Per-bucket averaging changes shape: a bucket with only 1 of 3 inputs
 -- present averages over 1 (not 3). A bucket whose weight is 0 contributes
 -- nothing to the score AND nothing to coverage. A bucket whose weight is
