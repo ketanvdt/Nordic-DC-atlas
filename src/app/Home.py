@@ -298,6 +298,14 @@ def main() -> None:
                             cov = row.get("coverage")
                             break
                 st.markdown(f"**Coverage:** {_format_coverage(cov)}")
+                cap_source = details.get("grid_capacity_source")
+                if cap_source:
+                    label = (
+                        "manual digitization (data/manual/grid_capacity_heatmap.geojson)"
+                        if cap_source == "manual_digitization"
+                        else "bidding-zone baseline"
+                    )
+                    st.markdown(f"**Grid capacity source:** {label}")
                 st.json(details)
             else:
                 st.warning("Cell not found.")
