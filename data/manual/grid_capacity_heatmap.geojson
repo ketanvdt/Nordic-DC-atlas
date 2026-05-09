@@ -1,0 +1,117 @@
+{
+  "type": "FeatureCollection",
+  "name": "grid_capacity_heatmap_v0",
+  "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:EPSG::4326"}},
+  "features": [
+    {
+      "type": "Feature",
+      "id": "se1_ample",
+      "properties": {
+        "region": "SE1 (Norrbotten / N. Västerbotten)",
+        "country": "SE",
+        "capacity_tier": 3,
+        "tier_label": "ample (green)",
+        "source_pdf": "svk_natutveckling_nup_2026-2035.pdf",
+        "source_page": "executive summary",
+        "source_url": "https://www.svk.se/utveckling-av-kraftsystemet/nats-och-systemutveckling/",
+        "valid_from": "2026-01-01",
+        "confidence": "low",
+        "notes": "Net-export hydro region; Svk NUP describes ample headroom outside specific industrial-loads corridors."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [13.0, 66.0], [25.0, 66.0], [25.0, 69.5], [13.0, 69.5], [13.0, 66.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "se2_ample",
+      "properties": {
+        "region": "SE2 (S. Västerbotten / Västernorrland / Jämtland)",
+        "country": "SE",
+        "capacity_tier": 3,
+        "tier_label": "ample (green)",
+        "source_pdf": "svk_natutveckling_nup_2026-2035.pdf",
+        "source_page": "executive summary",
+        "source_url": "https://www.svk.se/utveckling-av-kraftsystemet/nats-och-systemutveckling/",
+        "valid_from": "2026-01-01",
+        "confidence": "low",
+        "notes": "Net-export region; Svk NUP flags localized constraints near Sundsvall/Östersund — refined polygons to follow."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [12.0, 62.0], [21.0, 62.0], [21.0, 66.0], [12.0, 66.0], [12.0, 62.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "se3_constrained",
+      "properties": {
+        "region": "SE3 (central Sweden ex-Mälardalen)",
+        "country": "SE",
+        "capacity_tier": 1,
+        "tier_label": "constrained (orange)",
+        "source_pdf": "svk_natutveckling_nup_2026-2035.pdf; svenska-kraftnats-investeringspaket-nordsyd.pdf",
+        "source_page": "north-south corridor section",
+        "source_url": "https://www.svk.se/utveckling-av-kraftsystemet/nats-och-systemutveckling/kapacitetsbrister/",
+        "valid_from": "2026-01-01",
+        "confidence": "low",
+        "notes": "Net-import zone; Svk repeatedly flags SE3 as the deficit region that drives the north-south investment package."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [11.0, 58.0], [19.5, 58.0], [19.5, 62.0], [11.0, 62.0], [11.0, 58.0]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "se3_stockholm_malardalen_red",
+      "properties": {
+        "region": "Stockholm / Mälardalen (SE3 hotspot)",
+        "country": "SE",
+        "capacity_tier": 0,
+        "tier_label": "very constrained (red)",
+        "source_pdf": "vattenfall-eldistributions-natutvecklingsplan-2025-2034.pdf; ellevios-natutvecklingsplan-2025-2034.pdf",
+        "source_page": "Stockholm region capacity overview",
+        "source_url": "https://www.svk.se/utveckling-av-kraftsystemet/nats-och-systemutveckling/kapacitetsbrister/",
+        "valid_from": "2026-01-01",
+        "confidence": "low",
+        "notes": "Long-acknowledged Stockholm region capacity deficit; both DSO plans (Vattenfall, Ellevio) prioritise Mälardalen reinforcements."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [16.5, 58.7], [18.7, 58.7], [18.7, 60.2], [16.5, 60.2], [16.5, 58.7]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "se4_red",
+      "properties": {
+        "region": "SE4 (Skåne / Blekinge / S. Halland / S. Småland)",
+        "country": "SE",
+        "capacity_tier": 0,
+        "tier_label": "very constrained (red)",
+        "source_pdf": "svk_natutveckling_nup_2026-2035.pdf; svenska-kraftnats-investeringspaket-nordsyd.pdf",
+        "source_page": "executive summary; SE4 import section",
+        "source_url": "https://www.svk.se/utveckling-av-kraftsystemet/nats-och-systemutveckling/",
+        "valid_from": "2026-01-01",
+        "confidence": "low",
+        "notes": "Largest Swedish net-import zone with structural peak-deficit; the north-south investment package targets relief here."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [12.0, 55.0], [16.5, 55.0], [16.5, 58.0], [12.0, 58.0], [12.0, 55.0]
+        ]]
+      }
+    }
+  ]
+}
