@@ -1,98 +1,86 @@
+"""Apply exclusion layers from the YAML registry to grid_cells.
+
+The legacy v1 path (this module) is for layers whose ingest is light-weight:
+read a GPKG, apply one of {intersects, overlap_50, centroid, buffer}, set the
+boolean column. Heavier layers (with staging tables and OSM-specific quirks)
+go through `real_ingest.py`. Both modules now read the same registry.
+"""
 from __future__ import annotations
 
-from dataclasses import dataclass
 from pathlib import Path
 
 import geopandas as gpd
-import yaml
 from sqlalchemy import text
 
 from src.common.db import get_engine
+from src.common.layer_registry import ExclusionRuntime, exclusions_with_runtime
 
 
-@dataclass
-class ExclusionLayer:
-    key: str
-    strategy: str
-    buffer_m: int | None = None
-
-
-def _load_layers(config_path: str = "config/layers.yaml") -> list[ExclusionLayer]:
-    cfg = yaml.safe_load(Path(config_path).read_text(encoding="utf-8"))
-    return [
-        ExclusionLayer(
-            key=item["key"],
-            strategy=item.get("strategy", "overlap_50"),
-            buffer_m=item.get("buffer_m"),
-        )
-        for item in cfg.get("exclusions", [])
-    ]
-
-
-def apply_exclusion_layer(layer: ExclusionLayer) -> None:
-    source_path = Path("data/processed") / f"{layer.key}.gpkg"
+def apply_exclusion_layer(runtime: ExclusionRuntime) -> str:
+    source_path = Path(runtime.source)
     if not source_path.exists():
-        print(f"[skip] {layer.key}: missing {source_path}")
-        return
+        return f"[skip] {runtime.column}: missing {source_path}"
 
     gdf = gpd.read_file(source_path)
     if gdf.empty:
-        print(f"[skip] {layer.key}: no features")
-        return
+        return f"[skip] {runtime.column}: no features"
     if gdf.crs is None:
         gdf = gdf.set_crs("EPSG:4326")
     gdf = gdf.to_crs("EPSG:4326")
-    if layer.strategy == "buffer" and layer.buffer_m:
+    if runtime.strategy == "buffer" and runtime.buffer_m:
         gdf = gdf.to_crs("EPSG:3035")
-        gdf["geometry"] = gdf.buffer(layer.buffer_m)
+        gdf["geometry"] = gdf.buffer(runtime.buffer_m)
         gdf = gdf.to_crs("EPSG:4326")
 
     union = gdf.unary_union
     engine = get_engine()
-    flag_column = f"excl_{layer.key}"
-    sql = None
-    if layer.strategy == "centroid":
+    column = runtime.column
+    if runtime.strategy == "centroid":
         sql = f"""
             UPDATE grid_cells
-            SET {flag_column} = ST_Contains(ST_GeomFromText(:geom, 4326), ST_Centroid(geom_4326))
+            SET {column} = ST_Contains(ST_GeomFromText(:geom, 4326), ST_Centroid(geom_4326))
         """
-    elif layer.strategy in {"overlap_50", "buffer"}:
+    elif runtime.strategy in {"overlap_50", "buffer"}:
         sql = f"""
             UPDATE grid_cells
-            SET {flag_column} =
+            SET {column} =
               ST_Area(ST_Intersection(geom_4326::geography, ST_GeomFromText(:geom, 4326)::geography))
               / NULLIF(ST_Area(geom_4326::geography), 0) >= 0.5
         """
+    elif runtime.strategy == "intersects":
+        sql = f"""
+            UPDATE grid_cells
+            SET {column} = ST_Intersects(geom_4326, ST_GeomFromText(:geom, 4326))
+        """
     else:
-        raise ValueError(f"Unknown strategy: {layer.strategy}")
+        raise ValueError(f"Unknown strategy: {runtime.strategy}")
 
     with engine.begin() as conn:
         conn.execute(text(sql), {"geom": union.wkt})
-        print(f"[applied] {layer.key}")
+    return f"[applied] {column}"
 
 
 def exclusion_coverage_report() -> dict[str, float]:
     engine = get_engine()
-    flags = [
-        "excl_natura2000", "excl_protected", "excl_floodplain", "excl_heritage", "excl_airport",
-        "excl_airport_ols", "excl_military", "excl_steep_slope", "excl_seveso",
-        "excl_water_protected", "excl_urban_industrial", "excl_sami_reindeer",
-    ]
+    columns = [s.exclusion_runtime.column for s in exclusions_with_runtime()]
     report: dict[str, float] = {}
     with engine.begin() as conn:
         total = conn.execute(text("SELECT COUNT(*) FROM grid_cells")).scalar_one() or 1
-        for flag in flags:
-            value = conn.execute(text(f"SELECT COUNT(*) FROM grid_cells WHERE {flag} = TRUE")).scalar_one()
-            report[flag] = float(value) / float(total)
+        for column in columns:
+            value = conn.execute(text(f"SELECT COUNT(*) FROM grid_cells WHERE {column} = TRUE")).scalar_one()
+            report[column] = float(value) / float(total)
     return report
 
 
 def run_all_exclusions() -> None:
-    for layer in _load_layers():
-        apply_exclusion_layer(layer)
+    for spec in exclusions_with_runtime():
+        runtime = spec.exclusion_runtime
+        assert runtime is not None  # exclusions_with_runtime guarantees this
+        msg = apply_exclusion_layer(runtime)
+        print(msg)
     coverage = exclusion_coverage_report()
-    total_removed = len([k for k, v in coverage.items() if v > 0])
-    print(f"coverage layers with removals: {total_removed}")
+    total_with_hits = sum(1 for v in coverage.values() if v > 0)
+    print(f"coverage layers with removals: {total_with_hits}")
     print(coverage)
 
 

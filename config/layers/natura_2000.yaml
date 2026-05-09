@@ -48,3 +48,9 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: exclusion
+  column: excl_natura2000
+  source: data/processed/natura2000.gpkg
+  strategy: intersects             # any overlap flips the cell — see real_ingest comment

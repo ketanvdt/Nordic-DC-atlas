@@ -54,4 +54,11 @@ quality:
   last_verified: null
   verified_by: null
 
-status: pending_verification
+status: deferred                  # v2: true OLS digitization. v1 uses `airport` (5 km buffer).
+
+runtime:
+  kind: exclusion
+  column: excl_airport_ols
+  source: data/processed/airport_ols.gpkg
+  strategy: buffer
+  buffer_m: 15000                  # 15 km coarse buffer used only when source GPKG present

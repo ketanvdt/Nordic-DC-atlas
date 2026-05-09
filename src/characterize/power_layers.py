@@ -33,13 +33,18 @@ def assign_bidding_zones() -> None:
 def apply_zone_profiles() -> None:
     engine = get_engine()
     with engine.begin() as conn:
+        # Bidding-zone baseline. apply_overlay_tier (the manual overlay)
+        # runs after this in the characterization order and is allowed to
+        # overwrite grid_capacity_heatmap + grid_capacity_source for cells
+        # inside a manually-digitized polygon.
         conn.execute(
             text(
                 """
                 UPDATE grid_cells gc
                 SET
                   bidding_zone_price_3y = p.price_3y_eur_mwh,
-                  grid_capacity_heatmap = p.capacity_score
+                  grid_capacity_heatmap = p.capacity_score,
+                  grid_capacity_source  = 'bidding_zone'
                 FROM power_zone_profiles p
                 WHERE p.zone_code = gc.bidding_zone
                 """

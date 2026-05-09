@@ -8,8 +8,8 @@ from src.app.services.freshness import LayerStatus, build_report, summary_counts
 _STATE_EMOJI = {"real": "✅", "placeholder": "⚠️", "missing": "⛔"}
 _STATE_LABEL = {
     "real": "Real data",
-    "placeholder": "Placeholder (random)",
-    "missing": "Not ingested",
+    "placeholder": "Partial / unverified source",
+    "missing": "Not ingested (NULL)",
 }
 
 
@@ -24,9 +24,9 @@ def render_freshness_panel() -> None:
     counts = summary_counts(report)
     total = sum(counts.values())
     st.caption(
-        f"{counts['real']} real / {counts['placeholder']} placeholder / {counts['missing']} missing "
-        f"(of {total} layers). Placeholder values still drive the score — treat rankings "
-        f"as directional until everything is real."
+        f"{counts['real']} real / {counts['missing']} not ingested / {counts['placeholder']} partial "
+        f"(of {total} layers). Missing layers are NULL in the database and skipped by the score "
+        f"function — see per-cell **coverage** in the top-50 table."
     )
 
     with st.expander("Per-layer source status", expanded=False):

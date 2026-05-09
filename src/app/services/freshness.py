@@ -60,17 +60,11 @@ _FEATURE_LAYERS: tuple[tuple[str, str, str], ...] = (
     ("municipal_receptivity", "Municipal receptivity", "Manual curation — not yet ingested"),
 )
 
-# Columns whose current values are populated by the random() placeholder in
-# src/characterize/soft_features.py. We tag them as placeholder until real_ingest
-# overwrites them and a corresponding data_sources row is recorded.
-_PLACEHOLDER_COLUMNS: frozenset[str] = frozenset({
-    "annual_mean_temp_c",
-    "dist_fiber_m",
-    "dist_surface_water_m",
-    "land_cost_proxy_eur_m2",
-    "skilled_workforce_density",
-    "municipal_receptivity",
-})
+# Phase 1.2: random() placeholders were deleted. These columns are NULL
+# until real ingest writes to them; the freshness panel reports them as
+# `missing` rather than `placeholder` and the score function reports per-cell
+# coverage so the UI can show how grounded each ranking is.
+_PLACEHOLDER_COLUMNS: frozenset[str] = frozenset()
 
 # Columns that carry real data through hard-coded table seeds (not OSM-ingested
 # but still "real research" in the v1 sense).
@@ -111,6 +105,30 @@ def _column_stats(engine, column: str, kind: str) -> dict[str, Any]:
     return dict(row) if row else {}
 
 
+def _grid_capacity_source_breakdown(engine) -> dict[str, int]:
+    """Return how many cells are populated by each grid_capacity source.
+
+    Returns {} if the grid_capacity_source column doesn't exist yet
+    (i.e. before migration 009 has run).
+    """
+    with engine.begin() as conn:
+        col_exists = conn.execute(
+            text(
+                "SELECT 1 FROM information_schema.columns "
+                "WHERE table_name = 'grid_cells' AND column_name = 'grid_capacity_source'"
+            )
+        ).first()
+        if not col_exists:
+            return {}
+        rows = conn.execute(
+            text(
+                "SELECT COALESCE(grid_capacity_source, 'unset') AS source, COUNT(*) AS n "
+                "FROM grid_cells GROUP BY 1"
+            )
+        ).all()
+    return {r[0]: int(r[1]) for r in rows}
+
+
 def _classify(column: str, kind: str, ds_keys: dict, stats: dict) -> tuple[str, str]:
     """Return (state, detail) where state is one of real | placeholder | missing."""
     source_key_candidates = [column, column.removeprefix("excl_"), column.replace("_", "")]
@@ -145,6 +163,7 @@ def _classify(column: str, kind: str, ds_keys: dict, stats: dict) -> tuple[str, 
 def build_report() -> list[LayerStatus]:
     engine = get_engine()
     ds_keys = _data_source_keys(engine)
+    capacity_sources = _grid_capacity_source_breakdown(engine)
     out: list[LayerStatus] = []
     for column, label, source_hint in _EXCLUSION_LAYERS:
         stats = _column_stats(engine, column, "exclusion")
@@ -156,6 +175,20 @@ def build_report() -> list[LayerStatus]:
     for column, label, source_hint in _FEATURE_LAYERS:
         stats = _column_stats(engine, column, "feature")
         state, detail = _classify(column, "feature", ds_keys, stats)
+        if column == "grid_capacity_heatmap" and capacity_sources:
+            # Override default classification with provenance breakdown.
+            manual = capacity_sources.get("manual_digitization", 0)
+            zone = capacity_sources.get("bidding_zone", 0)
+            if manual > 0:
+                state = "real"
+                detail = (
+                    f"{manual:,} cells from manual digitization, "
+                    f"{zone:,} from bidding-zone baseline"
+                )
+                source_hint = "Svk/Statnett/Fingrid manual digitization (data/manual/grid_capacity_heatmap.geojson)"
+            elif zone > 0:
+                state = "placeholder"
+                detail = f"{zone:,} cells from bidding-zone baseline only (no manual overlay applied)"
         out.append(LayerStatus(
             key=column, kind="feature", label=label, state=state,
             source=source_hint, details=detail, stats=stats,

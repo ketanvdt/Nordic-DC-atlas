@@ -1,27 +1,40 @@
-"""Characterize real ingested layers from data/processed/*.gpkg.
+"""Apply registry-driven layers to grid_cells.
 
-Replaces the random placeholder values in `soft_features.py` for columns that
-now have real source data. For the remaining columns we leave NULL rather than
-random noise so the UI can truthfully show which features are real.
+Reads layer specs from `config/layers/*.yaml` via `src.common.layer_registry`
+and dispatches each one to the correct execution path:
+
+- runtime.kind == "exclusion"     → set boolean excl_* column
+- runtime.kind == "distance"      → set numeric dist_*_m column
+- runtime.kind == "overlay_tier"  → override numeric tier column from manual GeoJSON
+
+The thin in-Python alternative in `src.characterize.exclusions` is retained
+for cases where a small source layer doesn't need a staging table; it now
+reads from the same registry.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
-from pathlib import Path
-
 import json
+import re
 from datetime import datetime
+from pathlib import Path
 
 import geopandas as gpd
 from sqlalchemy import text
 
 from src.common.db import get_engine
+from src.common.layer_registry import (
+    DistanceRuntime,
+    ExclusionRuntime,
+    OverlayTierRuntime,
+    distances_with_runtime,
+    exclusions_with_runtime,
+    overlay_tiers_with_runtime,
+)
 
 
 def _record_source(source_key: str, source_url: str, license_name: str, metadata: dict) -> None:
     """Write an entry into `data_sources` so the freshness panel knows this layer is real."""
     engine = get_engine()
-    # Use a dummy checksum for OSM/derived layers since they're tagged by recency, not content.
     checksum = f"ingested:{datetime.utcnow().isoformat()}Z"
     with engine.begin() as conn:
         conn.execute(
@@ -41,64 +54,11 @@ def _record_source(source_key: str, source_url: str, license_name: str, metadata
         )
 
 
-@dataclass(frozen=True)
-class ExclusionSource:
-    key: str
-    gpkg: str
-    flag_column: str
-    strategy: str  # "overlap_50" | "buffer" | "centroid"
-    buffer_m: int | None = None
-
-
-EXCLUSIONS: tuple[ExclusionSource, ...] = (
-    # v1 uses boolean `intersects` for all exclusions — cell overlaps any
-    # source polygon => excluded. Rationale: exact area-fraction in reprojected
-    # (3035) space has no usable index on the transformed geometry and scales
-    # poorly. "Touches a protected area" is already a strong screening signal
-    # at H3 res8 (~0.74 km² cells).
-    ExclusionSource("natura2000", "data/processed/natura2000.gpkg", "excl_natura2000", "intersects"),
-    ExclusionSource("protected", "data/processed/protected.gpkg", "excl_protected", "intersects"),
-    ExclusionSource("airport", "data/processed/airport.gpkg", "excl_airport", "buffer", buffer_m=5000),
-)
-
-
-@dataclass(frozen=True)
-class DistanceSource:
-    key: str
-    gpkg: str
-    target_columns: tuple[str, ...]
-    voltage_filter: dict[str, tuple[int, int] | None]  # column -> (min_kv, max_kv) or None for all
-
-
-DISTANCES: tuple[DistanceSource, ...] = (
-    DistanceSource(
-        key="substations",
-        gpkg="data/processed/substations.gpkg",
-        target_columns=("dist_substation_400kv_m", "dist_substation_130kv_m"),
-        voltage_filter={
-            "dist_substation_400kv_m": (300, 10_000),
-            "dist_substation_130kv_m": (100, 299),
-        },
-    ),
-    DistanceSource(
-        key="transmission_lines",
-        gpkg="data/processed/transmission_lines.gpkg",
-        target_columns=("dist_transmission_line_m",),
-        voltage_filter={
-            "dist_transmission_line_m": (100, 10_000),  # HV lines ≥ 100 kV
-        },
-    ),
-)
-
-
 def _parse_voltage_kv(raw: object) -> int | None:
     """OSM voltage tag is free-text: '132000', '132 kV', '132000;220000', '400000 / 220000'."""
     if raw is None:
         return None
-    text_raw = str(raw)
-    # Pick the largest numeric token in volts, convert to kV.
-    import re
-    tokens = re.findall(r"\d+", text_raw)
+    tokens = re.findall(r"\d+", str(raw))
     if not tokens:
         return None
     max_v = max(int(t) for t in tokens)
@@ -110,56 +70,48 @@ def _parse_voltage_kv(raw: object) -> int | None:
 def _stage_gdf(engine, table: str, gdf: gpd.GeoDataFrame) -> None:
     """Drop-and-create a staging table in public schema with a single geometry column.
 
-    Keeps schema tight — only geometry + id. We reproject to 4326 on the way in.
-    Buffer(0) cleanup is only applied to polygonal geometries — applying it to
-    points collapses them to empty geometries and wipes the table.
+    Server-side ST_MakeValid handles invalid polygons after load; we avoid a
+    client-side buffer(0) because it allocates a Shapely polygon per feature
+    and explodes memory on large OSM datasets.
     """
     gdf = gdf.to_crs("EPSG:4326") if gdf.crs and gdf.crs.to_epsg() != 4326 else gdf
     gdf = gdf[gdf.geometry.notnull()]
     gdf = gdf[~gdf.geometry.is_empty]
-    # Server-side ST_MakeValid below handles invalid polygons. We avoid a client-side
-    # buffer(0) because it allocates ~N Shapely polygons and blows memory on large
-    # OSM datasets (41k protected areas = ~1GB WKT).
     gdf = gdf[gdf.geometry.is_valid]
     if gdf.empty:
         raise RuntimeError(f"_stage_gdf: no valid geometries to load into {table}")
 
     with engine.begin() as conn:
         conn.execute(text(f'DROP TABLE IF EXISTS "{table}" CASCADE'))
-    # chunksize keeps peak memory bounded when loading tens of thousands of polygons.
     gdf[["geometry"]].to_postgis(
         table, engine, if_exists="replace", index=True, index_label="row_id", chunksize=2000
     )
     with engine.begin() as conn:
-        # OSM polygons from protected_area boundaries can have self-intersections;
-        # ST_MakeValid fixes them before spatial joins hit GEOS.
         conn.execute(text(f'UPDATE "{table}" SET geometry = ST_MakeValid(geometry) WHERE NOT ST_IsValid(geometry)'))
-        # Drop any features that ended up as empty/non-polygonal after MakeValid.
         conn.execute(text(f'DELETE FROM "{table}" WHERE geometry IS NULL OR ST_IsEmpty(geometry)'))
         conn.execute(text(f'CREATE INDEX IF NOT EXISTS "{table}_geom_idx" ON "{table}" USING GIST (geometry)'))
         conn.execute(text(f'ANALYZE "{table}"'))
 
 
-def apply_exclusion(source: ExclusionSource) -> dict:
-    path = Path(source.gpkg)
+def apply_exclusion(layer_id: str, runtime: ExclusionRuntime) -> dict:
+    path = Path(runtime.source)
     if not path.exists():
-        return {"key": source.key, "status": "missing_file", "path": str(path)}
+        return {"layer_id": layer_id, "status": "missing_file", "path": str(path)}
     gdf = gpd.read_file(path)
     if gdf.empty:
-        return {"key": source.key, "status": "empty"}
+        return {"layer_id": layer_id, "status": "empty"}
 
     engine = get_engine()
-    if source.strategy == "buffer" and source.buffer_m:
+    if runtime.strategy == "buffer" and runtime.buffer_m:
         gdf = gdf.to_crs("EPSG:3035")
-        gdf["geometry"] = gdf.buffer(source.buffer_m)
+        gdf["geometry"] = gdf.buffer(runtime.buffer_m)
         gdf = gdf.to_crs("EPSG:4326")
 
-    staging = f"stg_{source.key}"
+    staging = f"stg_{layer_id}"
     _stage_gdf(engine, staging, gdf)
 
-    flag = source.flag_column
-    if source.strategy == "buffer":
-        # Buffer applied in Python above. Fast boolean overlap using the 4326 GIST index.
+    flag = runtime.column
+    if runtime.strategy == "buffer":
         sql = f"""
         WITH hits AS (
             SELECT DISTINCT g.h3_index
@@ -171,9 +123,7 @@ def apply_exclusion(source: ExclusionSource) -> dict:
         FROM hits h
         WHERE g.h3_index = h.h3_index
         """
-    elif source.strategy == "overlap_50":
-        # Overlap fraction in metric CRS. Note: reprojection on join side has no
-        # index — only use this for small source layers (<~100 features).
+    elif runtime.strategy == "overlap_50":
         sql = f"""
         WITH cell3035 AS (
             SELECT h3_index, ST_Transform(geom_4326, 3035) AS geom, ST_Area(ST_Transform(geom_4326, 3035)) AS cell_area
@@ -195,7 +145,7 @@ def apply_exclusion(source: ExclusionSource) -> dict:
         FROM hits h
         WHERE g.h3_index = h.h3_index
         """
-    elif source.strategy == "centroid":
+    elif runtime.strategy == "centroid":
         sql = f"""
         UPDATE grid_cells g
         SET {flag} = EXISTS (
@@ -203,9 +153,7 @@ def apply_exclusion(source: ExclusionSource) -> dict:
             WHERE ST_Contains(s.geometry, ST_Centroid(g.geom_4326))
         )
         """
-    elif source.strategy == "intersects":
-        # Fast boolean flag — no area math. Use for layers where any overlap is
-        # enough signal and exact fraction would be GEOS-expensive at scale.
+    elif runtime.strategy == "intersects":
         sql = f"""
         WITH hits AS (
             SELECT DISTINCT g.h3_index
@@ -214,13 +162,11 @@ def apply_exclusion(source: ExclusionSource) -> dict:
         )
         UPDATE grid_cells g
         SET {flag} = h.h3_index IS NOT NULL
-        FROM (
-            SELECT h3_index FROM hits
-        ) h
+        FROM (SELECT h3_index FROM hits) h
         WHERE g.h3_index = h.h3_index
         """
     else:
-        raise ValueError(f"unknown strategy: {source.strategy}")
+        raise ValueError(f"unknown strategy: {runtime.strategy}")
 
     with engine.begin() as conn:
         conn.execute(text(sql))
@@ -229,38 +175,47 @@ def apply_exclusion(source: ExclusionSource) -> dict:
         ).scalar_one()
     _record_source(
         source_key=flag,
-        source_url="https://overpass-api.de/api/interpreter (OSM)",
-        license_name="ODbL 1.0 (OpenStreetMap contributors)",
-        metadata={"layer_kind": "exclusion", "strategy": source.strategy, "features": int(len(gdf)), "excluded_cells": int(hit_count)},
+        source_url=str(path),
+        license_name="see config/layers/" + layer_id + ".yaml",
+        metadata={
+            "layer_kind": "exclusion",
+            "layer_id": layer_id,
+            "strategy": runtime.strategy,
+            "features": int(len(gdf)),
+            "excluded_cells": int(hit_count),
+        },
     )
-    return {"key": source.key, "status": "applied", "excluded_cells": int(hit_count), "features": int(len(gdf))}
+    return {"layer_id": layer_id, "status": "applied", "excluded_cells": int(hit_count), "features": int(len(gdf))}
 
 
-def apply_distance_layer(source: DistanceSource) -> dict:
-    path = Path(source.gpkg)
+def apply_distance_layer(layer_id: str, runtime: DistanceRuntime) -> dict:
+    path = Path(runtime.source)
     if not path.exists():
-        return {"key": source.key, "status": "missing_file"}
+        return {"layer_id": layer_id, "status": "missing_file"}
     gdf = gpd.read_file(path)
     if gdf.empty:
-        return {"key": source.key, "status": "empty"}
+        return {"layer_id": layer_id, "status": "empty"}
 
-    # Parse voltage on Python side — avoids SQL-regex nightmare on OSM free-text tags.
-    gdf["voltage_kv"] = gdf.get("voltage").apply(_parse_voltage_kv) if "voltage" in gdf.columns else None
+    if "voltage" in gdf.columns:
+        gdf["voltage_kv"] = gdf["voltage"].apply(_parse_voltage_kv)
+    else:
+        gdf["voltage_kv"] = None
 
     engine = get_engine()
-    results: dict = {"key": source.key, "features": int(len(gdf)), "columns": {}}
+    results: dict = {"layer_id": layer_id, "features": int(len(gdf)), "columns": {}}
 
-    for column in source.target_columns:
-        lo_hi = source.voltage_filter.get(column)
+    for target in runtime.targets:
+        column = target.column
+        band = target.voltage_band_kv
         subset = gdf
-        if lo_hi is not None:
-            lo, hi = lo_hi
+        if band is not None:
+            lo, hi = band
             subset = gdf[gdf["voltage_kv"].between(lo, hi, inclusive="both")]
         if subset.empty:
-            results["columns"][column] = {"status": "no_features_in_voltage_band", "band_kv": lo_hi}
+            results["columns"][column] = {"status": "no_features_in_voltage_band", "band_kv": band}
             continue
 
-        staging = f"stg_{source.key}_{column}"
+        staging = f"stg_{layer_id}_{column}"
         _stage_gdf(engine, staging, subset[["geometry"]])
 
         sql = f"""
@@ -300,11 +255,12 @@ def apply_distance_layer(source: DistanceSource) -> dict:
         }
         _record_source(
             source_key=column,
-            source_url="https://overpass-api.de/api/interpreter (OSM)",
-            license_name="ODbL 1.0 (OpenStreetMap contributors)",
+            source_url=str(path),
+            license_name="see config/layers/" + layer_id + ".yaml",
             metadata={
                 "layer_kind": "feature",
-                "voltage_band_kv": list(lo_hi) if lo_hi else None,
+                "layer_id": layer_id,
+                "voltage_band_kv": list(band) if band else None,
                 "features_used": int(len(subset)),
                 "populated_cells": int(stats[0]),
             },
@@ -313,21 +269,117 @@ def apply_distance_layer(source: DistanceSource) -> dict:
     return results
 
 
+def apply_overlay_tier(layer_id: str, runtime: OverlayTierRuntime) -> dict:
+    """Override a numeric column with a tier value from a manual GeoJSON.
+
+    Each cell whose centroid falls inside a feature in the GeoJSON gets its
+    `runtime.column` set to (feature[runtime.tier_property] / runtime.tier_max),
+    so the value lands on the same 0–1 scale the scoring engine expects.
+    Cells outside any polygon are left as set by other characterization steps
+    (e.g., the bidding-zone profile baseline for grid_capacity_heatmap).
+
+    If `runtime.source_tracking_column` is set, it is updated to
+    "manual_digitization" for overridden cells so the UI can show provenance.
+    """
+    path = Path(runtime.source)
+    if not path.exists():
+        return {"layer_id": layer_id, "status": "missing_file", "path": str(path)}
+    gdf = gpd.read_file(path)
+    if gdf.empty:
+        return {"layer_id": layer_id, "status": "empty"}
+    if gdf.crs is None:
+        gdf = gdf.set_crs("EPSG:4326")
+    gdf = gdf.to_crs("EPSG:4326")
+    if runtime.tier_property not in gdf.columns:
+        return {"layer_id": layer_id, "status": "missing_tier_property", "expected": runtime.tier_property}
+
+    engine = get_engine()
+    staging = f"stg_{layer_id}"
+    # Stage geometry + tier as separate columns. _stage_gdf only ships geometry,
+    # so we do this manually here.
+    with engine.begin() as conn:
+        conn.execute(text(f'DROP TABLE IF EXISTS "{staging}" CASCADE'))
+    gdf[["geometry", runtime.tier_property]].to_postgis(
+        staging, engine, if_exists="replace", index=True, index_label="row_id"
+    )
+    with engine.begin() as conn:
+        conn.execute(
+            text(f'UPDATE "{staging}" SET geometry = ST_MakeValid(geometry) WHERE NOT ST_IsValid(geometry)')
+        )
+        conn.execute(text(f'CREATE INDEX IF NOT EXISTS "{staging}_geom_idx" ON "{staging}" USING GIST (geometry)'))
+        conn.execute(text(f'ANALYZE "{staging}"'))
+
+    column = runtime.column
+    tier_max = runtime.tier_max
+    tier_col = runtime.tier_property
+    src_col = runtime.source_tracking_column
+
+    set_clauses = [f"{column} = sub.tier::DOUBLE PRECISION / {tier_max}.0"]
+    if src_col:
+        set_clauses.append(f"{src_col} = 'manual_digitization'")
+    set_sql = ", ".join(set_clauses)
+
+    sql = f"""
+    WITH cell_tier AS (
+        SELECT g.h3_index, MIN(s."{tier_col}")::INT AS tier
+        FROM grid_cells g
+        JOIN "{staging}" s ON ST_Contains(s.geometry, ST_Centroid(g.geom_4326))
+        GROUP BY g.h3_index
+    )
+    UPDATE grid_cells g
+    SET {set_sql}
+    FROM cell_tier sub
+    WHERE g.h3_index = sub.h3_index
+    """
+    with engine.begin() as conn:
+        conn.execute(text(sql))
+        overridden = conn.execute(
+            text(
+                f"SELECT COUNT(*) FROM grid_cells WHERE {src_col} = 'manual_digitization'"
+                if src_col
+                else f"SELECT COUNT(*) FROM grid_cells WHERE {column} IS NOT NULL"
+            )
+        ).scalar_one()
+
+    _record_source(
+        source_key=column,
+        source_url=str(path),
+        license_name="see config/layers/" + layer_id + ".yaml",
+        metadata={
+            "layer_kind": "feature",
+            "layer_id": layer_id,
+            "strategy": "overlay_tier",
+            "features": int(len(gdf)),
+            "overridden_cells": int(overridden),
+        },
+    )
+    return {
+        "layer_id": layer_id,
+        "status": "applied",
+        "overridden_cells": int(overridden),
+        "features": int(len(gdf)),
+    }
+
+
 def run_all() -> dict:
-    report: dict = {"exclusions": [], "distances": []}
-    for src in EXCLUSIONS:
+    report: dict = {"exclusions": [], "distances": [], "overlay_tiers": []}
+    for spec in exclusions_with_runtime():
         try:
-            report["exclusions"].append(apply_exclusion(src))
+            report["exclusions"].append(apply_exclusion(spec.layer_id, spec.exclusion_runtime))
         except Exception as exc:
-            report["exclusions"].append({"key": src.key, "status": "error", "error": repr(exc)})
-    for src in DISTANCES:
+            report["exclusions"].append({"layer_id": spec.layer_id, "status": "error", "error": repr(exc)})
+    for spec in distances_with_runtime():
         try:
-            report["distances"].append(apply_distance_layer(src))
+            report["distances"].append(apply_distance_layer(spec.layer_id, spec.distance_runtime))
         except Exception as exc:
-            report["distances"].append({"key": src.key, "status": "error", "error": repr(exc)})
+            report["distances"].append({"layer_id": spec.layer_id, "status": "error", "error": repr(exc)})
+    for spec in overlay_tiers_with_runtime():
+        try:
+            report["overlay_tiers"].append(apply_overlay_tier(spec.layer_id, spec.overlay_tier_runtime))
+        except Exception as exc:
+            report["overlay_tiers"].append({"layer_id": spec.layer_id, "status": "error", "error": repr(exc)})
     return report
 
 
 if __name__ == "__main__":
-    import json
     print(json.dumps(run_all(), indent=2))

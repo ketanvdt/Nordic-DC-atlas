@@ -18,8 +18,22 @@ def _to_map_df(scores: list[dict]) -> pd.DataFrame:
     rows = []
     for item in scores:
         lat, lon = h3.cell_to_latlng(item["h3_index"])
-        rows.append({"h3_index": item["h3_index"], "score": item["score"], "lat": lat, "lon": lon})
+        rows.append(
+            {
+                "h3_index": item["h3_index"],
+                "score": item["score"],
+                "coverage": item.get("coverage"),
+                "lat": lat,
+                "lon": lon,
+            }
+        )
     return pd.DataFrame(rows)
+
+
+def _format_coverage(value: float | None) -> str:
+    if value is None:
+        return "n/a"
+    return f"{round(float(value) * 100):d}%"
 
 
 def _top_n_map_df(top_rows: list[dict], n: int = 10, selected_h3: set[str] | None = None) -> pd.DataFrame:
@@ -223,7 +237,7 @@ def main() -> None:
                 pdk.Deck(
                     layers=layers,
                     initial_view_state=view_state,
-                    tooltip={"text": "name: {candidate_name}\nh3: {h3_index}\nscore: {score}\nrank: {rank}"},
+                    tooltip={"text": "name: {candidate_name}\nh3: {h3_index}\nscore: {score}\nrank: {rank}\ncoverage: {coverage}"},
                 )
             )
             st.caption("Top 10 are gold, selected candidates get a red halo, overlays are configurable in the sidebar.")
@@ -234,7 +248,18 @@ def main() -> None:
             if not table_df.empty:
                 table_df.insert(0, "rank", range(1, len(table_df) + 1))
                 table_df["score"] = table_df["score"].round(3)
-            display_cols = [c for c in ["rank", "candidate_name", "score", "country", "bidding_zone"] if c in table_df.columns]
+                if "coverage" in table_df.columns:
+                    table_df["coverage"] = table_df["coverage"].map(_format_coverage)
+                    avg_cov = top_df["coverage"].dropna().mean() if "coverage" in top_df else None
+                    if avg_cov is not None:
+                        st.caption(
+                            f"Average coverage across the top 50: **{_format_coverage(avg_cov)}** "
+                            "— inputs the active weights asked for that the cell actually had."
+                        )
+            display_cols = [
+                c for c in ["rank", "candidate_name", "score", "coverage", "country", "bidding_zone"]
+                if c in table_df.columns
+            ]
             st.dataframe(table_df[display_cols], use_container_width=True, hide_index=True)
 
     with col2:
@@ -259,6 +284,28 @@ def main() -> None:
         if h3_input:
             details = _load_cell_details(h3_input.strip())
             if details:
+                # The current weights/exclusions drive coverage, so look it
+                # up from the top-50 dataframe before falling back to the
+                # full scored set. Cells outside both still render NULL.
+                cov: float | None = None
+                if not top_df.empty and "coverage" in top_df.columns:
+                    match = top_df[top_df["h3_index"] == h3_input.strip()]
+                    if not match.empty:
+                        cov = match.iloc[0]["coverage"]
+                if cov is None:
+                    for row in score_rows:
+                        if row.get("h3_index") == h3_input.strip():
+                            cov = row.get("coverage")
+                            break
+                st.markdown(f"**Coverage:** {_format_coverage(cov)}")
+                cap_source = details.get("grid_capacity_source")
+                if cap_source:
+                    label = (
+                        "manual digitization (data/manual/grid_capacity_heatmap.geojson)"
+                        if cap_source == "manual_digitization"
+                        else "bidding-zone baseline"
+                    )
+                    st.markdown(f"**Grid capacity source:** {label}")
                 st.json(details)
             else:
                 st.warning("Cell not found.")

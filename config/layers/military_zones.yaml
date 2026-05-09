@@ -52,3 +52,9 @@ quality:
   verified_by: null
 
 status: pending_verification      # may become `blocked` or `deferred` after research
+
+runtime:
+  kind: exclusion
+  column: excl_military
+  source: data/processed/military.gpkg
+  strategy: overlap_50
