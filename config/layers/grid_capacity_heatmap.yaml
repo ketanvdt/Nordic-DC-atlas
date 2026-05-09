@@ -61,3 +61,11 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: overlay_tier
+  column: grid_capacity_heatmap
+  source: data/manual/grid_capacity_heatmap.geojson
+  tier_property: capacity_tier
+  tier_max: 3
+  source_tracking_column: grid_capacity_source
