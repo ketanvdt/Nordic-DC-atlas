@@ -53,3 +53,10 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: exclusion
+  column: excl_seveso
+  source: data/processed/seveso.gpkg
+  strategy: buffer
+  buffer_m: 500

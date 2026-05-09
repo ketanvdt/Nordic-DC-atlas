@@ -53,3 +53,13 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: distance
+  source: data/processed/substations.gpkg
+  strategy: nearest_distance
+  targets:
+    - column: dist_substation_400kv_m
+      voltage_band_kv: [300, 10000]    # 300+ kV transmission tier
+    - column: dist_substation_130kv_m
+      voltage_band_kv: [100, 299]      # 100–299 kV regional tier

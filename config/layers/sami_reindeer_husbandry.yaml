@@ -58,3 +58,9 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: exclusion
+  column: excl_sami_reindeer
+  source: data/processed/sami_reindeer.gpkg
+  strategy: overlap_50

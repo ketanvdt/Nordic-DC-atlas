@@ -48,3 +48,9 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: exclusion
+  column: excl_urban_industrial
+  source: data/processed/urban_industrial.gpkg
+  strategy: overlap_50

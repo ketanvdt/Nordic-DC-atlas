@@ -54,3 +54,9 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: exclusion
+  column: excl_protected
+  source: data/processed/protected.gpkg
+  strategy: intersects

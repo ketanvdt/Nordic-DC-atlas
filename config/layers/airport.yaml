@@ -1,0 +1,56 @@
+layer_id: airport
+category: exclusion
+countries: [SE, NO, FI]
+priority: W2
+exclusion_semantics: buffer(5000)
+score_sign: null
+
+# v1 implemented layer: pragmatic 5 km buffer around any OSM aeroway=aerodrome
+# (commercial OR general aviation). Quick to ingest and adequate for screening.
+# True ICAO Annex 14 OLS surfaces are tracked in `airport_ols.yaml` as a v2
+# upgrade — see status there.
+
+authority:
+  name: OpenStreetMap contributors
+  country: GLOBAL
+  url: https://www.openstreetmap.org/
+
+dataset:
+  name: OSM aeroway=aerodrome (filtered to Nordic bbox via Overpass)
+  landing_url: https://wiki.openstreetmap.org/wiki/Tag:aeroway%3Daerodrome
+  download_url: https://overpass-api.de/api/interpreter
+  api: Overpass QL
+  format: GPKG
+  native_crs: EPSG:4326
+  size_estimate: <1 MB Nordic subset
+  license: ODbL 1.0
+  attribution_required: true
+  update_cadence: continuous
+
+access:
+  requires_account: false
+  requires_api_key: false
+  robots_friendly: true
+  manual_download_only: false
+
+quality:
+  known_caveats: |
+    5 km buffer is a v1 coarse proxy — true OLS extend further horizontally for
+    large international airports (Arlanda, Gardermoen, Helsinki-Vantaa) but less
+    for general aviation strips. Tracked separately as `airport_ols` for v2.
+    Includes general-aviation aerodromes that may not have meaningful obstacle
+    surfaces — accept the false positive in v1, refine in v2.
+    UI labels this layer "Airports (5 km buffer)" and notes the v2 upgrade path.
+  spatial_completeness: full
+  attribute_completeness: partial
+  last_verified: null
+  verified_by: null
+
+status: pending_verification
+
+runtime:
+  kind: exclusion
+  column: excl_airport
+  source: data/processed/airport.gpkg
+  strategy: buffer
+  buffer_m: 5000

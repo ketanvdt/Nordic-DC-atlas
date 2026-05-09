@@ -18,7 +18,8 @@ w2_hard_exclusions:
   - urban_industrial
   - sami_reindeer_husbandry
   - seveso_sites
-  - airport_ols
+  - airport                  # v1: OSM aeroway=aerodrome + 5 km buffer
+  - airport_ols              # v2: true OLS surfaces (deferred)
   - dh_offtake_tier          # manual, starts W1, lands W2
 
 w3_infrastructure_and_power:

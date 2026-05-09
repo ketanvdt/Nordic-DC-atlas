@@ -51,3 +51,11 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: distance
+  source: data/processed/transmission_lines.gpkg
+  strategy: nearest_distance
+  targets:
+    - column: dist_transmission_line_m
+      voltage_band_kv: [100, 10000]    # ≥100 kV HV lines

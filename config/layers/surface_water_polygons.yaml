@@ -51,3 +51,9 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: exclusion
+  column: excl_water_protected
+  source: data/processed/water_protected.gpkg
+  strategy: overlap_50

@@ -55,3 +55,9 @@ quality:
   verified_by: null
 
 status: pending_verification
+
+runtime:
+  kind: exclusion
+  column: excl_steep_slope
+  source: data/processed/steep_slope.gpkg
+  strategy: overlap_50
