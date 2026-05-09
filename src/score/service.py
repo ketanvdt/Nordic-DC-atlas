@@ -50,7 +50,7 @@ def fetch_scores(
     engine = get_engine()
     sql = text(
         """
-        SELECT s.h3_index, s.score
+        SELECT s.h3_index, s.score, s.coverage
         FROM score_cells(
           CAST(:weights AS JSONB),
           CAST(:exclusions AS JSONB),
@@ -88,6 +88,7 @@ def fetch_top_candidates(weights: dict[str, float], exclusions: dict[str, bool],
                 SELECT
                   c.h3_index,
                   c.score,
+                  c.coverage,
                   g.country,
                   g.bidding_zone,
                   g.municipality_code,

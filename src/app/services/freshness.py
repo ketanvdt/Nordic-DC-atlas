@@ -60,17 +60,11 @@ _FEATURE_LAYERS: tuple[tuple[str, str, str], ...] = (
     ("municipal_receptivity", "Municipal receptivity", "Manual curation — not yet ingested"),
 )
 
-# Columns whose current values are populated by the random() placeholder in
-# src/characterize/soft_features.py. We tag them as placeholder until real_ingest
-# overwrites them and a corresponding data_sources row is recorded.
-_PLACEHOLDER_COLUMNS: frozenset[str] = frozenset({
-    "annual_mean_temp_c",
-    "dist_fiber_m",
-    "dist_surface_water_m",
-    "land_cost_proxy_eur_m2",
-    "skilled_workforce_density",
-    "municipal_receptivity",
-})
+# Phase 1.2: random() placeholders were deleted. These columns are NULL
+# until real ingest writes to them; the freshness panel reports them as
+# `missing` rather than `placeholder` and the score function reports per-cell
+# coverage so the UI can show how grounded each ranking is.
+_PLACEHOLDER_COLUMNS: frozenset[str] = frozenset()
 
 # Columns that carry real data through hard-coded table seeds (not OSM-ingested
 # but still "real research" in the v1 sense).
