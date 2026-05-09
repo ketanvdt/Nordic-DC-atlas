@@ -8,10 +8,12 @@ Local-first internal GIS overlay tool for EcoDataCenter site selection across Sw
 2. Start database: `make up`
 3. Install Python deps: `make install`
 4. Apply schema: `make migrate`
-5. Seed initial H3 grid: `make seed-grid`
-6. Run characterization: `make characterize`
-7. Refresh normalized view: `make refresh-norm`
-8. Run app: `make app`
+5. (Optional) Fetch and stage open layers: `make ingest && make transform`
+6. Seed initial H3 grid: `make seed-grid`
+7. Seed municipality names: `make seed-municipalities`
+8. Run characterization: `make characterize`
+9. Refresh normalized view: `make refresh-norm`
+10. Run app: `make app`
 
 ## Stack
 
