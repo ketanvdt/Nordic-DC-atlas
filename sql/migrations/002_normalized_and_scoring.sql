@@ -1,5 +1,12 @@
 DROP MATERIALIZED VIEW IF EXISTS grid_cells_normalized;
 
+-- Migration 008 changes the return shape of these two functions. To keep
+-- the whole migration suite idempotent (re-runnable from any state), drop
+-- them up front rather than relying on CREATE OR REPLACE — which Postgres
+-- rejects when the column list changes.
+DROP FUNCTION IF EXISTS top_candidate_cells(JSONB, JSONB, INTEGER);
+DROP FUNCTION IF EXISTS score_cells(JSONB, JSONB, DOUBLE PRECISION, DOUBLE PRECISION, DOUBLE PRECISION, DOUBLE PRECISION, INTEGER);
+
 CREATE MATERIALIZED VIEW grid_cells_normalized AS
 WITH bounds AS (
   SELECT
