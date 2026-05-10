@@ -5,12 +5,25 @@
 1. `make up`
 2. `make migrate`
 3. `make ingest`              # download layers whose YAML has a single HTTP download_url
-4. `make transform`           # stage data/raw/<layer>.gpkg into data/processed/
-5. `make seed-grid`
-6. `make seed-municipalities` # one-shot Nordic ADM2 seed (skip if already seeded)
-7. `make characterize`        # power_layers, dh_tiers, soft_features (no-op), real_ingest (registry-driven)
-8. `make refresh-norm`
-9. `make app`
+4. `make fetch-osm`           # OSM Overpass: natura2000, protected, airport, substations, transmission_lines
+5. `make transform`           # stage data/raw/<layer>.gpkg into data/processed/
+6. `make seed-grid`           # H3 cells from data/manual/country_outlines.geojson (Natural Earth, vendored)
+7. `make seed-municipalities` # one-shot Nordic ADM2 seed (skip if already seeded)
+8. `make characterize`        # power_layers, dh_tiers, soft_features (no-op), real_ingest (registry-driven)
+9. `make refresh-norm`
+10. `make app`
+
+Step 4 needs network access to `overpass-api.de` (and falls back to two
+mirrors). If your environment can't reach them, skip `make fetch-osm`;
+the affected layers stay at `state=missing` in the freshness panel
+and `state=real` once you can run it. The downstream pipeline picks up
+GPKGs the moment they appear under `data/processed/`.
+
+Step 6 used to use bounding-box rectangles per country. It now uses
+real Natural Earth 1:50m outlines clipped to the Nordic study bbox,
+cutting cell counts ~70% (the bbox version produced ~4M cells across
+ocean and foreign territory). Re-run `make country-outlines` if you
+need to refresh the vendored GeoJSON from the upstream GitHub mirror.
 
 ## Performance notes
 

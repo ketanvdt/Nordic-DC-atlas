@@ -1,0 +1,87 @@
+{
+  "_comment": "Synthetic Overpass response shaped like a real natura_2000 query.  Used by tests/test_overpass_parser.py to exercise src/ingest/overpass.py without network access. Coordinates are plausible Stockholm-region values but the geometries are NOT taken from real OSM data — they are hand-built to cover each parser branch (way polygon, relation multipolygon, way line, node point, malformed element).  Do NOT load this file as if it were real Natura 2000 data.",
+  "version": 0.6,
+  "generator": "fixture",
+  "elements": [
+    {
+      "type": "way",
+      "id": 1001,
+      "tags": {
+        "boundary": "protected_area",
+        "designation": "natura_2000",
+        "name": "Tyresta sample (fixture)"
+      },
+      "geometry": [
+        {"lat": 59.150, "lon": 18.200},
+        {"lat": 59.180, "lon": 18.210},
+        {"lat": 59.180, "lon": 18.260},
+        {"lat": 59.150, "lon": 18.260},
+        {"lat": 59.150, "lon": 18.200}
+      ]
+    },
+    {
+      "type": "way",
+      "id": 1002,
+      "tags": {
+        "boundary": "protected_area",
+        "protect_class": "97",
+        "designation": "natura_2000"
+      },
+      "geometry": [
+        {"lat": 59.300, "lon": 18.500},
+        {"lat": 59.320, "lon": 18.510}
+      ],
+      "_note_for_test": "Only 2 points - parser must reject (< 3 unique vertices => not a polygon)"
+    },
+    {
+      "type": "relation",
+      "id": 2001,
+      "tags": {
+        "boundary": "protected_area",
+        "protect_class": "97",
+        "name": "Stockholm archipelago sample (fixture)"
+      },
+      "members": [
+        {
+          "type": "way",
+          "ref": 99901,
+          "role": "outer",
+          "geometry": [
+            {"lat": 59.400, "lon": 18.600},
+            {"lat": 59.430, "lon": 18.610},
+            {"lat": 59.430, "lon": 18.660},
+            {"lat": 59.400, "lon": 18.660},
+            {"lat": 59.400, "lon": 18.600}
+          ]
+        },
+        {
+          "type": "way",
+          "ref": 99902,
+          "role": "outer",
+          "geometry": [
+            {"lat": 59.500, "lon": 18.700},
+            {"lat": 59.520, "lon": 18.710},
+            {"lat": 59.520, "lon": 18.750},
+            {"lat": 59.500, "lon": 18.750},
+            {"lat": 59.500, "lon": 18.700}
+          ]
+        }
+      ]
+    },
+    {
+      "type": "relation",
+      "id": 2002,
+      "tags": {"boundary": "protected_area", "protect_class": "97"},
+      "members": [
+        {"type": "node", "ref": 30001, "role": "admin_centre"}
+      ],
+      "_note_for_test": "Relation with no way members - parser must produce no geometry"
+    },
+    {
+      "type": "way",
+      "id": 1003,
+      "tags": {"boundary": "protected_area"},
+      "geometry": []
+    }
+  ]
+}
